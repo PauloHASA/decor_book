@@ -1,0 +1,47 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Login {% endblock title %} Login 
+{% include 'global/partials/header.html'%}
+
+{% block main %}
+    
+<main class="login_page">
+    <section>
+        <form action="#">
+            <h1>
+                Login
+            </h1>
+
+            <div class="input-section">
+                <h2>
+                    E-mail
+                </h2>
+                <input type="text" placeholder="janedoe@email.com">
+            </div>
+            
+
+            <div class="input-section">
+                <h2>
+                    Senha
+                </h2>
+                <input type="password" placeholder="*****************">
+            </div>
+
+            <div class="forgot-password">
+                <h2>
+                    Esqueceu sua senha?
+                </h2>
+            </div>
+            <div class="button-login">
+                <button>Login</button>
+            </div>
+
+        </form>
+    </section>
+</main>
+
+
+
+{% endblock main %}
+

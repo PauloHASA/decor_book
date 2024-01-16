@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        {% include 'global/partials/head.html' %}
+
+        <title>DECOR | {% block title %} {% endblock title %}</title>
+
+    </head>
+
+    <body>
+
+        {% block main %}
+        
+        {% endblock main %}
+
+    </body>
+</html>

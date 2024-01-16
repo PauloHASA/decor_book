@@ -1,0 +1,32 @@
+.header-timeline{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.header-timeline .header-logo{
+    width: 111px;
+    height: 48px;
+}
+
+.header-timeline nav{
+    display: flex;
+    align-items: center;
+
+    gap: 48px;
+}
+
+.header-timeline nav a button{
+    border: none;
+    background-color: transparent;
+
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+
+    cursor: pointer;
+
+}   

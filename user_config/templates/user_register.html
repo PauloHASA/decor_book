@@ -1,0 +1,67 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Login {% endblock title %} Login 
+
+{% block main %}
+{% include 'global/partials/header.html'%}
+
+<main class="login_page">
+    <section>
+        <form action="#">
+            <h1>
+                Cadastre-se
+            </h1>
+
+            <div class="input-section">
+                <h2>
+                    Nome
+                </h2>
+                <input type="text" placeholder="Nome completo">
+            </div>
+
+            <div class="input-section">
+                <h2>
+                    E-mail
+                </h2>
+                <input type="text" placeholder="janedoe@email.com">
+            </div>
+            
+
+            <div class="input-section">
+                <h2>
+                    Profissão
+                </h2>
+
+                <select name="" id="" >
+                    <option value=""> Defina sua profissão </option>
+                </select>
+            </div>
+
+            <div class="input-section">
+                <h2>
+                    Senha
+                </h2>
+                <input type="password" placeholder="*****************">
+            </div>
+
+
+            <div class="input-section">
+                <h2>
+                    Confirma senha
+                </h2>
+                <input type="password" placeholder="*****************">
+            </div>
+
+            <div class="button-register">
+                <button>Cadastre-se</button>
+            </div>
+
+        </form>
+    </section>
+</main>
+
+
+
+{% endblock main %}
+

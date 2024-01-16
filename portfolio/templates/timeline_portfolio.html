@@ -1,0 +1,51 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Timeline {% endblock title %}  
+
+{% block main %}
+{% include 'global/partials/header-timeline.html'%}
+
+    <main class="portifolio_timeline">
+        <section class="">
+                <h1>
+                    Clubfolio
+                </h1>
+
+                <div class="search-input">
+                    <span>
+                        <i class="bi bi-list"></i>
+                        <input type="text" placeholder="Procurar projeto, arqu...">  
+                        <i class="bi bi-search"></i>
+                    </span>
+                </div>
+
+        </section>
+
+        <main class="grid-wrapper">
+            <div class="img-timeline">
+                <img src="{% static "global/media/timeline/Img-1.svg" %}" alt="">
+            </div>
+            <div class="img-timeline">
+                <img src="{% static "global/media/timeline/Img-2.svg" %}" alt="">
+            </div>
+            <div class="img-timeline">
+                <img src="{% static "global/media/timeline/Img-3.svg" %}" alt="">
+            </div>
+            <div class="img-timeline">
+                <img src="{% static "global/media/timeline/Img-4.svg" %}" alt="">
+            </div>
+            <div class="img-timeline">
+                <img src="{% static "global/media/timeline/Img-5.svg" %}" alt="">
+            </div>
+            <div class="img-timeline">
+                <img src="{% static "global/media/timeline/Img-6.svg" %}" alt="">
+            </div>
+        </main>
+
+
+
+
+    </main>
+
+{% endblock main %}
