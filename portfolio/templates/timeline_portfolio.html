@@ -4,7 +4,53 @@
 {% block title %} Timeline {% endblock title %}  
 
 {% block main %}
-{% include 'global/partials/header-timeline.html'%}
+
+    <header class="header-timeline">
+        <div class="header-logo">
+            <a href="#">
+                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
+            </a>
+        </div>
+
+
+
+        <nav class="nav-timeline">
+
+            <a  href="{% url "portfolio:portfolio" %}">
+                <button>
+                    Home
+                </button>
+            </a>
+
+            <a class="active" href="{% url "portfolio:timeline_portfolio" %}">
+                <button >
+                    Clubfolio
+                </button>
+            </a>
+            
+            <a href="#">
+                <button>
+                    Meus projetos
+                </button>
+            </a>
+
+            <a href="#">
+                <button>
+                    Club rewards
+                </button>
+            </a>
+
+            <a class="user" href="#">
+                <button>
+                    <i class="bi bi-person-fill"></i>
+                </button>
+            </a>
+
+        </nav>
+
+
+
+    </header>
 
     <main class="portifolio_timeline">
         <section class="">
@@ -22,8 +68,9 @@
 
         </section>
 
+
         <main class="grid-wrapper">
-            <div class="img-timeline">
+            <div class="img-timeline tall">
                 <img src="{% static "global/media/timeline/Img-1.svg" %}" alt="">
             </div>
             <div class="img-timeline">
@@ -32,20 +79,16 @@
             <div class="img-timeline">
                 <img src="{% static "global/media/timeline/Img-3.svg" %}" alt="">
             </div>
-            <div class="img-timeline">
+            <div class="img-timeline tall">
                 <img src="{% static "global/media/timeline/Img-4.svg" %}" alt="">
             </div>
-            <div class="img-timeline">
+            <div class="img-timeline big">
                 <img src="{% static "global/media/timeline/Img-5.svg" %}" alt="">
             </div>
-            <div class="img-timeline">
+            <div class="img-timeline big">
                 <img src="{% static "global/media/timeline/Img-6.svg" %}" alt="">
             </div>
-        </main>
-
-
-
-
+        </main> 
     </main>
 
 {% endblock main %}

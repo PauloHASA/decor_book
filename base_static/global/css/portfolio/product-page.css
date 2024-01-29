@@ -1,0 +1,219 @@
+.product_page{
+    padding: 12px;
+}
+
+.user-project-data{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.user-project-data .back-page{
+
+}
+
+.user-project-data .back-page i{
+    font-size: 24px;
+}
+
+.user-project-data section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-project-data section .user-photo{
+
+}
+
+.user-project-data section .user-info{
+
+}
+
+section .user-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section .user-info h1{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #000000;
+
+    margin-bottom: 12px;
+    
+}
+
+section .user-info h2{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #626262;
+
+    margin-bottom: 16px;
+}
+
+
+section .user-info .social-accounts{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info .social-accounts button{
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+
+    background-color: #0B0B0B;
+
+}
+
+.user-info .social-accounts button i{
+    font-size: 18px;
+
+}
+section .data-project{
+    margin-top: 24px ;
+}
+
+section .data-project section{
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+    gap: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+section .data-project h2{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+    width: auto;    
+    color: #2A2A2A;
+    margin: 0;
+}
+
+section .data-project span{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    color: #2A2A2A;
+}
+
+section .about-project{
+    
+}   
+
+section .about-project h1{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #2A2A2A;
+
+}   
+
+section .about-project h2{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.04em;
+    
+    color: #626262;
+}   
+
+.spacer{
+    flex-grow: 1;
+}
+
+.user-project-data .button-contact{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-project-data .button-contact button{
+    width: 226px;
+    height: 48px;
+    border-radius: 4px;
+
+    background-color: #242424;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #FAFAFA;
+}
+
+.product-photos header h1{
+    font-family: var(--font-principal);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 0em;
+
+    color: #000000;
+
+}
+
+.product-photos header .like-comment{
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+header .like-comment .like i,
+header .like-comment .comment i{
+    font-size: 16px;
+}
+
+header .like-comment .like span,
+header .like-comment .comment span{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #626262;
+
+}
+
+main .project-photo{
+    column-count: 1;
+    column-gap: 6px;
+    row-gap: 6px;
+}
+
+main .project-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}

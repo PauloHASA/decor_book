@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 12px 24px 0 0 ;
 
 }
 
@@ -28,5 +29,30 @@
     letter-spacing: 0em;
 
     cursor: pointer;
+
+}   
+
+.header-timeline nav .user button{
+    width: 42px;
+    height: 42px;
+    background-color: #E9E9E9;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+}   
+
+.header-timeline nav .user button i{
+font-size: 24px;
+    
+
+}   
+
+.header-timeline nav .active{
+    border-bottom: solid 1px #242424;
 
 }   

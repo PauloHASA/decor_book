@@ -1,0 +1,165 @@
+
+.portifolio{
+    padding: 12px;
+}
+
+.architect-header{
+    
+}
+
+.architect-header .user-section{
+    display: flex;
+    gap: 12px;
+}
+
+.user-section .user-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-section .user-info h1,
+.user-section .user-info h2{
+    margin-bottom: 0;
+}
+
+.user-section .user-info h1{
+    font-family: var(--font-standard);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #000000;
+
+    margin-bottom: 6px;
+
+}
+
+.user-section .user-info h2{
+    font-family: var(--font-standard);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #626262;
+
+    margin-bottom: 12px;
+
+}
+
+.user-info .social-accounts{
+    display: flex;
+    gap: 12px;
+}
+
+.user-info .social-accounts button{
+    width: 21px;
+    height: 21px;
+    
+    border-radius: 4px;
+    border: none;
+
+    background-color: #0B0B0B;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info .social-accounts button i{
+    color: #FAFAFA;
+    font-size: 14px;
+}
+
+.architect-header .button-contact{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.architect-header .button-contact button{
+    width: 226px;
+    height: 48px;
+    border-radius: 4px;
+
+    background-color: #242424;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #FAFAFA;
+
+}
+
+.portifolio .architect-projects{
+
+}
+
+.architect-projects .header-project{
+    margin: 24px 0 12px 0;
+}
+
+.architect-projects .header-project h1{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color:#000000;
+    
+
+}
+
+.architect-projects section{
+    column-count: 4;
+    column-gap: 6px;
+    row-gap: 6px;
+    
+}
+
+.architect-projects section .projects{
+    margin-bottom: 6px;
+}
+
+section .projects a img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
+
+
+
+/* Responsive section */
+
+@media screen and (max-width:1440px) {
+    .architect-projects section{
+        column-count: 4;
+        
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .architect-projects section{
+        column-count: 3;
+        
+    }
+}
+
+@media screen and (max-width:768px) {
+    .architect-projects section{
+        column-count: 2;
+        
+    }
+}

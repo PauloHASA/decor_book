@@ -7,6 +7,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    margin-bottom: 17px;
 }
 
 .portifolio_timeline section h1{
@@ -17,6 +18,9 @@
     letter-spacing: 0em;
     
     color: #242424;
+
+    display: flex;
+    align-items: center;
 }
 
 .search-input{
@@ -44,20 +48,46 @@
 }
 
 .grid-wrapper{
-    width: 1400px;
-    margin: 20px auto;
-    columns: 3;
-    column-gap: 12px;
+    column-count: 4;
+    column-gap: 6px;
+    row-gap: 6px;
+    
 }
 
 .grid-wrapper .img-timeline{
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    break-inside: avoid;
-
+    margin-bottom: 6px;
 }
 
 .grid-wrapper .img-timeline img{
-    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
+
+
+
+
+/* Responsive section */
+
+@media screen and (max-width:1440px) {
+    .grid-wrapper{
+        column-count: 3;
+        
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .grid-wrapper{
+        column-count: 2;
+        
+    }
+}
+
+@media screen and (max-width:768px) {
+    .grid-wrapper{
+        column-count: 1;
+        
+    }
 }

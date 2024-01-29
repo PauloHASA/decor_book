@@ -1,0 +1,151 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Timeline {% endblock title %}  
+
+{% block main %}
+
+    <header class="header-timeline">
+        <div class="header-logo">
+            <a href="#">
+                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
+            </a>
+        </div>
+
+
+
+        <nav class="nav-timeline">
+
+            <a class="active" href="{% url "portfolio:portfolio" %}">
+                <button>
+                    Home
+                </button>
+            </a>
+
+            <a href="{% url "portfolio:timeline_portfolio" %}">
+                <button >
+                    Clubfolio
+                </button>
+            </a>
+            
+            <a href="#">
+                <button>
+                    Meus projetos
+                </button>
+            </a>
+
+            <a href="#">
+                <button>
+                    Club rewards
+                </button>
+            </a>
+
+            <a class="user" href="#">
+                <button>
+                    <i class="bi bi-person-fill"></i>
+                </button>
+            </a>
+
+        </nav>
+
+
+
+    </header>
+
+    <main class="row portifolio">
+
+        <div class="row architect-header">
+            <div class="col user-section">
+
+                <div class="user-photo">
+                    <img src="{% static 'global/media/img/user-profile.svg' %}" alt="">
+                </div>
+
+                <div class="user-info">
+                    <h1>Martin Joseph</h1>
+                    <h2>Arquiteto e Urbanista</h2>
+
+                    <div class="social-accounts">
+                        <a href="#">
+                            <button>
+                                <i class="bi bi-instagram"></i>
+                            </button>
+                        </a>
+                        <a href="#">
+                            <button>
+                                <i class="bi bi-linkedin"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-2 button-contact">
+                <button>
+                    Contrate Martin
+                </button>
+            </div>
+        </div>
+
+        <div class="row architect-projects">
+
+            <div class="row header-project">
+                <h1>Projetos</h1>
+            </div>
+
+            <section>
+                <div class="projects">
+                    <a href="{% url "portfolio:product_page" %}">
+                        <img src="{% static 'global/media/projects/img-1.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-2.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-3.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-4.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-5.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-6.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-7.svg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="projects">
+                    <a href="#">
+                        <img src="{% static 'global/media/projects/img-8.svg' %}" alt="">
+                    </a>
+                </div>
+
+
+            </section>
+        </div>
+    </main>
+
+{% endblock main %}
