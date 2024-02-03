@@ -1,0 +1,154 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Timeline {% endblock title %}  
+
+{% block main %}
+
+    <header class="header-timeline">
+        <div class="header-logo">
+            <a href="#">
+                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
+            </a>
+        </div>
+
+
+
+        <nav class="nav-timeline">
+
+            <a class="active" href="{% url "portfolio:home_page" %}">
+                <button>
+                    Home
+                </button>
+            </a>
+
+            <a href="{% url "portfolio:timeline_portfolio" %}">
+                <button >
+                    Clubfolio
+                </button>
+            </a>
+            
+            <a href="{% url "portfolio:my_projects" %}">
+                <button>
+                    Meus projetos
+                </button>
+            </a>
+
+            <a href="#">
+                <button>
+                    Club rewards
+                </button>
+            </a>
+
+            <a class="user" href="#">
+                <button>
+                    <i class="bi bi-person-fill"></i>
+                </button>
+            </a>
+
+        </nav>
+
+    </header>
+
+    <main class="row project_page">
+
+        <div class="col-2 user-project-data">
+
+            <div class="back-page">
+                <a href="{% url "portfolio:timeline_portfolio" %}">
+                    <i class="bi bi-arrow-left"></i>
+
+                </a>
+            </div>
+
+            <section >
+                <div class="user-photo">
+                    <img src="{% static 'global/media/img/user-profile.svg' %}" alt="">
+                </div>
+
+                <div class="user-info">
+                    <a href="{% url "portfolio:portfolio"%}">
+                    </a>
+                    <h1>Martin Joseph</h1>
+                    <h2>Arquiteto e Urbanista</h2>
+
+                    <div class="social-accounts">
+                        <a href="#">
+                            <button>
+                                <i class="bi bi-instagram"></i>
+                            </button>
+                        </a>
+                        <a href="#">
+                            <button>
+                                <i class="bi bi-linkedin"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="data-project">
+                    <section>
+                        <h2>Área:</h2> <span>412m²</span>
+                    </section>
+
+                    <section>
+                        <h2>Ano:</h2> <span>2020</span>
+                    </section>
+
+                    <section>
+                        <h2>Fabricantes:</h2> <span>Canti Decor,Canti Decor, Polca Design, Coral, Cadeiras rosa, Alutol </span>
+                    </section>
+
+                </div>
+
+                <div class="about-project">
+                    <h1>Sobre o projeto</h1>
+                    <h2>O projeto solicitado envolvia o planejamento e decoração de uma casa de férias na fazenda, com estilo boho norte americano.</h2>
+                </div>
+    
+            </section>
+
+            <div class="spacer"></div>
+
+            <a href="#" class="button-contact">
+                <button>
+                    Contrate Martin
+                </button>
+            </a>
+
+        </div>
+
+        <div class="col product-photos">
+
+            <header class="row justify-content-between">
+                <div class="col">
+                    <h1>Casa na fazenda - Boho Style</h1>
+                </div>
+                
+                <div class="col-2">
+                    <div class="like-comment">
+                        <div class="like">
+                            <i class="bi bi-heart"></i>
+                            <span>5.1k</span>
+                        </div>
+                        <div class="comment">
+                            <i class="bi bi-send"></i>
+                            <span>2.8</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                <div class="project-photo">
+                    <a href="{% url "portfolio:project_page" %}">
+                        <img src="{% static 'global/media/projects/project-photo.svg' %}" alt="">
+                    </a>
+                </div>
+            </main>
+        </div>
+
+    </main>
+
+{% endblock main %}

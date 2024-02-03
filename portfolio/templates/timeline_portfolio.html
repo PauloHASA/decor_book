@@ -16,7 +16,7 @@
 
         <nav class="nav-timeline">
 
-            <a  href="{% url "portfolio:portfolio" %}">
+            <a  href="{% url "portfolio:home_page" %}">
                 <button>
                     Home
                 </button>
@@ -28,7 +28,7 @@
                 </button>
             </a>
             
-            <a href="#">
+            <a href="{% url "portfolio:my_projects" %}">
                 <button>
                     Meus projetos
                 </button>
@@ -70,8 +70,10 @@
 
 
         <main class="grid-wrapper">
-            <div class="img-timeline tall">
-                <img src="{% static "global/media/timeline/Img-1.svg" %}" alt="">
+            <div class="img-timeline ">
+                <a href="{% url "portfolio:portfolio"%}">
+                    <img src="{% static "global/media/timeline/Img-1.svg" %}" alt="">
+                </a>
             </div>
             <div class="img-timeline">
                 <img src="{% static "global/media/timeline/Img-2.svg" %}" alt="">
@@ -79,13 +81,13 @@
             <div class="img-timeline">
                 <img src="{% static "global/media/timeline/Img-3.svg" %}" alt="">
             </div>
-            <div class="img-timeline tall">
+            <div class="img-timeline ">
                 <img src="{% static "global/media/timeline/Img-4.svg" %}" alt="">
             </div>
-            <div class="img-timeline big">
+            <div class="img-timeline ">
                 <img src="{% static "global/media/timeline/Img-5.svg" %}" alt="">
             </div>
-            <div class="img-timeline big">
+            <div class="img-timeline ">
                 <img src="{% static "global/media/timeline/Img-6.svg" %}" alt="">
             </div>
         </main> 

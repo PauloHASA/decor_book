@@ -1,0 +1,162 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Timeline {% endblock title %}  
+
+{% block main %}
+
+<main class="newproject-steps">
+
+    <header class="header-timeline">
+        <div class="header-logo">
+            <a href="#">
+                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
+            </a>
+        </div>
+
+
+
+        <nav class="nav-timeline">
+
+            <a class="active" href="{% url "portfolio:home_page" %}">
+                <button>
+                    Home
+                </button>
+            </a>
+
+            <a href="{% url "portfolio:timeline_portfolio" %}">
+                <button >
+                    Clubfolio
+                </button>
+            </a>
+            
+            <a href="{% url "portfolio:my_projects" %}">
+                <button>
+                    Meus projetos
+                </button>
+            </a>
+
+            <a href="#">
+                <button>
+                    Club rewards
+                </button>
+            </a>
+
+            <a class="user" href="#">
+                <button>
+                    <i class="bi bi-person-fill"></i>
+                </button>
+            </a>
+
+        </nav>
+
+
+
+    </header>
+
+    <div class="central-container">
+        <div class="initial-info">
+
+            <header class="row justify-content-center tree-step">
+    
+                <div class="col-1 step step1-select">
+                    <div class="step-num num-on">
+                        1
+                    </div>
+                    <div class="step-info info-on">
+                        Informações iniciais
+                    </div>
+                </div>
+    
+                <div class="col line-step"> <div class="line"></div> </div>
+                
+                <div class="col-1 step step2">
+                    <div class="step-num num-off">
+                        2
+                    </div>
+                    <div class="step-info info-off">
+                        Técnicas
+                    </div>
+                </div>
+    
+                <div class="col line-step"> <div class="line"></div> </div>
+    
+                <div class="col-1 step step2">
+                    <div class="step-num num-off">
+                        3
+                    </div>
+                    <div class="step-info info-off">
+                        Imagens
+                    </div>
+                </div>
+    
+            </header>
+
+            <form action="" method="post" class="newproject-form-step1">
+                {% csrf_token %}
+                <h1>Novo projeto</h1>
+                <h2>Adicione as informações de acordo com os detalhes do seu projeto.</h2>
+                
+                <div class="row ">
+                    <div class="col form-input">
+                        <h3>Nome</h3>
+                        <input type="text" placeholder="Um Nome para o seu projeto">
+                    </div>
+
+                    <div class="col form-input">
+                        <h3>Adicionar parceiro</h3>
+                        <input type="text" placeholder="Adicione um parceiro ao projeto">
+                    </div>
+                </div>
+
+                <div class="row resume">
+                    <div class="col form-input ">
+                        <h3>Resumo</h3>
+                        <input type="text" placeholder="">
+                    </div>
+                </div>
+                
+                <div class="row date">
+                    <div class="col form-input ">
+                        <h3>Duração</h3>
+                        <section>
+
+                            <div class="">
+                                <input type="date" name="" id="">
+                            </div>
+    
+                            <div class="">
+                                <input type="date" name="" id="">
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col">
+
+                    </div>
+                </div>
+
+                {% comment %} 
+                <div class="submit-button-step1">
+                    <a href="{% url "portfolio:new_project_step2" %}">
+                        <button>
+                            Próximo
+                        </button>
+                    </a>
+                </div> 
+                {% endcomment %}
+
+            </form>
+            
+            <div class="submit-button-step1">
+                <a href="{% url "portfolio:new_project_step2" %}">
+                    <button>
+                        Próximo
+                    </button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+{% endblock main %}
