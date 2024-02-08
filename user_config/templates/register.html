@@ -9,6 +9,7 @@
 <main class="login_page">
     <section>
         <form action="#">
+            {% csrf_token %}
             <h1>
                 Cadastre-se
             </h1>
@@ -17,17 +18,17 @@
                 <h2>
                     Nome
                 </h2>
-                <input type="text" placeholder="Nome completo">
+                {{form.username}}
             </div>
 
             <div class="input-section">
                 <h2>
                     E-mail
                 </h2>
-                <input type="text" placeholder="janedoe@email.com">
+                {{form.email}}
             </div>
             
-
+{% comment %} 
             <div class="input-section">
                 <h2>
                     Profissão
@@ -36,13 +37,14 @@
                 <select name="" id="" >
                     <option value=""> Defina sua profissão </option>
                 </select>
-            </div>
+            </div> 
+{% endcomment %}
 
             <div class="input-section">
                 <h2>
                     Senha
                 </h2>
-                <input type="password" placeholder="*****************">
+                {{form.password1}}
             </div>
 
 
@@ -50,11 +52,11 @@
                 <h2>
                     Confirma senha
                 </h2>
-                <input type="password" placeholder="*****************">
+                {{form.password2}}
             </div>
 
             <div class="button-register">
-                <button>Cadastre-se</button>
+                <button type="submit">Cadastre-se</button>
             </div>
 
         </form>

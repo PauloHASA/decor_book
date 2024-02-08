@@ -1,9 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import RegisterClientForm, LoginForm
 
 # Create your views here.
 
-def login_page(request):
-    return render( request, 'login_page.html')
+def register_page(request):
+    form = RegisterClientForm()
 
-def user_register(request):
-    return render( request, 'user_register.html')
+    if request.method == 'POST':
+        form = RegisterClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect ('user:login')
+        else:
+            form = RegisterClientForm()
+        return render(request, 'register.html',{'form':form})
+    return render( request, 'register.html', {'form':form})
+
+
+def login_page(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect("portifolio:timeline_portfolio")
+    else:
+        form = LoginForm()
+    return render( request, 'login.html', {'form':form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login.html')
