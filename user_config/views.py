@@ -12,6 +12,8 @@ def register_page(request):
         form = RegisterClientForm(request.POST)
         if form.is_valid():
             form.save()
+            print("cheguei aqui 3")
+
             return redirect ('user:login')
         else:
             form = RegisterClientForm()
@@ -21,6 +23,8 @@ def register_page(request):
 
 def login_page(request):
     if request.method == 'POST':
+        print("cheguei aqui 1")
+
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -28,6 +32,7 @@ def login_page(request):
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
+                print("cheguei aqui 2")
                 return redirect("portifolio:timeline_portfolio")
     else:
         form = LoginForm()
