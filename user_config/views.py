@@ -27,6 +27,7 @@ def login_page(request):
 
         form = LoginForm(request.POST)
         if form.is_valid():
+            
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
