@@ -1,14 +1,14 @@
 {% extends "global/base.html" %}
 {% load static %}
 
-{% block title %} Login {% endblock title %} Login 
+{% block title %} Login {% endblock title %} Login
 
 {% block main %}
 {% include 'global/partials/header.html'%}
 
 <main class="login_page">
     <section>
-        <form action="#">
+        <form action="{% url 'user:register' %}" method="post">
             {% csrf_token %}
             <h1>
                 Cadastre-se
@@ -16,9 +16,9 @@
 
             <div class="input-section">
                 <h2>
-                    Nome
+                    Nome Completo
                 </h2>
-                {{form.username}}
+                {{form.full_name}}
             </div>
 
             <div class="input-section">
@@ -27,18 +27,12 @@
                 </h2>
                 {{form.email}}
             </div>
-            
-{% comment %} 
             <div class="input-section">
                 <h2>
-                    Profissão
+                    User Name
                 </h2>
-
-                <select name="" id="" >
-                    <option value=""> Defina sua profissão </option>
-                </select>
-            </div> 
-{% endcomment %}
+                {{form.user_name}}
+            </div>
 
             <div class="input-section">
                 <h2>
@@ -66,4 +60,3 @@
 
 
 {% endblock main %}
-

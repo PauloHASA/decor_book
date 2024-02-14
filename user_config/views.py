@@ -1,45 +1,58 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterClientForm, LoginForm
+from .forms import UserRegistrationForm, LoginUserForm
+from django.contrib import messages
 
 # Create your views here.
 
 def register_page(request):
-    form = RegisterClientForm()
+    form = UserRegistrationForm()
+    print('View Function')
+    if request.POST:
+        print('form register')
 
-    if request.method == 'POST':
-        form = RegisterClientForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            print("cheguei aqui 3")
+            print('is valid')
 
-            return redirect ('user:login')
+            form.save()
+            HttpResponse("Deu certo")
+            return redirect("user:login")
         else:
-            form = RegisterClientForm()
-        return render(request, 'register.html',{'form':form})
+            form = UserRegistrationForm()
+            HttpResponse("não rolou")
+
+                
     return render( request, 'register.html', {'form':form})
 
 
 def login_page(request):
-    if request.method == 'POST':
-        print("cheguei aqui 1")
-
-        form = LoginForm(request.POST)
+        
+    if request.method == "POST":
+        form = LoginUserForm(request.POST)
+        
         if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, email=email, password=password)
             
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user:
+            if user is not None:
                 login(request, user)
-                print("cheguei aqui 2")
-                return redirect("portifolio:timeline_portfolio")
-    else:
-        form = LoginForm()
-    return render( request, 'login.html', {'form':form})
-
+                return redirect("portfolio:timeline_portfolio")
+            else:
+                form = LoginUserForm()
+                error_message =  " Invalid credentials. Please, try again."
+                return render(request,
+                              "login.html",
+                              {"error_message":error_message, "login_form":form},
+                              )
+    form = LoginUserForm()
+    return render(request,
+                    "login.html",
+                    {"login_form":form},
+                    )
 
 def logout_view(request):
     logout(request)
-    return redirect('login.html')
+    return redirect('user:login')

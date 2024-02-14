@@ -34,6 +34,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+AUTH_USER_MODEL = 'user_config.CustomUserModel'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -148,3 +150,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "timeline_portfolio/"
 LOGOUT_REDIRECT_URL = "/"
+
