@@ -142,7 +142,8 @@
     color: #242424;
 }
 
-.form-input input{
+.form-input input,
+.form-input textarea{
     width: 340px;
     height: 48px;
     border-radius: 4px;
@@ -169,7 +170,7 @@
     width: 100%;
 }
 
-.newproject-form-step1 .resume input{
+.newproject-form-step1 .resume textarea{
     width: 340px;
     height: 92px;
 

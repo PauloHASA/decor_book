@@ -19,19 +19,19 @@
 
         <nav class="nav-timeline">
 
-            <a class="active" href="{% url "portfolio:home_page" %}">
+            <a class="active" href="{% url " portfolio:home_page" %}">
                 <button>
                     Home
                 </button>
             </a>
 
-            <a href="{% url "portfolio:timeline_portfolio" %}">
+            <a href="{% url " portfolio:timeline_portfolio" %}">
                 <button >
                     Clubfolio
                 </button>
             </a>
             
-            <a href="{% url "portfolio:my_projects" %}">
+            <a href="{% url " portfolio:my_projects" %}">
                 <button>
                     Meus projetos
                 </button>
@@ -60,8 +60,8 @@
 
             <header class="row justify-content-center tree-step">
     
-                <div class="col-1 step step1-select">
-                    <div class="step-num num-on">
+                <div class="col-1 step ">
+                    <div class="step-num num-off">
                         1
                     </div>
                     <div class="step-info info-on">
@@ -71,8 +71,8 @@
     
                 <div class="col line-step"> <div class="line"></div> </div>
                 
-                <div class="col-1 step step2">
-                    <div class="step-num num-off">
+                <div class="col-1 step step1-select">
+                    <div class="step-num num-on">
                         2
                     </div>
                     <div class="step-info info-off">
@@ -143,7 +143,7 @@
             </form>
             
             <div class="submit-button-step1">
-                <a href="{% url "portfolio:new_project_step3" %}">
+                <a href="{% url " portfolio:new_project_step3" %}">
                     <button>
                         Próximo
                     </button>

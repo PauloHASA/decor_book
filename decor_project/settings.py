@@ -46,15 +46,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
     #Custom Apps
     'user_config',
     'portfolio',
-    
+
     #All Auth Library
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    
+    #Library App
+    'multiupload',
 ]
 
 SITE_ID = 1

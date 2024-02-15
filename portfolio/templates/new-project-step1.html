@@ -1,7 +1,7 @@
 {% extends "global/base.html" %}
 {% load static %}
 
-{% block title %} Timeline {% endblock title %}  
+{% block title %} Timeline {% endblock title %}
 
 {% block main %}
 
@@ -18,19 +18,19 @@
 
         <nav class="nav-timeline">
 
-            <a class="active" href="{% url "portfolio:home_page" %}">
+            <a class="active" href="{% url " portfolio:home_page" %}">
                 <button>
                     Home
                 </button>
             </a>
 
-            <a href="{% url "portfolio:timeline_portfolio" %}">
-                <button >
+            <a href="{% url " portfolio:timeline_portfolio" %}">
+                <button>
                     Clubfolio
                 </button>
             </a>
-            
-            <a href="{% url "portfolio:my_projects" %}">
+
+            <a href="{% url " portfolio:my_projects" %}">
                 <button>
                     Meus projetos
                 </button>
@@ -58,7 +58,7 @@
         <div class="initial-info">
 
             <header class="row justify-content-center tree-step">
-    
+
                 <div class="col-1 step step1-select">
                     <div class="step-num num-on">
                         1
@@ -67,9 +67,11 @@
                         Informações iniciais
                     </div>
                 </div>
-    
-                <div class="col line-step"> <div class="line"></div> </div>
-                
+
+                <div class="col line-step">
+                    <div class="line"></div>
+                </div>
+
                 <div class="col-1 step step2">
                     <div class="step-num num-off">
                         2
@@ -78,9 +80,11 @@
                         Técnicas
                     </div>
                 </div>
-    
-                <div class="col line-step"> <div class="line"></div> </div>
-    
+
+                <div class="col line-step">
+                    <div class="line"></div>
+                </div>
+
                 <div class="col-1 step step2">
                     <div class="step-num num-off">
                         3
@@ -89,44 +93,44 @@
                         Imagens
                     </div>
                 </div>
-    
+
             </header>
 
-            <form action="" method="post" class="newproject-form-step1">
+            <form action="{% url ' portfolio:new_project_step1' %}" method="POST" class="newproject-form-step1">
                 {% csrf_token %}
                 <h1>Novo projeto</h1>
                 <h2>Adicione as informações de acordo com os detalhes do seu projeto.</h2>
-                
+
                 <div class="row ">
                     <div class="col form-input">
                         <h3>Nome</h3>
-                        <input type="text" placeholder="Um Nome para o seu projeto">
+                        {{form_stepone.name}}
                     </div>
 
                     <div class="col form-input">
                         <h3>Adicionar parceiro</h3>
-                        <input type="text" placeholder="Adicione um parceiro ao projeto">
+                        {{form_stepone.partner}}
                     </div>
                 </div>
 
                 <div class="row resume">
                     <div class="col form-input ">
                         <h3>Resumo</h3>
-                        <input type="text" placeholder="">
+                        {{form_stepone.summary}}
                     </div>
                 </div>
-                
+
                 <div class="row date">
                     <div class="col form-input ">
                         <h3>Duração</h3>
                         <section>
 
                             <div class="">
-                                <input type="date" name="" id="">
+                                {{form_stepone.data_initial}}
                             </div>
-    
+
                             <div class="">
-                                <input type="date" name="" id="">
+                                {{form_stepone.data_final}}
                             </div>
                         </section>
                     </div>
@@ -135,25 +139,22 @@
                     </div>
                 </div>
 
-                {% comment %} 
                 <div class="submit-button-step1">
-                    <a href="{% url "portfolio:new_project_step2" %}">
-                        <button>
-                            Próximo
-                        </button>
-                    </a>
-                </div> 
-                {% endcomment %}
+                    <button type="submit">
+                        Próximo
+                    </button>
+
+                </div>
 
             </form>
-            
-            <div class="submit-button-step1">
-                <a href="{% url "portfolio:new_project_step2" %}">
+
+            <!-- <div class="submit-button-step1">
+                <a href="{% url " portfolio:new_project_step2" %}">
                     <button>
                         Próximo
                     </button>
                 </a>
-            </div>
+            </div> -->
 
         </div>
     </div>
