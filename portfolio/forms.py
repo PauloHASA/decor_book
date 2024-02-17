@@ -27,6 +27,13 @@ class FormStepTwo(forms.ModelForm):
         model = NewProject
         fields = ['area', 'rooms', 'style', 'categories', 'add_stores']
 
+class FormStepTwoOverwrite(FormStepTwo):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'data_final' in self.fields:
+            del self.fields['data_final']
+
 class FormStepThree(forms.ModelForm):
     images = MultiFileField(min_num=1, max_num=50)
     

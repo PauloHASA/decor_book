@@ -11,8 +11,8 @@ class NewProject(models.Model):
     name = models.CharField(max_length=150)
     partner = models.CharField(max_length=150)
     summary = models.TextField()
-    data_initial = models.DateField()
-    data_final= models.DateField()
+    data_initial = models.DateField(null=True)
+    data_final= models.DateField(null=True)
     area = models.CharField(max_length=150)
     rooms = models.CharField(max_length=150)
     style = models.CharField(max_length=150)
@@ -20,8 +20,9 @@ class NewProject(models.Model):
     add_stores = models.CharField(max_length=150)
     
     def clean(self):
-        if self.data_final < self.data_initial:
-            raise ValidationError("A data final não pode ser anterior á data inicial.")
+        if self.data_final is not None and self.data_initial is not None:
+            if self.data_final < self.data_initial:
+                raise ValidationError("A data final não pode ser anterior á data inicial.")
 
 class ImagePortfolio(models.Model):
     new_project = models.ForeignKey(NewProject, on_delete=models.CASCADE)

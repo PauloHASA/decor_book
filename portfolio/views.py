@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from datetime import datetime
 
-from .forms import FormStepOne, FormStepTwo, FormStepThree
+from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
 
 # Create your views here.
@@ -27,18 +27,20 @@ def home_page(request):
 
 def new_project_step1(request): 
     form = FormStepOne()
-    print('cheguei aqui ')
     if request.method == 'POST':
         form = FormStepOne(request.POST)
         
         if form.is_valid():
-            print('Formulario é valido')
             step_one_data = form.save(commit=False)
-
+            step_one_data.user = request.user
             step_one_data.data_initial = step_one_data.data_initial.strftime('%Y-%m-%d')
             step_one_data.data_final = step_one_data.data_final.strftime('%Y-%m-%d')
+            
             cleaned_data_dic = model_to_dict(step_one_data)
             request.session['step_one_data']= cleaned_data_dic
+            
+            print(cleaned_data_dic)
+
             return redirect(' portfolio:new_project_step2')
         else:
             form = FormStepOne()
@@ -54,9 +56,16 @@ def new_project_step2(request):
     form = FormStepTwo()
 
     if request.method == 'POST':
-        form = FormStepTwo(request.POST)
+        form = FormStepTwoOverwrite(request.POST)
         if form.is_valid():
             step_two_data = form.save(commit=False)
+            step_two_data.user = request.user
+            cleaned_data_dic = model_to_dict(step_two_data)
+
+            print('-'*100)
+            print(cleaned_data_dic)
+            print('-'*100)
+
             request.session['step_two_data']= form.cleaned_data
             return redirect(' portfolio:new_project_step3')
         else:

@@ -101,12 +101,12 @@
                 <div class="row ">
                     <div class="col form-input">
                         <h3>Área</h3>
-                        <input type="text" placeholder="100m²">
+                        {{form_steptwo.area}}
                     </div>
 
                     <div class="col form-input">
                         <h3>Categorias</h3>
-                        <input type="text" placeholder="Estabeleça até 3 estilos principais">
+                        {{form_steptwo.categories}}
                     </div>
                 </div>
 
@@ -114,12 +114,12 @@
                 <div class="row ">
                     <div class="col form-input">
                         <h3>Cômodos</h3>
-                        <input type="text" placeholder="01">
+                        {{form_steptwo.rooms}}
                     </div>
 
                     <div class="col form-input">
                         <h3>Adicionar lojas</h3>
-                        <input type="text" placeholder="Adicione lojas usadas no projeto">
+                        {{form_steptwo.add_stores}}
                     </div>
                 </div>
 
@@ -127,28 +127,18 @@
                 <div class="row style">
                     <div class="col form-input ">
                         <h3>Estilo</h3>
-                        <input type="text" placeholder="Estabeleça até 3 estilos principais">
+                        {{form_steptwo.style}}
                     </div>
 
                 </div>
 
-                {% comment %} 
                 <div class="submit-button-step1">
-                    <button>
+                    <button type=submit>
                         Próximo
                     </button>
                 </div> 
-                {% endcomment %}
 
             </form>
-            
-            <div class="submit-button-step1">
-                <a href="{% url " portfolio:new_project_step3" %}">
-                    <button>
-                        Próximo
-                    </button>
-                </a>
-            </div>
 
         </div>
     </div>

@@ -39,7 +39,7 @@ def login_page(request):
             
             if user is not None:
                 login(request, user)
-                return redirect("portfolio:timeline_portfolio")
+                return redirect(" portfolio:home_page")
             else:
                 form = LoginUserForm()
                 error_message =  " Invalid credentials. Please, try again."
