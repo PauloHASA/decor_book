@@ -60,10 +60,10 @@
             <header class="row justify-content-center tree-step">
     
                 <div class="col-1 step step1-select">
-                    <div class="step-num num-on">
+                    <div class="step-num num-off">
                         1
                     </div>
-                    <div class="step-info info-on">
+                    <div class="step-info info-off">
                         Informações iniciais
                     </div>
                 </div>
@@ -82,42 +82,45 @@
                 <div class="col line-step"> <div class="line"></div> </div>
     
                 <div class="col-1 step step2">
-                    <div class="step-num num-off">
+                    <div class="step-num num-on">
                         3
                     </div>
-                    <div class="step-info info-off">
+                    <div class="step-info info-on">
                         Imagens
                     </div>
                 </div>
     
             </header>
 
-            <form action="" method="post" class="newproject-form-step1">
+            <form action="" method="POST" class="newproject-form-step1" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1>Novo projeto</h1>
                 <h2>Adicione as informações de acordo com os detalhes do seu projeto.</h2>
-                
 
-                {% comment %} 
+                <div class="upload-container">
+                    <h2>Seleção de imagens</h2>
+                    <div class="drop-box" id="dropBox">
+                        <label for="id_img_upload">
+                            <img src="{% static 'global/media/icons/FileAdd.svg' %}" alt="">
+                            <h1>Clique aqui</h1>
+                            <h2>ou arraste suas imagens</h2>
+                        </label>
+                        {{form_stepthree.img_upload}}
+                    </div>
+                    <h3>Imagens selecionadas</h3>
+                    <h4>Arraste as imagens para mudar a ordem</h4>
+                    
+                    <div id="imagePreviews"></div>
+                </div>
+
                 <div class="submit-button-step1">
-                    <a href="{% url " portfolio:new_project_step2" %}">
-                        <button>
+                        <button type=submit>
                             Próximo
                         </button>
-                    </a>
                 </div> 
-                {% endcomment %}
 
             </form>
             
-            <div class="submit-button-step1">
-                <a href="{% url " portfolio:new_project_step2" %}">
-                    <button>
-                        Salvar
-                    </button>
-                </a>
-            </div>
-
         </div>
     </div>
 </main>

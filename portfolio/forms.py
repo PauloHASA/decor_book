@@ -35,7 +35,7 @@ class FormStepTwoOverwrite(FormStepTwo):
             del self.fields['data_final']
 
 class FormStepThree(forms.ModelForm):
-    images = MultiFileField(min_num=1, max_num=50)
+    images = MultiFileField(min_num=1, max_num=50, required=False)
     
     class Meta:
         model = ImagePortfolio
