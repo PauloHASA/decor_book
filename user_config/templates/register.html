@@ -8,8 +8,9 @@
 
 <main class="login_page">
     <section>
-        <form action="{% url 'user:register' %}" method="post">
+        <form action="{% url 'user:register' %}" method="POST">
             {% csrf_token %}
+
             <h1>
                 Cadastre-se
             </h1>
@@ -22,16 +23,26 @@
             </div>
 
             <div class="input-section">
+
                 <h2>
                     E-mail
                 </h2>
                 {{form.email}}
+
+                {% if email_errors %}
+                    <p> {{email_errors}} </p>
+                {% endif %}
             </div>
+
             <div class="input-section">
                 <h2>
                     User Name
                 </h2>
                 {{form.user_name}}
+
+                {% if username_errors %}
+                    <p> {{username_errors}} </p>
+                {% endif %}
             </div>
 
             <div class="input-section">
@@ -47,6 +58,11 @@
                     Confirma senha
                 </h2>
                 {{form.password2}}
+
+                {% if password_errors %}
+                    <p> {{password_errors}} </p>
+                {% endif %}
+
             </div>
 
             <div class="button-register">

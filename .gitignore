@@ -129,6 +129,8 @@ db.sqlite3
 db copy.sqlite3
 db.sqlite3
 
+venv
 logs
 migrations
 .vscode/launch.json
+media

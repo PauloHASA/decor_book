@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+        <!-- Bootstrap icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+        <!-- Bootstrap Js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
+        defer></script>
+
+        <!-- Custom Css -->
+        <link rel="stylesheet" href="{% static 'global/css/landing_page/landing_page.css'%}">
+
+
+        <title>DecorBook</title>
+    </head>
+
+    <body>
+        <div class="row justify-content-between">
+            <div class="col-1">
+                <div class="img-logo-LadingPage">
+                    <img src="{% static "global/media/img/decor-logo.svg" %}" alt="">
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="buttons-login-register-LandingPage">
+                    <a href="{% url "user:login" %}" class="buttons-login-LadingPage">
+                        <button>
+                            Login
+                        </button>
+                    </a>
+
+                    <a href="{% url "user:register" %}" class="buttons-register-LadingPage">
+                        <button>
+                            Register
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row body-LandingPage" id="section-1">
+            <div class="col text-LandingPage">
+                <h1>
+                    Participe do clube de recompensas mais exclusivo
+                </h1>
+                <h2>
+                    Aproveite os benefícios enquanto acessa as melhores opções para o seu projeto 
+                </h2>
+            </div>
+             <div class="col grid-LandingPage">
+                <div class="img-LandingPage ">
+                    <a href="#">
+                        <img src="{% static "global/media/landing_page/Img-1.svg" %}" alt="">
+                    </a>
+                </div>
+                <div class="img-LandingPage ">
+                    <a href="#">
+                        <img src="{% static "global/media/landing_page/Img-2.svg" %}" alt="">
+                    </a>
+                </div>
+
+                <div class="img-LandingPage ">
+                    <a href="#">
+                        <img src="{% static "global/media/landing_page/Img-4.svg" %}" alt="">
+                    </a>
+                </div>
+                <div class="img-LandingPage ">
+                    <a href="#">
+                        <img src="{% static "global/media/landing_page/Img-5.svg" %}" alt="">
+                    </a>
+                </div>
+                <div class="img-LandingPage ">
+                    <a href="#">
+                        <img src="{% static "global/media/landing_page/Img-3.svg" %}" alt="">
+                    </a>
+                </div> 
+             </div>
+        </div>
+    </body>
+</html>

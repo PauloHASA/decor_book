@@ -3,28 +3,35 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserRegistrationForm, LoginUserForm
 from django.contrib import messages
+from .controllers import FolderUserPost, CustomFormErrors
 
 # Create your views here.
 
 def register_page(request):
     form = UserRegistrationForm()
-    print('View Function')
+    email_errors = None
+    username_errors = None
+    password_errors = None
     if request.POST:
-        print('form register')
-
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            print('is valid')
-
-            form.save()
-            HttpResponse("Deu certo")
+            user = form.save()
+            createfolder = FolderUserPost.create_user_folder(user.id)
             return redirect("user:login")
         else:
+            email_errors = CustomFormErrors.get_email_error(form)
+            username_errors = CustomFormErrors.get_username_error(form)
+            password_errors = CustomFormErrors.get_password_error(form)
             form = UserRegistrationForm()
-            HttpResponse("não rolou")
-
-                
-    return render( request, 'register.html', {'form':form})
+            
+    return render( request,
+                  'register.html', 
+                  {'form':form, 
+                   'email_errors':email_errors, 
+                   'username_errors':username_errors, 
+                   'password_errors':password_errors, 
+                   }
+                  )
 
 
 def login_page(request):
@@ -55,4 +62,7 @@ def login_page(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('user:login')
+    return redirect('user:landing_page')
+
+def landing_page(request):
+    return render(request, "landing_page.html")

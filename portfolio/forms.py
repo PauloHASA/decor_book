@@ -1,6 +1,5 @@
 from django import forms 
 from multiupload.fields import MultiFileField
-
 from .models import NewProject, ImagePortfolio
 
 

@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
+from django.db import transaction
 from datetime import datetime
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
 from .controller import create_save_session
+from user_config.controllers import FolderUserPost
+
 
 # Create your views here.
 
@@ -38,11 +41,7 @@ def new_project_step1(request):
             
             cleaned_data_dic = model_to_dict(step_one_data)
             request.session['step_one_data']= cleaned_data_dic
-            
-            print('-'*100)
-            print(cleaned_data_dic)
-            print('-'*100)
-            
+
             return redirect(' portfolio:new_project_step2')
         else:
             form = FormStepOne()
@@ -63,11 +62,6 @@ def new_project_step2(request):
             step_two_data = form.save(commit=False)
             cleaned_data_dic = model_to_dict(step_two_data)
 
-            print(' '*100)
-            print('-'*100)
-            print(cleaned_data_dic)
-            print('-'*100)
-            print(' '*100)
 
             request.session['step_two_data']= form.cleaned_data
             return redirect(' portfolio:new_project_step3')
@@ -76,7 +70,7 @@ def new_project_step2(request):
             
     return render(request,'new-project-step2.html', {'form_steptwo':form})
 
-
+@transaction.atomic
 def new_project_step3(request):
     if 'step_two_data' not in request.session or 'step_one_data' not in request.session:
         return redirect(' portfolio:new_project_step2')
@@ -87,11 +81,8 @@ def new_project_step3(request):
     
     if request.method == 'POST':
         form_step_three = FormStepThree(request.POST, request.FILES)
-        print('Method post')
         if form_step_one.is_valid() and form_step_two.is_valid() and form_step_three.is_valid():
             # Criar um novo projeto com dados dos formulários da etapa 1 e 2
-            print('formulario valido')
-
             new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
             new_project.user = request.user
             new_project.data_initial = form_step_one.cleaned_data['data_initial']
@@ -102,26 +93,23 @@ def new_project_step3(request):
             new_project.categories = form_step_two.cleaned_data['categories']
             new_project.add_stores = form_step_two.cleaned_data['add_stores']
             new_project.save()
-            
-            print(new_project)
-            
+                        
             # Processar imagens
             images = request.FILES.getlist('img_upload')
             for image in images:
                 ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+
                 
+            # Criar pasta para o post
+            post_folder = FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
+            
             # Limpar dados da sessão
             del request.session['step_one_data']
             del request.session['step_two_data']
             
             return redirect(" portfolio:timeline_portfolio")
-
         else:
             print("Erros em form_step_three:", form_step_three.errors)
-            
-
-        
     else:
         form_step_three = FormStepThree()
-
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
