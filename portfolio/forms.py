@@ -1,6 +1,6 @@
 from django import forms 
-from multiupload.fields import MultiFileField
 from .models import NewProject, ImagePortfolio
+from django.forms.widgets import ClearableFileInput
 
 
 class FormStepOne(forms.ModelForm):
@@ -26,6 +26,7 @@ class FormStepTwo(forms.ModelForm):
         model = NewProject
         fields = ['area', 'rooms', 'style', 'categories', 'add_stores']
 
+
 class FormStepTwoOverwrite(FormStepTwo):
     
     def __init__(self, *args, **kwargs):
@@ -33,9 +34,8 @@ class FormStepTwoOverwrite(FormStepTwo):
         if 'data_final' in self.fields:
             del self.fields['data_final']
 
-class FormStepThree(forms.ModelForm):
-    images = MultiFileField(min_num=1, max_num=50, required=False)
-    
+
+class FormStepThree(forms.ModelForm):       
     class Meta:
         model = ImagePortfolio
         fields = ['img_upload']

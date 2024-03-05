@@ -1,0 +1,43 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Register-se {% endblock title %} 
+
+{% block main %}
+{% include 'global/partials/header.html'%}
+
+<main class="main-RegisterPage">
+
+    <section class="central-container-RegisterPage">
+        <h1>Cadastre-se como</h1>
+
+        <div class="options-register-RegisterPage">
+
+            <a href="{% url "user:register-client" %}" class="container-register-RegisterPage">
+                <header>
+                    <img src="{% static "global/media/icons/Group-user.svg" %}" alt="" srcset="">
+                </header>
+                <footer>Cliente</footer>
+            </a>
+
+            <a href="#" class="container-register-RegisterPage">
+                <header>
+                    <img src="{% static "global/media/icons/User.svg" %}" alt="" srcset="">
+                </header>
+                <footer>Profissional</footer>
+            </a>
+
+            <a href="#" class="container-register-RegisterPage">
+                <header>
+                    <img src="{% static "global/media/icons/BoxClosed.svg" %}" alt="" srcset="">
+                </header>
+                <footer>Empresa</footer>
+            </a>
+
+        </div>
+    </section>
+</main>
+
+
+
+{% endblock main %}

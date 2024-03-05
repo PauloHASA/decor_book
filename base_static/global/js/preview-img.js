@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var dropBox = document.getElementById('dropBox');
-    var fileInput = document.getElementById('id_img_upload');
+    var fileInput = document.getElementById('images');
     var imagePreviews = document.getElementById('imagePreviews');
 
     dropBox.addEventListener('dragover', function(e) {

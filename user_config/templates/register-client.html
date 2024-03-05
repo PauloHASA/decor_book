@@ -1,14 +1,14 @@
 {% extends "global/base.html" %}
 {% load static %}
 
-{% block title %} Login {% endblock title %} Login
+{% block title %} Cliente {% endblock title %} 
 
 {% block main %}
 {% include 'global/partials/header.html'%}
 
 <main class="login_page">
     <section>
-        <form action="{% url 'user:register' %}" method="POST">
+        <form action="{% url 'user:register-client' %}" method="POST">
             {% csrf_token %}
 
             <h1>

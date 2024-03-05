@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.forms.models import model_to_dict
 from django.db import transaction
 from datetime import datetime
@@ -7,6 +7,7 @@ from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
 from .controller import create_save_session
 from user_config.controllers import FolderUserPost
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -73,16 +74,32 @@ def new_project_step2(request):
 @transaction.atomic
 def new_project_step3(request):
     if 'step_two_data' not in request.session or 'step_one_data' not in request.session:
-        return redirect(' portfolio:new_project_step2')
+        return redirect('portfolio:new_project_step2')
     
     form_step_one = FormStepOne(request.session['step_one_data'])
     form_step_two = FormStepTwo(request.session['step_two_data'])
+    form_step_three = FormStepThree()
 
-    
     if request.method == 'POST':
+        is_ajax = request.POST.get('ajax') == 'true'
+        
+        # Verifica se é uma solicitação AJAX
+        if is_ajax:
+            images = request.FILES.getlist('images')
+            new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
+            new_project.user = request.user
+            
+            # Processa as imagens
+            for image in images:
+                # Cria o objeto ImagePortfolio associado ao projeto
+                ImagePortfolio.objects.create(img_upload=image, new_project=new_project)   
+                             
+            # Retorna uma resposta JSON indicando sucesso
+            return JsonResponse({'status': 'success'})
+        
+        # Se não for uma solicitação AJAX, processa o formulário normalmente
         form_step_three = FormStepThree(request.POST, request.FILES)
         if form_step_one.is_valid() and form_step_two.is_valid() and form_step_three.is_valid():
-            # Criar um novo projeto com dados dos formulários da etapa 1 e 2
             new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
             new_project.user = request.user
             new_project.data_initial = form_step_one.cleaned_data['data_initial']
@@ -112,4 +129,5 @@ def new_project_step3(request):
             print("Erros em form_step_three:", form_step_three.errors)
     else:
         form_step_three = FormStepThree()
+    
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})

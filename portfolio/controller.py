@@ -1,4 +1,7 @@
 from .models import NewProject
+from django.forms.widgets import ClearableFileInput
+from django.utils.translation import gettext_lazy as _
+
 
 
 def create_save_session(request, step_one_data, step_two_data):
@@ -17,3 +20,4 @@ def create_save_session(request, step_one_data, step_two_data):
     )
     new_project.save()
     return new_project
+

@@ -92,7 +92,7 @@
     
             </header>
 
-            <form action="" method="POST" class="newproject-form-step1" enctype="multipart/form-data">
+            <form action="{% url " portfolio:new_project_step3" %}" method="POST" class="newproject-form-step1" id="imageForm" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1>Novo projeto</h1>
                 <h2>Adicione as informações de acordo com os detalhes do seu projeto.</h2>
@@ -100,12 +100,12 @@
                 <div class="upload-container">
                     <h2>Seleção de imagens</h2>
                     <div class="drop-box" id="dropBox">
-                        <label for="id_img_upload">
+                        <label for="images">
                             <img src="{% static 'global/media/icons/FileAdd.svg' %}" alt="">
                             <h1>Clique aqui</h1>
                             <h2>ou arraste suas imagens</h2>
                         </label>
-                        {{form_stepthree.img_upload}}
+                        <input type="file" name="images" id="images" multiple required=false>
                     </div>
                     <h3>Imagens selecionadas</h3>
                     <h4>Arraste as imagens para mudar a ordem</h4>
@@ -124,6 +124,38 @@
         </div>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#imageForm').submit(function(event) {
+            event.preventDefault(); // Impede o envio do formulário padrão
+            
+            var formData = new FormData();
+            var files = $('#images')[0].files;
+            for (var i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+            
+            formData.append('ajax', true);
 
+            var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+            formData.append('csrfmiddlewaretoken', csrfToken);
+            
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log('Imagens enviadas com sucesso!');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao enviar imagens:', error);
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock main %}

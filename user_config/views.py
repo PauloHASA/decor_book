@@ -5,9 +5,20 @@ from .forms import UserRegistrationForm, LoginUserForm
 from django.contrib import messages
 from .controllers import FolderUserPost, CustomFormErrors
 
-# Create your views here.
 
 def register_page(request):
+    return render(request, "register-page.html")
+
+
+def register_professional(request):
+    return render(request, "register-professional.html")
+
+
+def register_company(request):
+    return render(request, "register-company.html")
+    
+    
+def register_client(request):
     form = UserRegistrationForm()
     email_errors = None
     username_errors = None
@@ -25,7 +36,7 @@ def register_page(request):
             form = UserRegistrationForm()
             
     return render( request,
-                  'register.html', 
+                  'register-client.html', 
                   {'form':form, 
                    'email_errors':email_errors, 
                    'username_errors':username_errors, 
