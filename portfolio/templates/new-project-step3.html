@@ -18,19 +18,19 @@
 
         <nav class="nav-timeline">
 
-            <a class="active" href="{% url " portfolio:home_page" %}">
+            <a class="active" href="{% url "portfolio:home_page" %}">
                 <button>
                     Home
                 </button>
             </a>
 
-            <a href="{% url " portfolio:timeline_portfolio" %}">
+            <a href="{% url "portfolio:timeline_portfolio" %}">
                 <button >
                     Clubfolio
                 </button>
             </a>
             
-            <a href="{% url " portfolio:my_projects" %}">
+            <a href="{% url "portfolio:my_projects" %}">
                 <button>
                     Meus projetos
                 </button>
@@ -92,7 +92,7 @@
     
             </header>
 
-            <form action="{% url " portfolio:new_project_step3" %}" method="POST" class="newproject-form-step1" id="imageForm" enctype="multipart/form-data">
+            <form action="{% url "portfolio:new_project_step3" %}" method="POST" class="newproject-form-step1" id="imageForm" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1>Novo projeto</h1>
                 <h2>Adicione as informações de acordo com os detalhes do seu projeto.</h2>

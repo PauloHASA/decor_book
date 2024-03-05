@@ -10,10 +10,9 @@ from user_config.controllers import FolderUserPost
 from django.http import JsonResponse
 
 
-# Create your views here.
+import random
 
-def timeline_portfolio(request):
-    return render(request,'timeline_portfolio.html')
+# Create your views here.
 
 def my_projects(request):
     return render(request,'my-projects.html')
@@ -43,7 +42,7 @@ def new_project_step1(request):
             cleaned_data_dic = model_to_dict(step_one_data)
             request.session['step_one_data']= cleaned_data_dic
 
-            return redirect(' portfolio:new_project_step2')
+            return redirect('portfolio:new_project_step2')
         else:
             form = FormStepOne()
             print('Formulario não é valido')
@@ -53,7 +52,7 @@ def new_project_step1(request):
 
 def new_project_step2(request):
     if 'step_one_data' not in request.session:
-        return redirect(' portfolio:new_project_step1')
+        return redirect('portfolio:new_project_step1')
     
     form = FormStepTwo()
 
@@ -65,7 +64,7 @@ def new_project_step2(request):
 
 
             request.session['step_two_data']= form.cleaned_data
-            return redirect(' portfolio:new_project_step3')
+            return redirect('portfolio:new_project_step3')
         else:
             form = FormStepTwo()
             
@@ -124,10 +123,30 @@ def new_project_step3(request):
             del request.session['step_one_data']
             del request.session['step_two_data']
             
-            return redirect(" portfolio:timeline_portfolio")
+            return redirect("portfolio:timeline_portfolio")
         else:
             print("Erros em form_step_three:", form_step_three.errors)
     else:
         form_step_three = FormStepThree()
     
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
+
+
+def timeline_portfolio(request):
+    projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()
+    
+    for project in projects:
+        project.images = list(project.imageportfolio_set.all())
+        random.shuffle(project.images)
+        
+    return render(request,'timeline_portfolio.html', {'projects':projects})
+
+
+def project_page(request, project_id):
+    project = get_object_or_404(NewProject, pk=project_id)
+    images = project.imageportfolio_set.all()
+    context = {
+        'project': project,
+        'images': images,
+    }
+    return render(request,'project-page.html', context)
