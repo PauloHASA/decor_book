@@ -136,9 +136,8 @@ def timeline_portfolio(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()
     
     for project in projects:
-        project.images = list(project.imageportfolio_set.all())
-        random.shuffle(project.images)
-        
+        project.images = list(project.imageportfolio_set.all().order_by('-id'))
+          
     return render(request,'timeline_portfolio.html', {'projects':projects})
 
 

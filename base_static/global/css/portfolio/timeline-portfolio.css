@@ -66,8 +66,37 @@
 
 }
 
+.grid-wrapper .img-timeline a{
+    position: relative;
+}
 
+.user-info-TimeLine{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
 
+    padding: 16px;
+
+    width: 100%;
+    background: linear-gradient(360deg, #242424 0%, rgba(36, 36, 36, 0) 100%);
+    opacity: 0; /* Inicialmente invisível */
+    transition: opacity 0.3s ease; /* Transição suave de opacidade */
+    
+}
+
+.grid-wrapper .img-timeline a:hover .user-info-TimeLine{
+    opacity: 1; 
+
+}
+
+.user-info-TimeLine h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+    color: #FAFAFA;
+}
 
 /* Responsive section */
 
