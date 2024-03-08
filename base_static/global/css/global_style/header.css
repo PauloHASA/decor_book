@@ -1,5 +1,7 @@
 .header-logo{
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .header-logo a img{
@@ -7,3 +9,4 @@
     height: 48px;
     margin-left: 24px;
     }
+

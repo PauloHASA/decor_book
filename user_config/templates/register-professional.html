@@ -1,0 +1,85 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Cliente {% endblock title %} 
+
+{% block main %}
+{% include 'global/partials/header-register.html'%}
+
+<main class="login_page">
+    <section>
+        <form action="{% url 'user:register-professional' %}" method="POST">
+            {% csrf_token %}
+
+            <header class="header-professional">
+                <h1>
+                    Cadastre-se 
+                </h1>
+                <h3>
+                    Se junte ao nosso clube e tenha acesso aos melhores clientes e projetos.
+                </h3>
+            </header>
+
+
+            <div class="input-section-form">
+                <h2>
+                    Nome Completo
+                </h2>
+                {{form.full_name}}
+                {{ form.full_name.errors }}
+            </div>
+
+            <div class="input-section-form">
+
+                <h2>
+                    E-mail
+                </h2>
+                {{form.email}}
+                {{ form.email.errors }}
+            </div>
+            <div class="cols-2-input">               
+                <div class="input-section-profession">
+                    <h2>
+                        Profissão
+                    </h2>
+                    {{form.profession}}
+                    {{ form.profession.errors }}
+                </div>
+    
+                <div class="input-section-form">
+                    <h2>
+                        Site
+                    </h2>
+                    {{form.site}}
+                    {{ form.site.errors }}
+                </div>
+            </div>
+            <div class="cols-2-input">               
+                <div class="input-section-form">
+                    <h2>
+                        Senha
+                    </h2>
+                    {{form.password1}}
+                    {{ form.password1.errors }}
+                </div>
+
+
+                <div class="input-section-form">
+                    <h2>
+                        Confirma senha
+                    </h2>
+                    {{form.password2}}
+                    {{ form.password2.errors }}
+                </div>
+            </div>
+
+            <div class="button-register">
+                <button type="submit">Cadastre-se</button>
+            </div>
+
+        </form>
+    </section>
+
+</main>
+
+{% endblock main %}

@@ -54,12 +54,14 @@
     
     <main class="home-page">
         <header class="header-newproject">
-            <a href="{% url "portfolio:new_project_step1"%}">
-                <button>
-                    <i class="bi bi-plus-lg"></i>
-                    Novo Projeto
-                </button>
-            </a>
+            {% if user.is_authenticated and is_professional %}
+                <a href="{% url "portfolio:new_project_step1"%}">
+                    <button>
+                        <i class="bi bi-plus-lg"></i>
+                        Novo Projeto
+                    </button>
+                </a>
+            {% endif %}
         </header>
 
         <div class="section-projects">

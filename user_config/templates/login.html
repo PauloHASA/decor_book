@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block title %} Login {% endblock title %} Login 
-{% include 'global/partials/header.html'%}
 
 {% block main %}
-    
+{% include 'global/partials/header-register.html'%}
+ 
 <main class="login_page">
     <section>
         <form action="{% url 'user:login' %}" method="post">

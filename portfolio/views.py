@@ -5,6 +5,7 @@ from datetime import datetime
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
+from user_config.models import ProfessionalProfile
 from .controller import create_save_session
 from user_config.controllers import FolderUserPost
 from django.http import JsonResponse
@@ -27,7 +28,15 @@ def project_page(request):
     return render(request,'project-page.html')
 
 def home_page(request):
-    return render(request,'home-page.html')
+    user = request.user    
+    if user.is_authenticated:
+        try:
+            professional_profile = ProfessionalProfile.objects.get(user=user)
+            is_professional = professional_profile.is_professional
+            print(is_professional)
+        except ProfessionalProfile.DoesNotExist:
+            is_professional = False
+    return render(request, 'home-page.html', {'user': user, 'is_professional': is_professional})
 
 def new_project_step1(request): 
     form = FormStepOne()
@@ -50,6 +59,7 @@ def new_project_step1(request):
             
     return render(request,'new-project-step1.html', {'form_stepone':form})
 
+
 def new_project_step2(request):
     if 'step_one_data' not in request.session:
         return redirect('portfolio:new_project_step1')
@@ -69,6 +79,7 @@ def new_project_step2(request):
             form = FormStepTwo()
             
     return render(request,'new-project-step2.html', {'form_steptwo':form})
+
 
 @transaction.atomic
 def new_project_step3(request):

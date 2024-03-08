@@ -241,7 +241,8 @@ width: 100%;
 /* Upload file */
 
 .drop-box{
-
+    display: flex;
+    justify-content: center;
 
 }
 
@@ -290,7 +291,7 @@ width: 100%;
 }
 
 .upload-container{
-    
+    width: 750px;
 }
 
 .upload-container h2,
@@ -320,15 +321,15 @@ width: 100%;
 #imagePreviews{
     display: flex;
     gap: 12px;
+    overflow: auto;
 }
 
 .image-preview{
     position: relative;
 }
 
-.image-preview,
-.image-preview img{
-    width: 200px;
+.image-preview{
+    min-width: 200px;
     height: 132px;
     border: 2px;
 }

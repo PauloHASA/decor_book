@@ -133,3 +133,5 @@ venv
 logs
 migrations
 .vscode/launch.json
+
+media/users_folder/

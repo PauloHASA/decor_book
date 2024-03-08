@@ -10,7 +10,7 @@
 }
 
 .login_page section form{
-    
+    width: 100%;
 }
 
 .login_page section form h1{
@@ -23,7 +23,59 @@
     letter-spacing: 0em;
 
     text-align: center;
-    margin-bottom: 54px;
+    margin-bottom: 12px;
+}
+
+.login_page section form h3{
+    width: 318px;
+    height: 38px;
+
+        
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    
+    text-align: center;
+    margin-bottom: 16px;
+}
+.header-professional{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header-professional h1{
+    width: 100%;
+    
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29px;
+    letter-spacing: 0em;
+
+    text-align: center;
+    margin-bottom: 12px;
+
+    color: #242424;
+}
+
+.header-professional h3{
+    width: 318px;
+    height: 38px;
+
+        
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    
+    text-align: center;
+    margin-bottom: 16px;
+    color: #A4A4A4;
 }
 
 .input-section-form,
@@ -115,10 +167,13 @@ linear-gradient(0deg, #F8F8F8, #F8F8F8);
 .button-register{
     width: 100%;
     margin-top: 40px;
+    display: flex;
+    justify-content: flex-end;
 }
 
+
 .button-register button{
-    width: 335px;
+    width: 320px;
     height: 48px;
     border-radius: 4px;
 
@@ -133,4 +188,9 @@ linear-gradient(0deg, #F8F8F8, #F8F8F8);
     color: #FFFFFF;
 
     text-align: center;
+}
+
+.cols-2-input{
+    display: flex;
+    gap: 12px;
 }
