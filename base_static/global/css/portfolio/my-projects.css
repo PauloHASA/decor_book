@@ -1,0 +1,109 @@
+.body-MyProjects{
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+}
+
+.header-MyProjects{
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-MyProjects h1,
+.header-MyProjects a{
+    width: auto;
+}
+
+.header-MyProjects h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29px;
+    letter-spacing: 0em;
+    }
+
+.header-MyProjects a button{
+    width: 212px;
+    height: 48px;
+    border-radius: 4px;
+    background-color: #242424;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #FAFAFA;
+}
+
+.projects-MyProjects{
+    display: flex;
+    height: 100%;
+    gap: 12px;
+    width: 100%;
+
+    flex-wrap: wrap;
+
+    margin-top: 12px;
+    
+    
+}
+
+.sections-rooms{
+    position: relative;
+    width: 339px;
+    height: 252px;
+
+    background-color: #D9D9D9;
+
+}
+
+.sections-rooms .section-house h1{
+    position: absolute;
+    bottom: 1px;
+    left: 16px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #f7f7f7;
+
+}
+
+.spacer{
+    flex-grow: 1;
+}
+
+.body-MyProjects footer{
+    width: 100%;
+}
+
+.footer-myprojects{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-myprojects button{
+    width: 212px;
+    height: 48px;
+    border-radius: 37px;
+    border: 1px solid #242424; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+
+    color: #242424;
+    background-color: transparent;
+}

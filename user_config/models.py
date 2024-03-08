@@ -3,6 +3,16 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
+PROFISSION_CHOICES = [
+    ('arquiteto', 'Arquiteto'),
+    ('carpinteiro', 'Carpinteiro'),
+    ('designer', 'Designer'),
+    ('engenheiro', 'Engenheiro'),
+    ('eletricista', 'Eletricista'),
+    ('gesseiro', 'Gesseiro'),
+    ('pedreiro', 'Pedreiro'),
+    ('pintor', 'Pintor'),
+]
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, user_name, full_name, password, **other_fields):
         other_fields.setdefault('is_staff', True)
@@ -28,11 +38,12 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
+
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
     
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length = 150, unique=True)
     full_name = models.CharField(max_length = 150)
@@ -44,3 +55,33 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.user_name
+    
+
+class ClientProfile(models.Model):
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    is_client = models.BooleanField(default=True)
+    profession = models.CharField(max_length=100, choices=PROFISSION_CHOICES)
+
+
+class ProfessionalProfile(models.Model):
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    is_professional = models.BooleanField(default=True)
+    profession = models.CharField(max_length=100, choices=PROFISSION_CHOICES)
+    site = models.CharField(max_length=100)
+
+    
+
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    fantasy_name = models.CharField(max_length=100)
+    is_company = models.BooleanField(default=True)
+    product = models.CharField(max_length=100)
+    site = models.CharField(max_length=100)
+
+    
+
+class ConstructionProfile(models.Model):
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    is_construction = models.BooleanField(default=True)
+    site = models.CharField(max_length=100)
+    fantasy_name = models.CharField(max_length=100)

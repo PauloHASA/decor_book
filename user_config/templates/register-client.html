@@ -15,53 +15,48 @@
                 Cadastre-se
             </h1>
 
-            <div class="input-section">
+            <div class="input-section-form">
                 <h2>
                     Nome Completo
                 </h2>
                 {{form.full_name}}
+                {{ form.full_name.errors }}
             </div>
 
-            <div class="input-section">
+            <div class="input-section-form">
 
                 <h2>
                     E-mail
                 </h2>
                 {{form.email}}
-
-                {% if email_errors %}
-                    <p> {{email_errors}} </p>
-                {% endif %}
+                {{ form.email.errors }}
             </div>
 
-            <div class="input-section">
+            <div class="input-section-profession">
                 <h2>
-                    User Name
+                    Profissão
                 </h2>
-                {{form.user_name}}
+                {{form.profession}}
+                {{ form.profession.errors }}
 
-                {% if username_errors %}
-                    <p> {{username_errors}} </p>
-                {% endif %}
+
             </div>
 
-            <div class="input-section">
+            <div class="input-section-form">
                 <h2>
                     Senha
                 </h2>
                 {{form.password1}}
+                {{ form.password1.errors }}
             </div>
 
 
-            <div class="input-section">
+            <div class="input-section-form">
                 <h2>
                     Confirma senha
                 </h2>
                 {{form.password2}}
-
-                {% if password_errors %}
-                    <p> {{password_errors}} </p>
-                {% endif %}
+                {{ form.password2.errors }}
 
             </div>
 

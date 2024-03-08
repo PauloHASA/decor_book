@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUserModel
+from .models import CustomUserModel, ClientProfile
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 
@@ -8,7 +8,7 @@ class UserAdminConfig(UserAdmin):
     list_filter = ('email', 'user_name',
                     'is_active', 'is_staff', 'is_superuser' )
     ordering = ('-start_date',)
-    list_display = ('email', 'user_name',
+    list_display = ('id', 'email', 'user_name',
                     'is_active', 'is_staff', 'is_superuser')
     fieldsets = (
         (None, {'fields': ('email', 'user_name', 'full_name')}),
@@ -26,6 +26,10 @@ class UserAdminConfig(UserAdmin):
         ),
     )
     
-
 admin.site.register(CustomUserModel, UserAdminConfig)
+
+@admin.register(ClientProfile)
+class ClienteProfileAdmin(admin.ModelAdmin):
+    list_display = ['id','user', 'profession']
+
 

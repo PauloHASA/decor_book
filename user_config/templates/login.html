@@ -14,19 +14,23 @@
                 Login
             </h1>
 
-            <div class="input-section">
+            <div class="input-section-form">
                 <h2>
                     E-mail
                 </h2>
                 {{login_form.email}}
+                {{ login_form.email.errors }}
+
             </div>
             
 
-            <div class="input-section">
+            <div class="input-section-form">
                 <h2>
                     Senha
                 </h2>
                 {{login_form.password}}
+                {{ login_form.password.errors }}
+
             </div>
 
             <div class="forgot-password">

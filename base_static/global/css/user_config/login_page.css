@@ -26,11 +26,13 @@
     margin-bottom: 54px;
 }
 
-.input-section{
+.input-section-form,
+.input-section-profession{
     margin-top: 12px;
 }
 
-.input-section h2{
+.input-section-form h2,
+.input-section-profession h2{
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -40,8 +42,8 @@
     margin-bottom: 16px;
 }
 
-.input-section input,
-.input-section select{
+.input-section-form input,
+.input-section-profession select{
     width: 320px;
     height: 48px;
     border-radius: 4px;
@@ -89,7 +91,7 @@ linear-gradient(0deg, #F8F8F8, #F8F8F8);
 }
 
 
-.input-section select{
+.input-section-form select{
     width: 335px;
     height: 48px;
     border-radius: 4px;

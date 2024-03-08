@@ -133,7 +133,7 @@
             var formData = new FormData();
             var files = $('#images')[0].files;
             for (var i = 0; i < files.length; i++) {
-                formData.append('images', files[i]);
+                formData.append('img_upload', files[i]);
             }
             
             formData.append('ajax', true);
@@ -149,6 +149,7 @@
                 contentType: false,
                 success: function(response) {
                     console.log('Imagens enviadas com sucesso!');
+                    window.location.href = urlRedirect
                 },
                 error: function(xhr, status, error) {
                     console.error('Erro ao enviar imagens:', error);
@@ -157,5 +158,6 @@
         });
     });
 </script>
+<script>var urlRedirect = "{%  url 'portfolio:timeline_portfolio' %}"</script>
 
 {% endblock main %}

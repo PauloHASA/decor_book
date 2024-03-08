@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import   authenticate
-from .models import CustomUserModel
+from .models import CustomUserModel, ClientProfile, ProfessionalProfile
+from .models import  CompanyProfile, ConstructionProfile, PROFISSION_CHOICES
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(
@@ -82,3 +83,28 @@ class LoginUserForm(forms.ModelForm):
             
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("Invalid credentials")
+            
+
+class ClientForm(forms.ModelForm):    
+    email = forms.EmailField(
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": ""})
+    )
+    full_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": ""})
+    )
+    profession = forms.CharField(
+        required=True, widget=forms.Select(choices=PROFISSION_CHOICES)
+    )
+    
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": ""}), required=True
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": ""}), required=True
+    )       
+    
+    class Meta:
+        model = ClientProfile
+        fields = ['email', 'full_name', 'profession', 'password1', 'password2']
+        

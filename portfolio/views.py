@@ -80,21 +80,21 @@ def new_project_step3(request):
     form_step_three = FormStepThree()
 
     if request.method == 'POST':
-        is_ajax = request.POST.get('ajax') == 'true'
+        # is_ajax = request.POST.get('ajax') == 'true'
         
         # Verifica se é uma solicitação AJAX
-        if is_ajax:
-            images = request.FILES.getlist('images')
-            new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
-            new_project.user = request.user
+        # if is_ajax:
+        #     images = request.FILES.getlist('images')
+        #     new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
+        #     new_project.user = request.user
             
-            # Processa as imagens
-            for image in images:
-                # Cria o objeto ImagePortfolio associado ao projeto
-                ImagePortfolio.objects.create(img_upload=image, new_project=new_project)   
+        #     # Processa as imagens
+        #     for image in images:
+        #         # Cria o objeto ImagePortfolio associado ao projeto
+        #         ImagePortfolio.objects.create(img_upload=image, new_project=new_project)   
                              
-            # Retorna uma resposta JSON indicando sucesso
-            return JsonResponse({'status': 'success'})
+        #     # Retorna uma resposta JSON indicando sucesso
+        #     return JsonResponse({'status': 'success'})
         
         # Se não for uma solicitação AJAX, processa o formulário normalmente
         form_step_three = FormStepThree(request.POST, request.FILES)
@@ -117,13 +117,13 @@ def new_project_step3(request):
 
                 
             # Criar pasta para o post
-            post_folder = FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
+            FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
             
             # Limpar dados da sessão
             del request.session['step_one_data']
             del request.session['step_two_data']
             
-            return redirect("portfolio:timeline_portfolio")
+            return JsonResponse({'status': 'success'})
         else:
             print("Erros em form_step_three:", form_step_three.errors)
     else:
