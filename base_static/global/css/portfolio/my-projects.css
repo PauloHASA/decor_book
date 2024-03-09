@@ -45,7 +45,7 @@
     width: 100%;
 
     flex-wrap: wrap;
-
+    align-content: flex-start;
     margin-top: 12px;
     
     

@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.forms.models import model_to_dict
 from django.db import transaction
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
-from user_config.models import ProfessionalProfile, CustomUserModel
 from .controller import create_save_session
+
+from user_config.models import ProfessionalProfile, CustomUserModel
 from user_config.controllers import FolderUserPost
-from django.http import JsonResponse
 
 
 import random
@@ -24,27 +26,28 @@ def portfolio(request):
 def store_portfolio(request):
     return render(request,'store_portfolio.html')
 
-def project_page(request):
-    return render(request,'project-page.html')
 
 def home_page(request):
-    user = request.user    
+    user = request.user  
+    is_authenticated = user.is_authenticated
+    if is_authenticated:
+        is_superuser = user.is_superuser
+        
+        if not is_superuser:
+            try:
+                professional_profile = ProfessionalProfile.objects.get(user=user)
+                is_professional = professional_profile.is_professional
+            except ProfessionalProfile.DoesNotExist:
+                is_professional = False
+                
+        show_button = is_superuser or is_professional
+    else:
+        show_button = False
     
-    is_useruser = user.is_superuser
-    is_professional = False
-    print(is_useruser)
-    if not is_useruser:
-        try:
-            professional_profile = ProfessionalProfile.objects.get(user=user)
-            is_professional = professional_profile.is_professional
-            print(is_professional)
-        except ProfessionalProfile.DoesNotExist:
-            is_professional = False
-            
-    show_button = is_useruser or is_professional
     return render(request, 'home-page.html', {'user': user,
                                               'show_button': show_button,
                                               })
+
 
 def new_project_step1(request): 
     form = FormStepOne()
@@ -99,23 +102,6 @@ def new_project_step3(request):
     form_step_three = FormStepThree()
 
     if request.method == 'POST':
-        # is_ajax = request.POST.get('ajax') == 'true'
-        
-        # Verifica se é uma solicitação AJAX
-        # if is_ajax:
-        #     images = request.FILES.getlist('images')
-        #     new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
-        #     new_project.user = request.user
-            
-        #     # Processa as imagens
-        #     for image in images:
-        #         # Cria o objeto ImagePortfolio associado ao projeto
-        #         ImagePortfolio.objects.create(img_upload=image, new_project=new_project)   
-                             
-        #     # Retorna uma resposta JSON indicando sucesso
-        #     return JsonResponse({'status': 'success'})
-        
-        # Se não for uma solicitação AJAX, processa o formulário normalmente
         form_step_three = FormStepThree(request.POST, request.FILES)
         if form_step_one.is_valid() and form_step_two.is_valid() and form_step_three.is_valid():
             new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
@@ -162,9 +148,36 @@ def timeline_portfolio(request):
 
 def project_page(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
+    
+    area = project.area
+    data_final_ano = project.data_final.year
+    username = project.user.full_name
+    name = project.name
+    summary = project.summary
+    style = project.style
     images = project.imageportfolio_set.all()
+    
+    user = project.user
+    
+    if user.is_authenticated and user.is_professional:
+        try:
+            professional_profile = ProfessionalProfile.objects.get(user=user)
+            profession = professional_profile.profession
+        except ProfessionalProfile.DoesNotExist:
+            profession = ""
+
+    print(style)
+    
     context = {
         'project': project,
         'images': images,
+        'area': area,
+        'profession': profession,
+        'summary': summary,
+        'data_final_ano': data_final_ano,
+        'name': name,
+        'username': username,
+        'style': style,
     }
     return render(request,'project-page.html', context)
+

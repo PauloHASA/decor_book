@@ -5,11 +5,11 @@ from .forms import UserRegistrationForm, LoginUserForm, ClientForm, Professional
 from .models import CustomUserModel, ClientProfile, ProfessionalProfile
 from django.contrib import messages
 from .controllers import FolderUserPost, CustomFormErrors
+from django_require_login.decorators import public
 
 
 def register_page(request):
     return render(request, "register-page.html")
-
 
 def register_professional(request):
     if request.method == 'POST':
@@ -40,11 +40,10 @@ def register_professional(request):
     return render( request, 'register-professional.html',{'form':form})
 
 
-
 def register_company(request):
     return render(request, "register-company.html")
+ 
     
-
 def register_client(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -72,7 +71,7 @@ def register_client(request):
     else:
         form = ClientForm()
     return render( request, 'register-client.html',{'form':form})
-            
+   
             
 def login_page(request):
     form = LoginUserForm()
@@ -100,9 +99,11 @@ def login_page(request):
             return render(request, "login.html", {"login_form":form} )
     return render(request, "login.html", {"login_form":form} )
 
+
 def logout_view(request):
     logout(request)
     return redirect('user:landing_page')
+
 
 def landing_page(request):
     return render(request, "landing_page.html")

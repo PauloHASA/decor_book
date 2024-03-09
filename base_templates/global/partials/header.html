@@ -1,10 +1,60 @@
 {% load static %}
 
-<header>
+<header class="header-timeline">
     <div class="header-logo">
-        <a href="{% url "user:landing_page" %}">
+        <a href="">
             <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
         </a>
     </div>
+
+    <nav class="nav-timeline">
+
+        <a class="" href="{% url "portfolio:home_page" %}">
+            <button>
+                Home
+            </button>
+        </a>
+
+        <a class="" href="{% url "portfolio:timeline_portfolio" %}">
+            <button >
+                Clubfolio
+            </button>
+        </a>
+
+        
+        <a class="" href="{% url "portfolio:my_projects" %}">
+            <button>
+                Meus projetos
+            </button>
+        </a>
+
+        <a class="" href="#">
+            <button>
+                Club rewards
+            </button>
+        </a>
+
+        <section>
+            <button class="user-icon-Header" popovertarget="popover-user">
+                <i class="bi bi-person-fill"></i>
+            </button>
+    
+            <div popover id="popover-user">
+                <section>
+                    <div class="spacer"></div>
+    
+                    <div class="logout-header">
+                        <a href="{% url "user:logout" %}">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <h3>Sair</h3>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+    </nav>
+
+
 
 </header>

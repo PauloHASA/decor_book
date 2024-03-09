@@ -1,53 +1,55 @@
-{% extends "global/base.html" %}
+
 {% load static %}
 
-{% block title %} Login {% endblock title %} Login 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'global/partials/head.html' %}
+    <title>DecorBook | Login</title>
+</head>
+<body>
+    {% include 'global/partials/header-pub.html' %}
 
-{% block main %}
-{% include 'global/partials/header-register.html'%}
- 
-<main class="login_page">
-    <section>
-        <form action="{% url 'user:login' %}" method="post">
-            {% csrf_token %}
-            <h1>
-                Login
-            </h1>
-
-            <div class="input-section-form">
-                <h2>
-                    E-mail
-                </h2>
-                {{login_form.email}}
-                {{ login_form.email.errors }}
-
-            </div>
-            
-
-            <div class="input-section-form">
-                <h2>
-                    Senha
-                </h2>
-                {{login_form.password}}
-                {{ login_form.password.errors }}
-
-            </div>
-
-            <div class="forgot-password">
-                <h2>
-                    Esqueceu sua senha?
-                </h2>
-            </div>
-
-            <div class="button-login">
-                <button type="submit">Login</button>
-            </div>
-
-        </form>
-    </section>
-</main>
-
-
-
-{% endblock main %}
-
+    <main class="login_page">
+        <section>
+            <form action="{% url 'user:login' %}" method="post">
+                {% csrf_token %}
+                <h1>
+                    Login
+                </h1>
+    
+                <div class="input-section-form">
+                    <h2>
+                        E-mail
+                    </h2>
+                    {{login_form.email}}
+                    {{ login_form.email.errors }}
+    
+                </div>
+                
+    
+                <div class="input-section-form">
+                    <h2>
+                        Senha
+                    </h2>
+                    {{login_form.password}}
+                    {{ login_form.password.errors }}
+    
+                </div>
+    
+                <div class="forgot-password">
+                    <h2>
+                        Esqueceu sua senha?
+                    </h2>
+                </div>
+    
+                <div class="button-login">
+                    <button type="submit">Login</button>
+                </div>
+    
+            </form>
+        </section>
+    </main>
+    
+</body>
+</html>

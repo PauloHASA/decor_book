@@ -1,43 +1,46 @@
-{% extends "global/base.html" %}
+
 {% load static %}
 
-{% block title %} Register-se {% endblock title %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'global/partials/head.html' %}
+    <title>DecorBook | Registre-se</title>
+</head>
+<body>
+    {% include 'global/partials/header-pub.html' %}
 
-{% block main %}
-{% include 'global/partials/header-register.html'%}
+    <main class="main-RegisterPage">
 
-<main class="main-RegisterPage">
-
-    <section class="central-container-RegisterPage">
-        <h1>Cadastre-se como</h1>
-
-        <div class="options-register-RegisterPage">
-
-            <a href="{% url "user:register-client" %}" class="container-register-RegisterPage">
-                <header>
-                    <img src="{% static "global/media/icons/Group-user.svg" %}" alt="" srcset="">
-                </header>
-                <footer>Cliente</footer>
-            </a>
-
-            <a href="{% url "user:register-professional" %}" class="container-register-RegisterPage">
-                <header>
-                    <img src="{% static "global/media/icons/User.svg" %}" alt="" srcset="">
-                </header>
-                <footer>Profissional</footer>
-            </a>
-
-            <a href="#" class="container-register-RegisterPage">
-                <header>
-                    <img src="{% static "global/media/icons/BoxClosed.svg" %}" alt="" srcset="">
-                </header>
-                <footer>Empresa</footer>
-            </a>
-
-        </div>
-    </section>
-</main>
-
-
-
-{% endblock main %}
+        <section class="central-container-RegisterPage">
+            <h1>Cadastre-se como</h1>
+    
+            <div class="options-register-RegisterPage">
+    
+                <a href="{% url "user:register-client" %}" class="container-register-RegisterPage">
+                    <header>
+                        <img src="{% static "global/media/icons/Group-user.svg" %}" alt="" srcset="">
+                    </header>
+                    <footer>Cliente</footer>
+                </a>
+    
+                <a href="{% url "user:register-professional" %}" class="container-register-RegisterPage">
+                    <header>
+                        <img src="{% static "global/media/icons/User.svg" %}" alt="" srcset="">
+                    </header>
+                    <footer>Profissional</footer>
+                </a>
+    
+                <a href="#" class="container-register-RegisterPage">
+                    <header>
+                        <img src="{% static "global/media/icons/BoxClosed.svg" %}" alt="" srcset="">
+                    </header>
+                    <footer>Empresa</footer>
+                </a>
+    
+            </div>
+        </section>
+    </main>
+    
+</body>
+</html>

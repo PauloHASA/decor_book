@@ -5,53 +5,6 @@
 
 {% block main %}
 
-    <header class="header-timeline">
-        <div class="header-logo">
-            <a href="#">
-                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
-            </a>
-        </div>
-
-
-
-        <nav class="nav-timeline">
-
-            <a class="" href="{% url "portfolio:home_page" %}">
-                <button>
-                    Home
-                </button>
-            </a>
-
-            <a href="{% url "portfolio:timeline_portfolio" %}">
-                <button >
-                    Clubfolio
-                </button>
-            </a>
-            
-            <a class="active" href="{% url "portfolio:my_projects" %}">
-                <button>
-                    Meus projetos
-                </button>
-            </a>
-
-            <a href="#">
-                <button>
-                    Club rewards
-                </button>
-            </a>
-
-            <a class="user" href="#">
-                <button>
-                    <i class="bi bi-person-fill"></i>
-                </button>
-            </a>
-
-        </nav>
-
-
-
-    </header>
-
     <main class="body-MyProjects">
 
         <header class="row header-MyProjects">
@@ -67,6 +20,41 @@
                 <img src="{% static "global/media/projects/living-room.svg" %}" alt="">
                 <div class="section-house">
                     <h1>Sala de estar</h1>
+                </div>
+            </a>
+
+            <a href="#" class="sections-rooms">
+                <img src="{% static "global/media/projects/Cozinha.svg" %}" alt="">
+                <div class="section-house">
+                    <h1>Cozinha</h1>
+                </div>
+            </a>
+
+            <a href="#" class="sections-rooms">
+                <img src="{% static "global/media/projects/Sala_de_estar.svg" %}" alt="">
+                <div class="section-house">
+                    <h1>Sala de Jantar</h1>
+                </div>
+            </a>
+
+            <a href="#" class="sections-rooms">
+                <img src="{% static "global/media/projects/Suite.svg" %}" alt="">
+                <div class="section-house">
+                    <h1>Suíte</h1>
+                </div>
+            </a>
+
+            <a href="#" class="sections-rooms">
+                <img src="{% static "global/media/projects/Quarto.svg" %}" alt="">
+                <div class="section-house">
+                    <h1>Quarto</h1>
+                </div>
+            </a>
+
+            <a href="#" class="sections-rooms">
+                <img src="{% static "global/media/projects/Banheiro.svg" %}" alt="">
+                <div class="section-house">
+                    <h1>Banheiro</h1>
                 </div>
             </a>
 

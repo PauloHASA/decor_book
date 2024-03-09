@@ -5,51 +5,6 @@
 
 {% block main %}
 
-    <header class="header-timeline">
-        <div class="header-logo">
-            <a href="{% url "portfolio:timeline_portfolio" %}">
-                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
-            </a>
-        </div>
-
-
-
-        <nav class="nav-timeline">
-
-            <a class="active" href="{% url "portfolio:home_page" %}">
-                <button>
-                    Home
-                </button>
-            </a>
-
-            <a href="{% url "portfolio:timeline_portfolio" %}">
-                <button >
-                    Clubfolio
-                </button>
-            </a>
-            
-            <a href="{% url "portfolio:my_projects" %}">
-                <button>
-                    Meus projetos
-                </button>
-            </a>
-
-            <a href="#">
-                <button>
-                    Club rewards
-                </button>
-            </a>
-
-            <a class="user" href="#">
-                <button>
-                    <i class="bi bi-person-fill"></i>
-                </button>
-            </a>
-
-        </nav>
-
-    </header>
-
     <main class="row project_page">
 
         <div class="col-2 user-project-data">
@@ -69,8 +24,8 @@
                 <div class="user-info">
                     <a href="{% url "portfolio:portfolio"%}">
                     </a>
-                    <h1>Martin Joseph</h1>
-                    <h2>Arquiteto e Urbanista</h2>
+                    <h1>{{username}}</h1>
+                    <h2>{{profession|capfirst}}</h2>
 
                     <div class="social-accounts">
                         <a href="#">
@@ -89,11 +44,11 @@
 
                 <div class="data-project">
                     <section>
-                        <h2>Área:</h2> <span>412m²</span>
+                        <h2>Área:</h2> <span>{{area}}</span>
                     </section>
 
                     <section>
-                        <h2>Ano:</h2> <span>2020</span>
+                        <h2>Ano:</h2> <span>{{data_final_ano}}</span>
                     </section>
 
                     <section>
@@ -104,7 +59,7 @@
 
                 <div class="about-project">
                     <h1>Sobre o projeto</h1>
-                    <h2>O projeto solicitado envolvia o planejamento e decoração de uma casa de férias na fazenda, com estilo boho norte americano.</h2>
+                    <h2>{{summary}}.</h2>
                 </div>
     
             </section>
@@ -123,7 +78,7 @@
 
             <header class="row justify-content-between">
                 <div class="col">
-                    <h1>Casa na fazenda - Boho Style</h1>
+                    <h1>{{name}} - {{style}}</h1>
                 </div>
                 
                 <div class="col-2">

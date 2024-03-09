@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
+.body-landing_page{
     overflow: hidden;
     height: 100vh;
     padding: 12px;

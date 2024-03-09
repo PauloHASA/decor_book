@@ -5,53 +5,6 @@
 
 {% block main %}
 
-    <header class="header-timeline">
-        <div class="header-logo">
-            <a href="#">
-                <img src="{% static 'global/media/img/decor-logo.svg' %}" alt="">
-            </a>
-        </div>
-
-
-
-        <nav class="nav-timeline">
-
-            <a  href="{% url "portfolio:home_page" %}">
-                <button>
-                    Home
-                </button>
-            </a>
-
-            <a class="active" href="{% url "portfolio:timeline_portfolio" %}">
-                <button >
-                    Clubfolio
-                </button>
-            </a>
-            
-            <a href="{% url "portfolio:my_projects" %}">
-                <button>
-                    Meus projetos
-                </button>
-            </a>
-
-            <a href="#">
-                <button>
-                    Club rewards
-                </button>
-            </a>
-
-            <a class="user" href="#">
-                <button>
-                    <i class="bi bi-person-fill"></i>
-                </button>
-            </a>
-
-        </nav>
-
-
-
-    </header>
-
     <main class="portifolio_timeline">
         <section class="">
                 <h1>
@@ -78,8 +31,8 @@
                                 <img src="{{ image.img_upload.url }}" alt="Project Image">
                             </div>
                             <div class="user-info-TimeLine">
-                                <h1>{{ project.user.full_name  }}</h1>
-                                <h1>{{ project.user.profession }}</h1>
+                                <h1>{{ image.new_project.user.full_name  }}</h1>
+                                <h1>{{ image.new_project.user.professionalprofile.profession|capfirst }}</h1>
                             </div>
                         </a>
                     </div>
