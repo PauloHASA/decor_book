@@ -43,7 +43,7 @@ def register_professional(request):
 def register_company(request):
     return render(request, "register-company.html")
  
-    
+ 
 def register_client(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -107,3 +107,6 @@ def logout_view(request):
 
 def landing_page(request):
     return render(request, "landing_page.html")
+
+def professional_profile(request):
+    return render(request, "professional_profile.html")
