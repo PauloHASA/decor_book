@@ -5,7 +5,7 @@ from datetime import datetime
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
-from user_config.models import ProfessionalProfile
+from user_config.models import ProfessionalProfile, CustomUserModel
 from .controller import create_save_session
 from user_config.controllers import FolderUserPost
 from django.http import JsonResponse
@@ -29,14 +29,22 @@ def project_page(request):
 
 def home_page(request):
     user = request.user    
-    if user.is_authenticated:
+    
+    is_useruser = user.is_superuser
+    is_professional = False
+    print(is_useruser)
+    if not is_useruser:
         try:
             professional_profile = ProfessionalProfile.objects.get(user=user)
             is_professional = professional_profile.is_professional
             print(is_professional)
         except ProfessionalProfile.DoesNotExist:
             is_professional = False
-    return render(request, 'home-page.html', {'user': user, 'is_professional': is_professional})
+            
+    show_button = is_useruser or is_professional
+    return render(request, 'home-page.html', {'user': user,
+                                              'show_button': show_button,
+                                              })
 
 def new_project_step1(request): 
     form = FormStepOne()

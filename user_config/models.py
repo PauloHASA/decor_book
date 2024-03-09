@@ -18,6 +18,10 @@ class CustomAccountManager(BaseUserManager):
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
+        other_fields.setdefault('is_client', True)
+        other_fields.setdefault('is_professional', True)
+        other_fields.setdefault('is_company', True)
+        other_fields.setdefault('is_construction', True)
         
         if other_fields.get('is_superuser') is not True:
             raise ValueError(
@@ -44,6 +48,10 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_client = models.BooleanField(default=True)
+    is_professional = models.BooleanField(default=True)
+    is_company = models.BooleanField(default=True)
+    is_construction = models.BooleanField(default=True)
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length = 150, unique=True)
     full_name = models.CharField(max_length = 150)

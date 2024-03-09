@@ -54,7 +54,7 @@
     
     <main class="home-page">
         <header class="header-newproject">
-            {% if user.is_authenticated and is_professional %}
+            {% if show_button %}
                 <a href="{% url "portfolio:new_project_step1"%}">
                     <button>
                         <i class="bi bi-plus-lg"></i>

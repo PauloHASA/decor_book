@@ -9,11 +9,11 @@ class UserAdminConfig(UserAdmin):
                     'is_active', 'is_staff', 'is_superuser' )
     ordering = ('-start_date',)
     list_display = ('id', 'email', 'user_name',
-                    'is_active', 'is_staff', 'is_superuser')
+                    'is_active', 'is_staff', 'is_superuser', 'is_client',)
     list_display_links = ['id', 'email', 'user_name',]
     fieldsets = (
         (None, {'fields': ('email', 'user_name', 'full_name')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser','is_client','is_professional','is_company','is_construction')}),
         ('Personal', {'fields': ('about',)}),
     )
     formfield_overrides = {
