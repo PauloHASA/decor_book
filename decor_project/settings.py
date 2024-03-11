@@ -27,7 +27,11 @@ SECRET_KEY = 'django-insecure-d1@i0iv_9m*!5qds=%hai5(flp%em_xbwo3ltz@aoeowx#p0e6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.decorbook.com.br',
+                 'www.decorbook.com.br:8000',
+                 'decorbook.com.br:8000',
+                 'decorbook.com.br'
+                 ]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
