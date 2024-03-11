@@ -194,3 +194,14 @@ linear-gradient(0deg, #F8F8F8, #F8F8F8);
     display: flex;
     gap: 12px;
 }
+
+.input-error input {
+    border: 1px solid red;
+    background: linear-gradient(0deg, #ffdfdf, #ffdfdf),
+linear-gradient(0deg, #fde6e6, #fde6e6);
+}
+
+.input-error h2 {
+    color: red;
+}
+

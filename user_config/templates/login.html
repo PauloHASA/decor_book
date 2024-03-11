@@ -17,25 +17,31 @@
                 <h1>
                     Login
                 </h1>
-    
-                <div class="input-section-form">
-                    <h2>
-                        E-mail
-                    </h2>
-                    {{login_form.email}}
-                    {{ login_form.email.errors }}
-    
+
+            {% if login_form.errors %}
+                <div class="input-section-form input-error">
+                    <h2>E-mail</h2>
+                    {{ login_form.email }}
                 </div>
-                
-    
+            {% else %}
                 <div class="input-section-form">
-                    <h2>
-                        Senha
-                    </h2>
-                    {{login_form.password}}
-                    {{ login_form.password.errors }}
-    
+                    <h2>E-mail</h2>
+                    {{ login_form.email }}
                 </div>
+            {% endif %}
+        
+            {% if login_form.errors %}
+                <div class="input-section-form input-error">
+                    <h2>Senha</h2>
+                    {{ login_form.password }}
+                </div>
+            {% else %}
+                <div class="input-section-form">
+                    <h2>Senha</h2>
+                    {{ login_form.password }}
+                    
+                </div>
+            {% endif %}
     
                 <div class="forgot-password">
                     <h2>
@@ -46,7 +52,7 @@
                 <div class="button-login">
                     <button type="submit">Login</button>
                 </div>
-    
+
             </form>
         </section>
     </main>

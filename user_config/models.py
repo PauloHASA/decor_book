@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db import IntegrityError
+
 
 PROFISSION_CHOICES = [
     ('arquiteto', 'Arquiteto'),
@@ -34,12 +36,15 @@ class CustomAccountManager(BaseUserManager):
     def create_user(self, email, user_name, full_name, password, **other_fields):
         if not email:
             raise ValueError(_('You must provide an email address'))
-        
+
         email = self.normalize_email(email)
-        user = self.model(email=email, user_name=user_name,
-                          full_name=full_name, **other_fields)
+        user = self.model(email=email, user_name=user_name, full_name=full_name, **other_fields)
         user.set_password(password)
-        user.save()
+        try:
+            user.save()
+        except IntegrityError:
+            # Handle the case when the email already exists
+            raise ValueError(_('Email address already exists'))
         return user
 
 
