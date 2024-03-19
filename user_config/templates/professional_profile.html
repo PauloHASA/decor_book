@@ -19,8 +19,8 @@
                         <img src="{% static 'global/media/img/user-profile.svg' %}" alt="">
                     </div>
                     <div class="data-and-socialaccount">
-                        <h1>Martin Joseph</h1>
-                        <h2>Arquiteto e Urbanista</h2>
+                        <h1>{{ profile.user.full_name }}</h1>
+                        <h2>{{ profile.profession }}</h2>
                     </div>
                 </div>
 
@@ -36,11 +36,21 @@
                 <h1>Projetos</h1>
             </header>
             <section class="works-ProfilePro">
-                <div class="projects-ProfilePro">
-                    <a href="#">
-                        <img src="{% static 'global/media/projects/Sofa.svg' %}" alt="">
-                    </a>
-                </div>
+                {% if projects %}
+                {% for project in projects %}
+                    {% if project.imageportfolio_set.exists %}
+                        <div class="projects-ProfilePro">
+                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                                <img src="{{ project.imageportfolio_set.first.img_upload.url }}" alt="">
+                            </a>
+                        </div>
+                    {% else %}
+                        No images found
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+
             </section>
         </main>
     </main>

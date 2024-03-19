@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm
-from .models import CustomUserModel, ClientProfile, ProfessionalProfile
 from django.contrib import messages
-from .controllers import FolderUserPost, CustomFormErrors
 from django_require_login.decorators import public
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+
+from .models import CustomUserModel, ClientProfile, ProfessionalProfile
+from .controllers import FolderUserPost, CustomFormErrors
+from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm
+
+from portfolio.models import NewProject, ImagePortfolio
 
 
 def register_page(request):
@@ -109,4 +112,22 @@ def landing_page(request):
     return render(request, "landing_page.html")
 
 def professional_profile(request):
-    return render(request, "professional_profile.html")
+    user = request.user
+    profile = get_object_or_404(ProfessionalProfile, user=user)
+    projects = NewProject.objects.filter(user=user)
+    first_project_image = None
+    
+    if projects.exists():
+        first_project = projects.first()
+        first_project_image = ImagePortfolio.objects.filter(new_project=first_project)
+        if first_project_image.exists():
+            first_project_image = first_project_image.first().img_upload.url
+            
+    
+    context = {'profile': profile,
+               'first_project_image': first_project_image,
+               'projects': projects
+               }
+        
+        
+    return render(request, "professional_profile.html", context)

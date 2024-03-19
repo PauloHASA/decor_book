@@ -26,13 +26,13 @@
             {% for project in projects %}
                 {% for image in project.images %}
                     <div class="img-timeline">
-                        <a href="{% url "portfolio:project_page" project.id %}">
+                        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
                             <div class="img-container">
                                 <img src="{{ image.img_upload.url }}" alt="Project Image">
                             </div>
                             <div class="user-info-TimeLine">
-                                <h1>{{ image.new_project.user.full_name  }}</h1>
-                                <h1>{{ image.new_project.user.professionalprofile.profession|capfirst }}</h1>
+                                <h1>{{ project.user.full_name }}</h1>
+                                <h1>{{ project.user.professionalprofile.profession|capfirst }}</h1>
                             </div>
                         </a>
                     </div>

@@ -138,12 +138,10 @@ def new_project_step3(request):
 
 
 def timeline_portfolio(request):
-    projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()
-    
+    projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
     for project in projects:
-        project.images = list(project.imageportfolio_set.all().order_by('-id'))
-          
-    return render(request,'timeline_portfolio.html', {'projects':projects})
+        project.images = list(project.imageportfolio_set.all().order_by('?'))  
+    return render(request, 'timeline_portfolio.html', {'projects': projects})
 
 
 def project_page(request, project_id):

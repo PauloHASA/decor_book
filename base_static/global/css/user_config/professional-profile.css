@@ -106,8 +106,10 @@
     gap: 12px;
 }
 
-.projects-ProfilePro a{
+.projects-ProfilePro a {
     width: 343px;
     height: 240px;
+
+    display: flex;
 
 }

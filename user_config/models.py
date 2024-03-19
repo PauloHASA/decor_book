@@ -15,6 +15,9 @@ PROFISSION_CHOICES = [
     ('pedreiro', 'Pedreiro'),
     ('pintor', 'Pintor'),
 ]
+
+
+
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, user_name, full_name, password, **other_fields):
         other_fields.setdefault('is_staff', True)
@@ -50,7 +53,6 @@ class CustomAccountManager(BaseUserManager):
 
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
-    
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_client = models.BooleanField(default=True)
