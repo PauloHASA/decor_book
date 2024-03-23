@@ -20,10 +20,7 @@ class GetnetAPI:
         auth_string = f"{client_id}:{client_secret}"
         auth_string_base64 = base64.b64encode(auth_string.encode()).decode()
         authorization_header = f"Basic {auth_string_base64}"
-        
-        print("-"*60)
-        print(authorization_header)
-        
+                
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': authorization_header

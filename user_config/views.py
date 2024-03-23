@@ -111,6 +111,8 @@ def logout_view(request):
 def landing_page(request):
     return render(request, "landing_page.html")
 
+
+
 def professional_profile(request):
     user = request.user
     profile = get_object_or_404(ProfessionalProfile, user=user)
@@ -131,3 +133,28 @@ def professional_profile(request):
         
         
     return render(request, "professional_profile.html", context)
+
+
+
+def profile(request):
+    user = request.user
+    profile = get_object_or_404(ProfessionalProfile, user=user)
+    projects = NewProject.objects.filter(user=user)
+    first_project_image = None
+    
+    if projects.exists():
+        first_project = projects.first()
+        first_project_image = ImagePortfolio.objects.filter(new_project=first_project)
+        if first_project_image.exists():
+            first_project_image = first_project_image.first().img_upload.url
+            
+    
+    context = {'profile': profile,
+               'first_project_image': first_project_image,
+               'projects': projects
+               }
+        
+        
+    return render(request, "profile.html", context)
+
+
