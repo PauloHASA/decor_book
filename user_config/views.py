@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django_require_login.decorators import public
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
 from .models import CustomUserModel, ClientProfile, ProfessionalProfile
@@ -113,10 +112,10 @@ def landing_page(request):
 
 
 
-def professional_profile(request):
-    user = request.user
-    profile = get_object_or_404(ProfessionalProfile, user=user)
-    projects = NewProject.objects.filter(user=user)
+def professional_profile(request, profile_id):
+    profile_user = get_object_or_404(CustomUserModel, pk=profile_id)
+    profile = get_object_or_404(ProfessionalProfile, user=profile_user)
+    projects = NewProject.objects.filter(user=profile_user)
     first_project_image = None
     
     if projects.exists():

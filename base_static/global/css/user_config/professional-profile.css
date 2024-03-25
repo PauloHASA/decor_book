@@ -113,3 +113,56 @@
     display: flex;
 
 }
+
+.btn-contrate button{
+    width: 226px;
+    height: 48px;
+    border-radius: 4px;
+
+    background-color: #242424;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19.36px;
+
+    color: #FAFAFA;
+
+}
+
+.content-ContractProfessional{
+    width: 388px;
+    height: 652px;
+
+}
+
+.header-ContractProfessional{
+    border-bottom: none;
+    padding:  24px 24px 12px 24px;
+}
+
+.header-ContractProfessional button{
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.header-ContractProfessional .btn-close{
+    margin-right: 1px;
+
+}
+
+
+.header-ContractProfessional h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.2px;
+
+    color: #000;
+    }

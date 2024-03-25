@@ -88,20 +88,22 @@ class LoginUserForm(forms.ModelForm):
 class ClientForm(forms.ModelForm):    
     email = forms.EmailField(
         required=True,
-        widget=forms.TextInput(attrs={"placeholder": ""})
+        widget=forms.TextInput(attrs={"placeholder": "janedoe@email.com"})
     )
     full_name = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": ""})
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome completo"})
     )
-    profession = forms.CharField(
-        required=True, widget=forms.Select(choices=PROFISSION_CHOICES)
-    )
+    profession = forms.ChoiceField(
+        required=True, 
+        widget=forms.Select(attrs={"placeholder": "Defina sua profissão"}),
+        choices=PROFISSION_CHOICES,
+        )
     
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": ""}), required=True
+        widget=forms.PasswordInput(attrs={"placeholder": "*****************"}), required=True
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": ""}), required=True
+        widget=forms.PasswordInput(attrs={"placeholder": "*****************"}), required=True
     )       
     
     class Meta:
@@ -112,25 +114,61 @@ class ClientForm(forms.ModelForm):
 class ProfessionalForm(forms.ModelForm):
     email = forms.EmailField(
         required=True,
-        widget=forms.TextInput(attrs={"placeholder":""})
+        widget=forms.TextInput(attrs={"placeholder": "janedoe@email.com"})
     )
     full_name = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": ""})
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome completo"})
     )
     site = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": ""})
+        required=True, widget=forms.TextInput(attrs={"placeholder": "www.professional.com"})
     )
-    profession = forms.CharField(
-        required=True, widget=forms.Select(choices=PROFISSION_CHOICES)
-    )
+    profession = forms.ChoiceField(
+        required=True, 
+        widget=forms.Select(attrs={"placeholder": "Defina sua profissão"}),
+        choices=PROFISSION_CHOICES,
+        )
     
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": ""}), required=True
+        widget=forms.PasswordInput(attrs={"placeholder": "*****************"}), required=True
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": ""}), required=True
+        widget=forms.PasswordInput(attrs={"placeholder": "*****************"}), required=True
     )       
 
     class Meta:
         model = ProfessionalProfile
         fields = ['email', 'full_name','site', 'profession', 'password1', 'password2']
+        
+
+class CompanyForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "janedoe@email.com"})
+    )
+    
+    full_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome completo"})
+    )
+    
+    fantasy_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome completo"})
+    )
+    
+    site = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "www.professional.com"})
+    )
+    produto = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "www.professional.com"})
+    )
+    
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "*****************"}), required=True
+    )
+    
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "*****************"}), required=True
+    )       
+
+    class Meta:
+        model = CompanyProfile
+        fields = ['email', 'full_name', 'fantasy_name', 'site', 'produto', 'password1', 'password2']

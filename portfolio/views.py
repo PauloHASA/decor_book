@@ -163,8 +163,6 @@ def project_page(request, project_id):
             profession = professional_profile.profession
         except ProfessionalProfile.DoesNotExist:
             profession = ""
-
-    print(style)
     
     context = {
         'project': project,

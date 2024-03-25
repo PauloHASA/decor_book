@@ -8,9 +8,9 @@ class UserAdminConfig(UserAdmin):
     list_filter = ('email', 'user_name',
                     'is_active', 'is_staff', 'is_superuser' )
     ordering = ('-start_date',)
-    list_display = ('id', 'email', 'user_name',
+    list_display = ('id', 'email','full_name', 'user_name',
                     'is_active', 'is_staff', 'is_superuser', 'is_client',)
-    list_display_links = ['id', 'email', 'user_name',]
+    list_display_links = ['id', 'email','full_name', 'user_name',]
     fieldsets = (
         (None, {'fields': ('email', 'user_name', 'full_name')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser','is_client','is_professional','is_company','is_construction')}),
@@ -27,17 +27,25 @@ class UserAdminConfig(UserAdmin):
         ),
     )
     
-admin.site.register(CustomUserModel, UserAdminConfig)
-
-@admin.register(ClientProfile)
 class ClienteProfileAdmin(admin.ModelAdmin):
-    list_display = ['id','user', 'profession']
-    list_display_links = ['id', 'user', 'profession',]
+    list_display = ['id', 'get_full_name', 'profession']
+    list_display_links = ['id', 'get_full_name', 'profession']
 
+    def get_full_name(self, obj):
+        return obj.user.full_name
+
+    get_full_name.short_description = 'Nome Completo'
 
 @admin.register(ProfessionalProfile)
 class ProfessionalProfileAdmin(admin.ModelAdmin):
-    list_display = ['id','user', 'profession']
-    list_display_links = ['id', 'user', 'profession',]
+    list_display = ['id', 'get_full_name', 'profession']
+    list_display_links = ['id', 'get_full_name', 'profession']
+
+    def get_full_name(self, obj):
+        return obj.user.full_name
+
+    get_full_name.short_description = 'Nome Completo'
+
+admin.site.register(ClientProfile, ClienteProfileAdmin)
 
 

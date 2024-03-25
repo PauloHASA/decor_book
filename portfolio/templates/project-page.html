@@ -22,10 +22,10 @@
                 </div>
 
                 <div class="user-info">
-                    <a href="{% url "user:professional_profile"%}">
+                    <a href="{% url "user:professional_profile" profile_id=project.user.id %}">
                         <h1>{{username}}</h1>
+                        <h2>{{profession|capfirst}}</h2>
                     </a>
-                    <h2>{{profession|capfirst}}</h2>
 
                     <div class="social-accounts">
                         <a href="#">

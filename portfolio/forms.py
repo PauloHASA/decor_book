@@ -8,9 +8,12 @@ class FormStepOne(forms.ModelForm):
         model = NewProject
         fields = ['name', 'partner', 'summary','data_initial', 'data_final']
         widgets = {
-            'data_initial': forms.DateInput(attrs={'type':'date'}),
-            'data_final': forms.DateInput(attrs={'type':'date'})
-        }
+            'name': forms.TextInput(attrs={'placeholder': 'Um nome para o seu projeto'}),
+            'partner': forms.TextInput(attrs={'placeholder': 'Adicione um parceiro ao projeto'}),
+            'summary': forms.Textarea(attrs={'placeholder': 'Escreva um breve resumo do seu projeto.'}),
+            'data_initial': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data inicial'}),
+            'data_final': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data final'}),
+            }
 
     def clear(self):
         cleaned_data = super().clean()
@@ -25,6 +28,14 @@ class FormStepTwo(forms.ModelForm):
     class Meta:
         model = NewProject
         fields = ['area', 'rooms', 'style', 'categories', 'add_stores']
+        widgets = {
+            'area': forms.TextInput(attrs={'placeholder': '100m²'}),
+            'rooms': forms.TextInput(attrs={'placeholder': '01'}),
+            'style': forms.TextInput(attrs={'placeholder': 'Estabeleça até 3 estilos principais'}),
+            'categories': forms.TextInput(attrs={'placeholder': 'Estabeleça até 3 estilos principais'}),
+            'add_stores': forms.TextInput(attrs={'placeholder': 'Adicione lojas usadas no projeto'}),
+        }
+
 
 
 class FormStepTwoOverwrite(FormStepTwo):
