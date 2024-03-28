@@ -1,0 +1,106 @@
+{% load static %}
+
+<html lang="pt-BR">
+    <head>
+        {% include 'global/partials/head.html' %}
+    
+        <title>
+            DecorBook
+        </title>
+    </head>
+
+    <body class="body-landing_page">
+        <div class="row justify-content-between">
+            <div class="col-1">
+                <div class="img-logo-LadingPage">
+                    <img src="{% static "global/media/img/decor-logo.svg" %}" alt="">
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="buttons-login-register-LandingPage">
+                    <a href="{% url "user:login" %}" class="buttons-login-LadingPage">
+                        <button>
+                            Login
+                        </button>
+                    </a>
+
+                    <a href="{% url "user:register-page" %}" class="buttons-register-LadingPage">
+                        <button>
+                            Register
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <main class="body-LobbyPayment">
+            <header class="header-LobbyPayment">
+                <h1>
+                    Escolha o melhor plano para você!
+                </h1>
+                <h2>
+                    Acesse as melhores estratégias, acesse os clientes de forma mais assertiva e personalizade para o seu negócio
+                </h2>
+            </header>
+
+            <div class="containers-LobbyPayment">
+                <div class="container-payment-LobbyPayment" id="annual-plan">
+                    <h1>
+                        Plano Anual
+                    </h1>
+                    <section class="value-payment">
+                        <h1>
+                            R$
+                        </h1>
+                        <h2>
+                            90
+                        </h2>
+                    </section>
+                    <h3>Em 12x de R$ 90 você garante seu plano e os melhores benefícios.</h3>
+                </div>
+
+                <div class="container-payment-LobbyPayment" id="monthly-plan">
+                    <h1>
+                        Plano Semestral 
+                    </h1>
+                    <section class="value-payment">
+                        <h1>
+                            R$
+                        </h1>
+                        <h2>
+                            150
+                        </h2>
+                    </section>
+                    <h3>Em 6x de R$ 150 você garante seu plano e os melhores benefícios.</h3>
+                </div>
+                
+                <div class="container-payment-LobbyPayment" id="semester-plan">
+                    <h1>
+                        Plano Mensal
+                    </h1>
+                    <section class="value-payment">
+                        <h1>
+                            R$
+                        </h1>
+                        <h2>
+                            240
+                        </h2>
+                    </section>
+                    <h3>Esse valor será creditado todo mês.</h3>
+                </div>
+
+            </div>
+
+            <div class="spacer"></div>
+
+            <footer class="footer-LobbyPayment">
+                <button>
+                    Assinar plano
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </footer>
+
+        </main>
+    </body>
+</html>

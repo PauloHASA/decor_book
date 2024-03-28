@@ -20,8 +20,10 @@ import random
 def my_projects(request):
     return render(request,'my-projects.html')
 
+
 def portfolio(request):
     return render(request,'portfolio.html')
+
 
 def store_portfolio(request):
     return render(request,'store_portfolio.html')
@@ -177,3 +179,6 @@ def project_page(request, project_id):
     }
     return render(request,'project-page.html', context)
 
+
+def lobby_payment(request):
+    return render(request, "lobby-payment.html")

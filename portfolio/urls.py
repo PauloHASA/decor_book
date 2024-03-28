@@ -16,4 +16,6 @@ urlpatterns = [
     path("new_project_step2/", views.new_project_step2, name="new_project_step2"),
     path("new_project_step3/", views.new_project_step3, name="new_project_step3"),
     
+    path("lobby-payment/", views.lobby_payment, name="lobby_payment"),
+    
 ]

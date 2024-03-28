@@ -1,0 +1,130 @@
+.body-LobbyPayment{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    height: 90%;
+}
+
+.header-LobbyPayment{
+    width: 100%;
+    margin: 80px 0px 80px 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;    
+}
+
+.header-LobbyPayment h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29.05px;
+    color: #242424;
+    
+    margin-bottom: 16px;
+}
+
+.header-LobbyPayment h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29.05px;
+
+    color: #565656;
+
+    width: 693px;
+}
+
+.containers-LobbyPayment{
+    display: flex;
+    gap: 64px;
+}
+
+.container-payment-LobbyPayment{
+    width: 348px;
+    height: 340px;
+    background-color: #161616;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-payment-LobbyPayment h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29.05px;
+
+    color: #E5E5E5;
+
+    margin-bottom: 56px;
+}
+
+.container-payment-LobbyPayment h3{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.36px;
+    text-align: center;
+    
+    color: #F8F8F8;
+
+    width: 280px;
+}
+
+.value-payment{
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.value-payment h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.2px;
+    color: #A9A9A9;
+
+    display: flex;
+    align-items: flex-start;
+}
+
+.value-payment h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 58.09px;
+    color: #E5E5E5;
+
+    }
+
+.footer-LobbyPayment{
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-LobbyPayment button{
+    width: 226px;
+    height: 48px;
+    border-radius: 4px;
+
+    background-color: #242424;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19.36px;
+    color: #FAFAFA;
+
+    padding: 12px;
+
+}
