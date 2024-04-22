@@ -85,6 +85,7 @@ section .user-info .social-accounts{
 }
 section .data-project{
     margin-top: 24px ;
+    width: 100%;
 }
 
 section .data-project section{

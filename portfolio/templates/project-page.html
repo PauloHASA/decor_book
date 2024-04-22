@@ -10,7 +10,7 @@
         <div class="col-2 user-project-data">
 
             <div class="back-page">
-                <a href="{% url "portfolio:timeline_portfolio" %}">
+                <a href="{{request.META.HTTP_REFERER}}">
                     <i class="bi bi-arrow-left"></i>
 
                 </a>
@@ -52,7 +52,7 @@
                     </section>
 
                     <section>
-                        <h2>Parceiros:</h2> <span>Canti Decor,Canti Decor, Polca Design, Coral, Cadeiras rosa, Alutol </span>
+                        <h2>Parceiros:</h2> <span> {{partner}} </span>
                     </section>
 
                 </div>

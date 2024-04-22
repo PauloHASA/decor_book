@@ -99,6 +99,11 @@
     color: #FAFAFA;
 }
 
+.search-input span input:focus{
+    outline: none;
+}
+
+
 /* Responsive section */
 
 @media screen and (max-width:1440px) {

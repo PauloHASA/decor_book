@@ -14,7 +14,7 @@
                 <div class="search-input">
                     <span>
                         <i class="bi bi-list"></i>
-                        <input type="text" placeholder="Procurar projeto, arqu...">  
+                        <input id="search-input" type="text" placeholder="Procurar projeto, arqu...">  
                         <i class="bi bi-search"></i>
                     </span>
                 </div>
@@ -25,7 +25,7 @@
         <main class="grid-wrapper">
             {% for project in projects %}
                 {% for image in project.images %}
-                    <div class="img-timeline">
+                    <div class="img-timeline" id="timeline-posts">
                         <a href="{% url 'portfolio:project_page' project_id=project.id %}">
                             <div class="img-container">
                                 <img src="{{ image.img_upload.url }}" alt="Project Image">

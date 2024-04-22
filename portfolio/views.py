@@ -155,6 +155,7 @@ def project_page(request, project_id):
     name = project.name
     summary = project.summary
     style = project.style
+    partner = project.partner
     images = project.imageportfolio_set.all()
     
     user = project.user
@@ -173,6 +174,7 @@ def project_page(request, project_id):
         'profession': profession,
         'summary': summary,
         'data_final_ano': data_final_ano,
+        'partner':partner,
         'name': name,
         'username': username,
         'style': style,

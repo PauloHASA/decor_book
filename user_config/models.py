@@ -54,6 +54,7 @@ class CustomAccountManager(BaseUserManager):
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
     is_staff = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_client = models.BooleanField(default=True)
     is_professional = models.BooleanField(default=True)
