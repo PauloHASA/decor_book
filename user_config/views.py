@@ -13,6 +13,7 @@ from portfolio.models import NewProject, ImagePortfolio
 def register_page(request):
     return render(request, "register-page.html")
 
+
 def register_professional(request):
     if request.method == 'POST':
         form = ProfessionalForm(request.POST)

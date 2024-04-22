@@ -38,7 +38,15 @@
 
 .containers-LobbyPayment{
     display: flex;
+    flex-direction: column;
+}
+
+.containers-LobbyPayment .payment-containers{
+    display: flex;
     gap: 64px;
+
+    margin-bottom: 50px;
+
 }
 
 .container-payment-LobbyPayment{
@@ -50,6 +58,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    position: relative;
 }
 
 .container-payment-LobbyPayment h1{
@@ -127,4 +137,29 @@
 
     padding: 12px;
 
+}
+
+.containers-LobbyPayment .select-LobbyPayment{
+    border: 5px solid #B9A70D
+}
+
+.container-payment-LobbyPayment .select-payment{
+    position: absolute;
+    bottom: 0px;
+
+    height: 63px;
+    width: 100%;
+    background-color: #B9A70D;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+
+    color: #FFFFFF;
+
+    display: none;
 }
