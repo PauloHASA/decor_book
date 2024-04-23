@@ -184,3 +184,7 @@ def project_page(request, project_id):
 
 def lobby_payment(request):
     return render(request, "lobby-payment.html")
+
+
+def payment_page(request):
+    return render(request, "payment-page.html")
