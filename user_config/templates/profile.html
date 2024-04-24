@@ -1,58 +1,46 @@
-{% extends "global/base.html" %}
-{% load static %}
+{% extends "global/base.html" %} {% load static %} {% block title %} Timeline
+{%endblock title %} {% block main %}
 
-{% block title %} Timeline {% endblock title %}  
+<main class="row ProfilePro">
+  <header class="row">
+    <section class="col-2 profile-info-ProfilePro">
+      <div class="back-to-timeline">
+        <a href="{{request.META.HTTP_REFERER}}">
+          <i class="bi bi-arrow-left"></i>
+        </a>
+      </div>
 
-{% block main %}
+      <div class="profile-info">
+        <div class="img-user">
+          <img src="{% static 'global/media/img/default.jpg' %}" alt="" />
+        </div>
+        <div class="data-and-socialaccount">
+          <h1>{{ profile.user.full_name }}</h1>
+          <h2>{{ profile.profession }}</h2>
+        </div>
+      </div>
+    </section>
 
-    <main class="row ProfilePro">
-        <header class="row">
-            <section class="col-2 profile-info-ProfilePro">
-                <div class="back-to-timeline">
-                    <a href="#">
-                        <i class="bi bi-arrow-left"></i>
-                    </a>
-                </div>
+    <section class="col-2 button-ProfilePro">
+      <button>Editar portfolio</button>
+    </section>
+  </header>
 
-                <div class="profile-info">
-                    <div class="img-user">
-                        <img src="{% static 'global/media/img/default.jpg' %}" alt="">
-                    </div>
-                    <div class="data-and-socialaccount">
-                        <h1>{{ profile.user.full_name }}</h1>
-                        <h2>{{ profile.profession }}</h2>
-                    </div>
-                </div>
-
-            </section>
-
-            <section class="col-2 button-ProfilePro">
-                <button>Editar portfolio</button>
-            </section>
-        </header>
-
-        <main class="row body-ProfilePro">
-            <header class="header-ProfilePro">
-                <h1>Projetos</h1>
-            </header>
-            <section class="works-ProfilePro">
-                {% if projects %}
-                {% for project in projects %}
-                    {% if project.imageportfolio_set.exists %}
-                        <div class="projects-ProfilePro">
-                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-                                <img src="{{ first_project_image }}" alt="">
-                            </a>
-                        </div>
-                    {% else %}
-                        No images found
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-
-
-            </section>
-        </main>
-    </main>
+  <main class="row body-ProfilePro">
+    <header class="header-ProfilePro">
+      <h1>Projetos</h1>
+    </header>
+    <section class="works-ProfilePro">
+      {% if projects %} {% for project in projects %} {% if
+      project.imageportfolio_set.exists %}
+      <div class="projects-ProfilePro">
+        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+          <img src="{{ first_project_image }}" alt="" />
+        </a>
+      </div>
+      {% endfor %} {% else %} No images found {% endif %}
+    </section>
+  </main>
+</main>
 
 {% endblock main %}
