@@ -18,14 +18,23 @@
 
             <section >
                 <div class="user-photo">
-                    <img src="{% static 'global/media/img/user-profile.svg' %}" alt="">
+                    <img src="{% static 'global/media/img/default.jpg' %}" alt="">
                 </div>
 
                 <div class="user-info">
-                    <a href="{% url "user:professional_profile" profile_id=project.user.id %}">
-                        <h1>{{username}}</h1>
-                        <h2>{{profession|capfirst}}</h2>
-                    </a>
+                    {% if request.user.professionalprofile %}
+                        <a href="{% url "user:profile" %}">
+                            <h1>{{username}}</h1>
+                            <h2>{{profession|capfirst}}</h2>
+                        </a>
+                    {% else %} 
+                        {% if request.user.clientprofile %}
+                        <a href="{% url "user:professional_profile" profile_id=project.user.id %}">
+                            <h1>{{username}}</h1>
+                            <h2>{{profession|capfirst}}</h2>
+                        </a>
+                        {% endif %}
+                    {% endif %}
 
                     <div class="social-accounts">
                         <a href="#">

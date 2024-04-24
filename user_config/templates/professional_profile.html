@@ -1,77 +1,126 @@
 {% extends "global/base.html" %}
 {% load static %}
 
-{% block title %} Timeline {% endblock title %}  
+{% block title %} Timeline {% endblock title %}
 
 {% block main %}
 
-    <main class="row ProfilePro">
-        <header class="row">
-            <section class="col-2 profile-info-ProfilePro">
-                <div class="back-to-timeline">
-                    <a href="{{request.META.HTTP_REFERER}}">
-                        <i class="bi bi-arrow-left"></i>
-                    </a>
+<main class="row ProfilePro">
+    <header class="row">
+        <section class="col-2 profile-info-ProfilePro">
+            <div class="back-to-timeline">
+                <a href="{{request.META.HTTP_REFERER}}">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+            </div>
+
+            <div class="profile-info">
+                <div class="img-user">
+                    <img src="{% static 'global/media/img/default.jpg' %}" alt="">
                 </div>
-
-                <div class="profile-info">
-                    <div class="img-user">
-                        <img src="{% static 'global/media/img/user-profile.svg' %}" alt="">
-                    </div>
-                    <div class="data-and-socialaccount">
-                        <h1>{{ profile.user.full_name }}</h1>
-                        <h2>{{ profile.profession }}</h2>
-                    </div>
+                <div class="data-and-socialaccount">
+                    <h1>{{ profile.user.full_name }}</h1>
+                    <h2>{{ profile.profession }}</h2>
                 </div>
+            </div>
 
-            </section>
+        </section>
 
-            <section class="col-2 button-ProfilePro btn-contrate">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Contrate {{ profile.user.full_name }}
-                  </button>
-                  
-                  <!-- Modal -->
-                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content content-ContractProfessional">
-                        <div class="modal-header header-ContractProfessional">
-                          <h1 class="modal-title" id="staticBackdropLabel">Contrate um profissional</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary">Understood</button>
-                        </div>
-                      </div>
+        <section class="col-2 button-ProfilePro btn-contrate">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Contrate {{ profile.user.full_name }}
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content content-ContractProfessional">
+                        <form action="" method="post">
+                            <div class="modal-header header-ContractProfessional">
+                                <h1 class="modal-title" id="staticBackdropLabel">Contrate um profissional</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body body-ContractProfessional">
+                                <h1>Mandar para <span>Martin Joseph</span></h1>
+                                <h2>Tipo de projeto</h2>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="checkbox-ContractProfessional">
+                                            <input type="checkbox" name="" id="">
+                                            <span>Engenharia</span>
+                                        </div>
+                                        <div class="checkbox-ContractProfessional">
+                                            <input type="checkbox" name="" id="">
+                                            <span>Arquitetura</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="checkbox-ContractProfessional">
+                                            <input type="checkbox" name="" id="">
+                                            <span>Construção</span>
+                                        </div>
+                                        <div class="checkbox-ContractProfessional">
+                                            <input type="checkbox" name="" id="">
+                                            <span>Decoração</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="select-ContractProfessional">
+                                    <h1>Área</h1>
+                                    <select>
+                                        <option value="">100m²</option>
+                                    </select>
+                                </div>
+
+                                <div class="select-ContractProfessional">
+                                    <h1>Cômodos</h1>
+                                    <select>
+                                        <option value="">01</option>
+                                    </select>
+                                </div>
+
+                                <div class="select-ContractProfessional">
+                                    <h1>Estabeleça até 3 estilos principais</h1>
+                                    <select>
+                                        <option value="">100m²</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer footer-ContractProfessional">
+                                <button type="button" class="btn btn-primary">Enviar para orçamento</button>
+                            </div>
                     </div>
-            </section>
+                    </form>
+                </div>
+        </section>
+    </header>
+
+    <main class="row body-ProfilePro">
+        <header class="header-ProfilePro">
+            <h1>Projetos</h1>
         </header>
-
-        <main class="row body-ProfilePro">
-            <header class="header-ProfilePro">
-                <h1>Projetos</h1>
-            </header>
-            <section class="works-ProfilePro">
-                {% if projects %}
-                {% for project in projects %}
-                    {% if project.imageportfolio_set.exists %}
-                        <div class="projects-ProfilePro">
-                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-                                <img src="{{ project.imageportfolio_set.first.img_upload.url }}" alt="">
-                            </a>
-                        </div>
-                    {% else %}
-                        No images found
-                    {% endif %}
-                {% endfor %}
+        <section class="works-ProfilePro">
+            {% if projects %}
+            {% for project in projects %}
+            {% if project.imageportfolio_set.exists %}
+            <div class="projects-ProfilePro">
+                <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                    <img src="{{ project.imageportfolio_set.first.img_upload.url }}" alt="">
+                </a>
+            </div>
+            {% else %}
+            No images found
+            {% endif %}
+            {% endfor %}
             {% endif %}
 
 
-            </section>
-        </main>
+        </section>
     </main>
+</main>
 
 {% endblock main %}

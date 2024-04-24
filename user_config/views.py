@@ -138,7 +138,11 @@ def professional_profile(request, profile_id):
 
 def profile(request):
     user = request.user
-    profile = get_object_or_404(ProfessionalProfile, user=user)
+    if user.is_client:
+        profile = get_object_or_404(ClientProfile, user=user)
+    else:
+        profile = get_object_or_404(ProfessionalProfile, user=user)
+    
     projects = NewProject.objects.filter(user=user)
     first_project_image = None
     
