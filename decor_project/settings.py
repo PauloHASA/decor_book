@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-d1@i0iv_9m*!5qds=%hai5(flp%em_xbwo3ltz@aoeowx#p0e6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['www.decorbook.com.br',
-#                  'www.decorbook.com.br:8000',
-#                  'decorbook.com.br:8000',
-#                  'decorbook.com.br'
+# ALLOWED_HOSTS = ['https://www.decorbook.com.br',
+#                  'https://www.decorbook.com.br:8000',
+#                  'https://decorbook.com.br:8000',
+#                  'https://decorbook.com.br'
 #                  ]
 
 ALLOWED_HOSTS = []
@@ -80,6 +80,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['https://www.decorbook.com.br',
+                        'https://decorbook.com.br'
+                        ]
+
+
 
 ROOT_URLCONF = 'decor_project.urls'
 

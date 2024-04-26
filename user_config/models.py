@@ -56,16 +56,17 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    is_client = models.BooleanField(default=True)
-    is_professional = models.BooleanField(default=True)
-    is_company = models.BooleanField(default=True)
-    is_construction = models.BooleanField(default=True)
+    
+    is_client = models.BooleanField(default=False)
+    is_professional = models.BooleanField(default=False)
+    is_company = models.BooleanField(default=False)
+    is_construction = models.BooleanField(default=False)
+
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length = 150, unique=True)
     full_name = models.CharField(max_length = 150)
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_('about'), max_length=500, blank=True)
-    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'full_name']
     

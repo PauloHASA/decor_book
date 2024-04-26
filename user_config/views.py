@@ -32,6 +32,8 @@ def register_professional(request):
                                                     user_name=email,
                                                     full_name=full_name,
                                                     password=password1)
+            user.is_professional = True
+            user.save()
             professional_profile = ProfessionalProfile.objects.create(user=user, profession=profession, site=site)
             createfolder = FolderUserPost.create_user_folder(user.id)
             return redirect('user:login')
@@ -64,7 +66,8 @@ def register_client(request):
                                                        user_name=email,
                                                        full_name=full_name,
                                                        password=password1)
-            
+            user.is_client = True
+            user.save()
             cliente_profile = ClientProfile.objects.create(user=user, profession=profession)
             createfolder = FolderUserPost.create_user_folder(user.id)
             return redirect("user:login")
@@ -136,12 +139,10 @@ def professional_profile(request, profile_id):
 
 
 
-def profile(request):
+def profile_client(request):
     user = request.user
-    if user.is_client:
-        profile = get_object_or_404(ClientProfile, user=user)
-    else:
-        profile = get_object_or_404(ProfessionalProfile, user=user)
+    
+    profile = get_object_or_404(ClientProfile, user=user)
     
     projects = NewProject.objects.filter(user=user)
     first_project_image = None
@@ -159,6 +160,32 @@ def profile(request):
                }
         
         
-    return render(request, "profile.html", context)
+    return render(request, "profile_client.html", context)
+
+
+
+
+def profile_professional(request):
+    user = request.user
+    
+    profile = get_object_or_404(ProfessionalProfile, user=user)
+    
+    projects = NewProject.objects.filter(user=user)
+    first_project_image = None
+    
+    if projects.exists():
+        first_project = projects.first()
+        first_project_image = ImagePortfolio.objects.filter(new_project=first_project)
+        if first_project_image.exists():
+            first_project_image = first_project_image.first().img_upload.url
+            
+    
+    context = {'profile': profile,
+               'first_project_image': first_project_image,
+               'projects': projects
+               }
+        
+        
+    return render(request, "profile_professional.html", context)
 
 

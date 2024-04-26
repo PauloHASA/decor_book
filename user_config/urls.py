@@ -16,5 +16,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     
     path('professional_profile/<int:profile_id>/', views.professional_profile, name='professional_profile'),
-    path('profile/', views.profile, name='profile'),
+    path('profile_client/', views.profile_client, name='profile_client'),
+    path('profile_professional/', views.profile_professional, name='profile_professional'),
 ]
