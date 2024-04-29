@@ -237,3 +237,74 @@
     height: 78px;
     border-radius: 50%;
 }
+
+
+.modal-dialog-ProfilePro{
+    max-width: 715px;
+}
+
+
+.modal-header-ProfilePro{
+
+}
+
+
+.modal-header-ProfilePro button{
+    border: none;
+    background-color: transparent;
+    width: auto;
+}
+
+.modal-header .btn-close-ProfilePro{
+    margin-right: 26px;
+    
+}
+
+.modal-content-ProfilePro{
+    height: 594px;
+}
+
+
+.modal-body-ProfilePro{
+    height: auto;
+}
+
+
+.modal-body-ProfilePro section,
+.modal-body-ProfilePro section form{
+    height: 100%;
+}
+
+
+.modal-body-ProfilePro section form{
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+
+.change-img-ProfilePro{
+    position: absolute;
+    top: 1px;
+    right: 1px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    width: 312px;
+}
+
+.change-img-ProfilePro img{
+    width: 164px;
+    height: 164px;
+    border-radius: 50%;
+}
+
+
+
+.btn-section-ProfilePro{
+    display: flex;
+    justify-content: space-between;
+}

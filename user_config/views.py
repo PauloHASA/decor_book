@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
 from .models import CustomUserModel, ClientProfile, ProfessionalProfile
 from .controllers import FolderUserPost, CustomFormErrors
-from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm
+from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm, ProfileEditForm
 
 from portfolio.models import NewProject, ImagePortfolio
 
@@ -167,9 +168,7 @@ def profile_client(request):
 
 def profile_professional(request):
     user = request.user
-    
     profile = get_object_or_404(ProfessionalProfile, user=user)
-    
     projects = NewProject.objects.filter(user=user)
     first_project_image = None
     
@@ -178,14 +177,33 @@ def profile_professional(request):
         first_project_image = ImagePortfolio.objects.filter(new_project=first_project)
         if first_project_image.exists():
             first_project_image = first_project_image.first().img_upload.url
-            
     
-    context = {'profile': profile,
-               'first_project_image': first_project_image,
-               'projects': projects
-               }
-        
-        
+    edit_profile_form = ProfileEditForm(instance=user)  
+    
+    context = {
+        'profile': profile,
+        'first_project_image': first_project_image,
+        'projects': projects,
+        'edit_profile_form': edit_profile_form, 
+    }
+    
     return render(request, "profile_professional.html", context)
+
+
+@login_required
+def save_profile(request):
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('user:profile_professional')  # Redireciona para a página de perfil após salvar
+        else:
+            # Se o formulário não for válido, você pode lidar com isso aqui
+            # Por exemplo, pode renderizar o mesmo template com o formulário e exibir mensagens de erro
+            # Ou redirecionar para uma página de erro
+            pass
+    else:
+        # Se não for uma solicitação POST, você pode redirecionar para a página de perfil ou fazer outra coisa
+        pass
 
 

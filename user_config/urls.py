@@ -18,4 +18,6 @@ urlpatterns = [
     path('professional_profile/<int:profile_id>/', views.professional_profile, name='professional_profile'),
     path('profile_client/', views.profile_client, name='profile_client'),
     path('profile_professional/', views.profile_professional, name='profile_professional'),
+    path('save-profile/', views.save_profile, name='save_profile'),
 ]
+

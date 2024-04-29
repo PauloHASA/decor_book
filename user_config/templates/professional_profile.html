@@ -105,17 +105,17 @@
         </header>
         <section class="works-ProfilePro">
             {% if projects %}
-            {% for project in projects %}
-            {% if project.imageportfolio_set.exists %}
-            <div class="projects-ProfilePro">
-                <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-                    <img src="{{ project.imageportfolio_set.first.img_upload.url }}" alt="">
-                </a>
-            </div>
-            {% else %}
-            No images found
-            {% endif %}
-            {% endfor %}
+                {% for project in projects %}
+                    {% if project.imageportfolio_set.exists %}
+                        <div class="projects-ProfilePro">
+                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                                <img src="{{ project.imageportfolio_set.first.img_upload.url }}" alt="">
+                            </a>
+                        </div>
+                    {% else %}
+                        No images found
+                    {% endif %}
+                {% endfor %}
             {% endif %}
 
 

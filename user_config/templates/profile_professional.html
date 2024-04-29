@@ -22,7 +22,90 @@
     </section>
 
     <section class="col-2 button-ProfilePro">
-      <button>Editar portfolio</button>
+
+        <button type="button" class="" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+          Editar portfolio
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-ProfilePro">
+
+            <div class="modal-content modal-content-ProfilePro">
+
+              <div class="modal-header modal-header-ProfilePro">
+                <h1 class="modal-title fs-5" id="editProfileModalLabel">Editar Perfil</h1>
+                <button type="button" class="btn-close btn-close-ProfilePro" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <div class="modal-body modal-body-ProfilePro login_page">
+                <section>
+                  <form action="{% url 'user:save_profile' %}" method="POST">
+                    {% csrf_token %}
+                      <div class="input-section-form">
+                          <h2>
+                              Nome Completo
+                          </h2>
+                          {{ edit_profile_form.full_name }}
+                      </div>
+          
+                      <div class="input-section-form">
+                          <h2>
+                              E-mail
+                          </h2>
+                          {{ edit_profile_form.email }}
+                      </div>
+
+                      <div class="cols-2-input">               
+                          <div class="input-section-profession">
+                              <h2>
+                                  Profissão
+                              </h2>
+                              {{ edit_profile_form.profession }}
+                          </div>
+              
+                          <div class="input-section-form">
+                              <h2>
+                                  Site
+                              </h2>
+                              {{ edit_profile_form.site }}
+                          </div>
+                      </div>
+
+                      <div class="cols-2-input">               
+                          <div class="input-section-form">
+                              <h2>
+                                  Senha antiga
+                              </h2>
+                              {{ edit_profile_form.old_password }}
+                          </div>
+          
+                          <div class="input-section-form">
+                            <h2>
+                                Nova senha
+                            </h2>
+                            {{ edit_profile_form.new_password }}
+                        </div>
+                    </div>
+                    
+                    <div class="spacer"></div>
+
+                    <div class="btn-section-ProfilePro">
+                      <button>Cancelar</button>
+                      <button type="submit">Salvar</button>
+                    </div>
+
+                    <div class="change-img-ProfilePro">
+                      <img id="profile-image" src="{% static 'global/media/img/default.jpg' %}" alt="" />
+                      <input type="file" id="profile-picture-input" name="profile_picture">
+                    </div>
+
+                  </form>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
   </header>
 
@@ -31,14 +114,19 @@
       <h1>Projetos</h1>
     </header>
     <section class="works-ProfilePro">
-      {% if projects %} {% for project in projects %} {% if
-      project.imageportfolio_set.exists %}
-      <div class="projects-ProfilePro">
-        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-          <img src="{{ first_project_image }}" alt="" />
-        </a>
-      </div>
-      {% endfor %} {% else %} No images found {% endif %}
+      {% if projects %}
+        {% for project in projects %}
+            {% if project.imageportfolio_set.exists %}
+                <div class="projects-ProfilePro">
+                    <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                        <img src="{{ project.imageportfolio_set.first.img_upload.url }}" alt="">
+                    </a>
+                </div>
+            {% else %}
+                No images found
+            {% endif %}
+        {% endfor %}
+      {% endif %}
     </section>
   </main>
 </main>

@@ -3,7 +3,12 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import   authenticate
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import make_password
+from django.forms import FileInput
+
 from .models import CustomUserModel, ClientProfile, ProfessionalProfile
 from .models import  CompanyProfile, ConstructionProfile, PROFISSION_CHOICES
 
@@ -172,3 +177,74 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = CompanyProfile
         fields = ['email', 'full_name', 'fantasy_name', 'site', 'produto', 'password1', 'password2']
+
+
+
+
+class ProfessionalProfileForm(forms.ModelForm):
+    profile_picture = forms.ImageField(label='Imagem de Perfil', required=False, widget=FileInput(attrs={'id': 'profile-picture-input'}))
+    
+    class Meta:
+        model = ProfessionalProfile
+        fields = ['profession', 'site', 'profile_picture']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfessionalProfileForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = False
+
+class ProfileEditForm(forms.ModelForm):
+    email = forms.EmailField(disabled=True)
+    old_password = forms.CharField(label='Senha Antiga', widget=forms.PasswordInput, required=False)
+    new_password = forms.CharField(label='Nova Senha', widget=forms.PasswordInput, required=False)
+
+    # Transformamos profession e site em menus suspensos
+    profession = forms.ChoiceField(choices=PROFISSION_CHOICES, required=False)
+    site = forms.CharField(required=False)
+
+    class Meta:
+        model = CustomUserModel
+        fields = ['email', 'full_name']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileEditForm, self).__init__(*args, **kwargs)
+        if 'instance' in kwargs:
+            instance = kwargs['instance']
+            if hasattr(instance, 'professionalprofile'):
+                professional_profile = instance.professionalprofile
+                self.fields['profession'].initial = professional_profile.profession
+                self.fields['site'].initial = professional_profile.site
+
+    def clean_email(self):
+        return self.instance.email
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get('old_password')
+        if old_password and not self.instance.check_password(old_password):
+            raise forms.ValidationError("Senha antiga incorreta.")
+        return old_password
+
+    def save(self, commit=True):
+        user = super(ProfileEditForm, self).save(commit=False)
+        if commit:
+            # Salva a nova senha se fornecida
+            new_password = self.cleaned_data.get('new_password')
+            if new_password:
+                user.password = make_password(new_password)
+            user.save()
+
+            # Salva ou atualiza os dados do perfil profissional
+            if hasattr(self.instance, 'professionalprofile'):
+                professional_profile = self.instance.professionalprofile
+                professional_profile.profession = self.cleaned_data.get('profession')
+                professional_profile.site = self.cleaned_data.get('site')
+                professional_profile.save()
+            else:
+                # Cria um novo perfil profissional se não existir
+                professional_profile = ProfessionalProfile(
+                    user=user,
+                    profession=self.cleaned_data.get('profession'),
+                    site=self.cleaned_data.get('site')
+                )
+                professional_profile.save()
+        return user

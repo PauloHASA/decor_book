@@ -39,7 +39,7 @@ class FolderUserPost:
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
         filepath = f"users_folder/{user_id}/{post_id}//img_{timestamp}_{filename}"
         
-        print("Caminho da imagem:", filepath)  # Adicione esta linha para imprimir o caminho
+        print("Caminho da imagem:", filepath) 
         return filepath
 
 
