@@ -12,7 +12,7 @@
 
       <div class="profile-info">
         <div class="img-user">
-          <img src="{% static 'global/media/img/default.jpg' %}" alt="" />
+          <img src="{{user.avatar}}" alt="">
         </div>
         <div class="data-and-socialaccount">
           <h1>{{ profile.user.full_name }}</h1>
@@ -40,7 +40,7 @@
 
               <div class="modal-body modal-body-ProfilePro login_page">
                 <section>
-                  <form action="{% url 'user:save_profile' %}" method="POST">
+                  <form action="{% url 'user:save_profile' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                       <div class="input-section-form">
                           <h2>
@@ -97,7 +97,7 @@
 
                     <div class="change-img-ProfilePro">
                       <img id="profile-image" src="{% static 'global/media/img/default.jpg' %}" alt="" />
-                      <input type="file" id="profile-picture-input" name="profile_picture">
+                      {{ edit_profile_picture.profile_picture }}
                     </div>
 
                   </form>

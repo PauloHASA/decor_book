@@ -8,9 +8,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password
 from django.forms import FileInput
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from .models import CustomUserModel, ClientProfile, ProfessionalProfile
 from .models import  CompanyProfile, ConstructionProfile, PROFISSION_CHOICES
+from .controllers import FolderUserPost
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(
@@ -193,12 +195,22 @@ class ProfessionalProfileForm(forms.ModelForm):
         for field in self.fields.values():
             field.required = False
 
+    def save(self, commit=True):
+        professional_profile = super(ProfessionalProfileForm, self).save(commit=False)
+        
+        if 'profile_picture' in self.cleaned_data:
+            image = self.cleaned_data['profile_picture']
+            if image:
+                professional_profile.profile_picture = image
+                if commit:
+                    professional_profile.save()
+        
+        return professional_profile
 class ProfileEditForm(forms.ModelForm):
     email = forms.EmailField(disabled=True)
     old_password = forms.CharField(label='Senha Antiga', widget=forms.PasswordInput, required=False)
     new_password = forms.CharField(label='Nova Senha', widget=forms.PasswordInput, required=False)
 
-    # Transformamos profession e site em menus suspensos
     profession = forms.ChoiceField(choices=PROFISSION_CHOICES, required=False)
     site = forms.CharField(required=False)
 
@@ -227,24 +239,25 @@ class ProfileEditForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(ProfileEditForm, self).save(commit=False)
         if commit:
-            # Salva a nova senha se fornecida
             new_password = self.cleaned_data.get('new_password')
             if new_password:
                 user.password = make_password(new_password)
             user.save()
 
-            # Salva ou atualiza os dados do perfil profissional
             if hasattr(self.instance, 'professionalprofile'):
                 professional_profile = self.instance.professionalprofile
                 professional_profile.profession = self.cleaned_data.get('profession')
                 professional_profile.site = self.cleaned_data.get('site')
+                if 'profile_picture' in self.cleaned_data:
+                    professional_profile.profile_picture = self.cleaned_data['profile_picture']
                 professional_profile.save()
             else:
-                # Cria um novo perfil profissional se não existir
                 professional_profile = ProfessionalProfile(
                     user=user,
                     profession=self.cleaned_data.get('profession'),
                     site=self.cleaned_data.get('site')
                 )
+                if 'profile_picture' in self.cleaned_data:
+                    professional_profile.profile_picture = self.cleaned_data['profile_picture']
                 professional_profile.save()
         return user

@@ -232,7 +232,8 @@
     border-top: 0px;
 }
 
-.img-user{
+.img-user,
+.img-user img{
     width: 78px;
     height: 78px;
     border-radius: 50%;

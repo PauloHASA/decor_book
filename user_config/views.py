@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
 from .models import CustomUserModel, ClientProfile, ProfessionalProfile
 from .controllers import FolderUserPost, CustomFormErrors
-from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm, ProfileEditForm
+from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm, ProfileEditForm, ProfessionalProfileForm
 
 from portfolio.models import NewProject, ImagePortfolio
 
@@ -179,12 +179,14 @@ def profile_professional(request):
             first_project_image = first_project_image.first().img_upload.url
     
     edit_profile_form = ProfileEditForm(instance=user)  
+    edit_profile_picture = ProfessionalProfileForm()  
     
     context = {
         'profile': profile,
         'first_project_image': first_project_image,
         'projects': projects,
         'edit_profile_form': edit_profile_form, 
+        'edit_profile_picture': edit_profile_picture, 
     }
     
     return render(request, "profile_professional.html", context)
@@ -194,16 +196,15 @@ def profile_professional(request):
 def save_profile(request):
     if request.method == 'POST':
         form = ProfileEditForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('user:profile_professional')  # Redireciona para a página de perfil após salvar
-        else:
-            # Se o formulário não for válido, você pode lidar com isso aqui
-            # Por exemplo, pode renderizar o mesmo template com o formulário e exibir mensagens de erro
-            # Ou redirecionar para uma página de erro
-            pass
+        profile_form = ProfessionalProfileForm(request.POST, request.FILES, instance=request.user.professional_profile)
+        
+        if form.is_valid() and profile_form.is_valid():
+            user_form = form.save(commit=False)
+            profile_form_instance = profile_form.save(commit=False)
+            user_form.save()
+            profile_form_instance.user = request.user
+            profile_form_instance.save()
+            return redirect('user:profile_professional')  
     else:
-        # Se não for uma solicitação POST, você pode redirecionar para a página de perfil ou fazer outra coisa
         pass
-
 

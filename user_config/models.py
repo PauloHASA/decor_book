@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import IntegrityError
+from django.templatetags.static import static
 
 from .controllers import FolderUserPost
 
@@ -72,23 +73,33 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'full_name']
     
+    @property
+    def avatar(self):
+        try:
+            if self.is_client:
+                avatar = self.client_profile.profile_picture.url
+            elif self.is_professional:
+                avatar = self.professional_profile.profile_picture.url
+        except:
+            avatar = static('global/media/img/default.jpg')
+        return avatar
+    
     def __str__(self):
         return self.user_name
     
 
 class ClientProfile(models.Model):
-    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE, related_name="client_profile")
     is_client = models.BooleanField(default=True)
     profession = models.CharField(max_length=100, choices=PROFISSION_CHOICES)
 
 
 class ProfessionalProfile(models.Model):
-    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE, related_name="professional_profile")
     is_professional = models.BooleanField(default=True)
     profession = models.CharField(max_length=100, choices=PROFISSION_CHOICES)
     site = models.CharField(max_length=100)
-    profile_picture = models.ImageField(upload_to=FolderUserPost.create_user_folder, blank=True, null=True)
-
+    profile_picture = models.ImageField(upload_to="users_folder/profile_picture/", blank=True, null=True)
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)

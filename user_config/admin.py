@@ -5,8 +5,9 @@ from django.forms import TextInput, Textarea
 from django.utils.html import format_html
 
 class UserAdminConfig(UserAdmin):
-    search_fields = ('email', 'user_name',)
-    list_filter = ('email', 'user_name', 'is_active', 'is_paid')
+    model = CustomUserModel
+    search_fields = ('email', 'full_name',)  # Removendo 'user_name' dos search_fields
+    list_filter = ('email', 'is_active', 'is_paid')  # Removendo 'user_name' dos list_filter
     ordering = ('-start_date',)
     list_display = ('id', 'full_name', 'email', 'is_active', 'is_paid')
     list_display_links = ['id', 'email', 'full_name',]
@@ -30,8 +31,6 @@ class UserAdminConfig(UserAdmin):
 admin.site.register(CustomUserModel, UserAdminConfig)
 CustomUserModel._meta.verbose_name_plural = 'Users'
 admin.site.site_header = 'Administração do Sistema'
-
-
 
 class ClienteProfileAdmin(admin.ModelAdmin):
     list_display = ['id', 'get_full_name', 'profession']

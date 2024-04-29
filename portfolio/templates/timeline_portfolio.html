@@ -32,7 +32,11 @@
                             </div>
                             <div class="user-info-TimeLine">
                                 <h1>{{ project.user.full_name }}</h1>
-                                <h1>{{ project.user.professionalprofile.profession|capfirst }}</h1>
+                                {% if user.is_staff %} 
+                                    <h1>Super usuario</h1>
+                                {% else %}
+                                    <h1>{{ project.user.professionalprofile.profession|capfirst }}</h1>
+                                {% endif %}
                             </div>
                         </a>
                     </div>
