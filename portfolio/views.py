@@ -188,7 +188,7 @@ def project_page(request, project_id):
     }
     return render(request,'project-page.html', context)
 
-@login_required
+
 def project_page_pub(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
