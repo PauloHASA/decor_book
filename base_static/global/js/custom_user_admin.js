@@ -33,3 +33,20 @@ function togglePaid(checkbox) {
             console.error('Erro:', error);
         });
 }
+
+
+
+const linkElement = document.getElementById('pub-ProjectPage-link');
+const buttonElement = document.getElementById('pub-ProjectPage-btn');
+const modalElement = document.getElementById('modal-PubPage');
+
+linkElement.addEventListener('click', toggleModalDisplay);
+buttonElement.addEventListener('click', toggleModalDisplay);
+
+function toggleModalDisplay() {
+    if (modalElement.style.display === 'none' || modalElement.style.display === '') {
+        modalElement.style.display = 'flex';
+    } else {
+        modalElement.style.display = 'none';
+    }
+}

@@ -18,7 +18,11 @@
 
             <section >
                 <div class="user-photo">
-                    <img src="{{ project.user.professional_profile.profile_picture.url}}" alt="">
+                    {% if project.user.professional_profile.profile_picture %}
+                        <img src="{{ project.user.professional_profile.profile_picture.url }}" alt="">
+                    {% else %}
+                        <img src="{{ '/media/img/default.jpg' }}" alt="">
+                    {% endif %}
                 </div>
 
                 <div class="user-info">
