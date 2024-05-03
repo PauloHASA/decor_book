@@ -43,20 +43,22 @@
                 <section>
                     <h1>{{ request.user.full_name }}</h1>
                     
-                    {% if request.user.professionalprofile %}
-                        <h2>{{ request.user.professionalprofile.profession|capfirst }}</h2>
-                    {% elif request.user.clientprofile %}
-                        <h2>{{ request.user.clientprofile.profession|capfirst }}</h2>
+                    {% if request.user.is_professional %}
+                        <h2>{{ request.user.professional_profile.profession|capfirst }}</h2>
+                    {% elif request.user.is_client %}
+                        <h2>{{ request.user.client_profile.profession|capfirst }}</h2>
+                    {% elif request.user.is_staff %}
+                        <h2>Super usuário</h2>
                     {% else %}
-                        <h2>Super usuario</h2>
+                        <p>Usuário não é cliente, profissional ou super usuário</p>
                     {% endif %}
 
                     {% if user.is_authenticated %}
-                        {% if request.user.clientprofile %}
+                        {% if request.user.is_client %}
                             <a href="{% url 'user:profile_client' %}">
                                 <h4>Ir para meu perfil</h4>
                             </a>
-                        {% elif request.user.professionalprofile %}
+                        {% elif request.user.is_professional %}
                             <a href="{% url 'user:profile_professional' %}">
                                 <h4>Ir para meu perfil</h4>
                             </a>

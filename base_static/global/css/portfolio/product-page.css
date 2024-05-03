@@ -24,7 +24,8 @@
     flex-direction: column;
 }
 
-.user-project-data section .user-photo{
+.user-project-data section .user-photo,
+.user-project-data section .user-photo img{
     width: 78px;
     height: 78px;
     

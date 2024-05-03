@@ -11,6 +11,7 @@ from .forms import UserRegistrationForm, LoginUserForm, ClientForm, Professional
 from portfolio.models import NewProject, ImagePortfolio
 
 
+
 def register_page(request):
     return render(request, "register-page.html")
 
@@ -113,7 +114,15 @@ def logout_view(request):
 
 
 def landing_page(request):
-    return render(request, "landing_page.html")
+    projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
+    for project in projects:
+        project.images = list(project.imageportfolio_set.all().order_by('?'))  
+    
+    context = {
+                'projects': projects,
+                }
+
+    return render(request, "landing_page.html", context)
 
 
 

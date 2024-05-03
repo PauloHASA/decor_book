@@ -35,7 +35,7 @@
                                 {% if user.is_staff %} 
                                     <h1>Super usuario</h1>
                                 {% else %}
-                                    <h1>{{ project.user.professionalprofile.profession|capfirst }}</h1>
+                                    <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
                                 {% endif %}
                             </div>
                         </a>

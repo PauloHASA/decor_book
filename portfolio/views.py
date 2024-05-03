@@ -159,13 +159,16 @@ def project_page(request, project_id):
     images = project.imageportfolio_set.all()
     
     user = project.user
+    name = user.full_name
     
+    user = project.user
+    profession = ""
     if user.is_authenticated and user.is_professional:
         try:
             professional_profile = ProfessionalProfile.objects.get(user=user)
             profession = professional_profile.profession
         except ProfessionalProfile.DoesNotExist:
-            profession = ""
+            pass
     
     context = {
         'project': project,
@@ -178,6 +181,7 @@ def project_page(request, project_id):
         'name': name,
         'username': username,
         'style': style,
+        'name': name
     }
     return render(request,'project-page.html', context)
 

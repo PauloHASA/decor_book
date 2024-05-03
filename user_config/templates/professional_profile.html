@@ -16,11 +16,11 @@
 
             <div class="profile-info">
                 <div class="img-user">
-                    <img src="{% static 'global/media/img/default.jpg' %}" alt="">
+                    <img src="{{ profile.user.professional_profile.profile_picture.url}}" alt="">
                 </div>
                 <div class="data-and-socialaccount">
                     <h1>{{ profile.user.full_name }}</h1>
-                    <h2>{{ profile.profession }}</h2>
+                    <h2>{{ profile.get_profession_display }}</h2>
                 </div>
             </div>
 

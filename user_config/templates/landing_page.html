@@ -96,52 +96,28 @@
         </div>
 
         <div class="row body-LandingPage contents-LandingPage" id="section-2">
-            <header class="header-section2-top">
-                <h1>Novidades</h1>
-            </header>
-
-            <div class="row section-news-LandingPage">
-                <div class="col">
-                    <img src="{% static "global/media/landing_page/Img-6.svg" %}" alt="">
-                </div>
-                <div class="col">
-
-                    <img src="{% static "global/media/landing_page/Img-7.svg" %}" alt="">
-                </div>
-                <div class="col">
-
-                    <img src="{% static "global/media/landing_page/Img-8.svg" %}" alt="">
-                </div>
-                <div class="col">
-
-                    <img src="{% static "global/media/landing_page/Img-9.svg" %}" alt="">
-                </div>
-                <div class="col">
-
-                    <img src="{% static "global/media/landing_page/Img-10.svg" %}" alt="">
-                </div>
-            </div>
-
-            <header class="header-section2-top margin-top-LandingPage">
-                <h1>Projetos do mês</h1>
-            </header>
-
-            <div class="row month-projects-LandingPage">
-                <div class="col-2">
-                    <img src="{% static "global/media/timeline/first-col.svg" %}" alt="">
-                    <h2>
-                        Conheça nossos profissionais mais exclusivos para o seu projeto!
-                    </h2>
-                </div>
-                <div class="col">
-                    <img src="{% static "global/media/timeline/img-mid-LandingPage.svg" %}" alt="">
-
-                </div>
-                <div class="col-2">
-                    <img src="{% static "global/media/timeline/img-LandingPage.svg" %}" alt="">
-                </div>
-            </div>
-
+            <main class="grid-wrapper">
+                {% for project in projects %}
+                    {% for image in project.images %}
+                        <div class="img-timeline" id="timeline-posts">
+                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                                <div class="img-container">
+                                    <img src="{{ image.img_upload.url }}" alt="Project Image">
+                                </div>
+                                <div class="user-info-TimeLine">
+                                    <h1>{{ project.user.full_name }}</h1>
+                                    {% if user.is_staff %} 
+                                        <h1>Super usuario</h1>
+                                    {% else %}
+                                        <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </main>
+            
             <footer>
                 <a href="">
 
@@ -154,31 +130,6 @@
              </footer>
         </div>
         
-        <div class="row footer-LandingPage">
-            <div class="col-2">
-                <ul>
-                    <li>Quem somos</li>
-                    <li>Fale conosco</li>
-                    <li>Fale com o CEO</li>
-                </ul>
-            </div>
-            <div class="col-2">
-                <ul>
-                    <li>Política de privacidade</li>
-                    <li>Termos de uso</li>
-                    <li>Política de publicações</li>
-                    <li>Direitos autorais </li>
-                </ul>
-            </div>
-            <div class="col">
-
-            </div>
-            <div class="col-2">
-                <h2>
-                    CNPJ: 09632531000171 MCBV Tecnologia LTDA
-                </h2>
-            </div>
-        </div>
 
     </body>
 </html>
