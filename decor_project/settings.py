@@ -11,8 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 
 import os
+import _locale
+
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d1@i0iv_9m*!5qds=%hai5(flp%em_xbwo3ltz@aoeowx#p0e6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 # ALLOWED_HOSTS = ['https://www.decorbook.com.br',
 #                  'https://www.decorbook.com.br:8000',
@@ -56,6 +62,7 @@ INSTALLED_APPS = [
     #Custom Apps
     'user_config',
     'portfolio',
+    'campaigns',
 
     #All Auth Library
     'allauth',
@@ -108,14 +115,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'decor_project.wsgi.application'
 
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
