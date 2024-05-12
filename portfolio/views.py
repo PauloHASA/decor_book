@@ -3,6 +3,7 @@ from django.forms.models import model_to_dict
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
@@ -16,19 +17,19 @@ from user_config.controllers import FolderUserPost
 import random
 
 # Create your views here.
-
+@login_required
 def my_projects(request):
     return render(request,'my-projects.html')
 
-
+@login_required
 def portfolio(request):
     return render(request,'portfolio.html')
 
-
+@login_required
 def store_portfolio(request):
     return render(request,'store_portfolio.html')
 
-
+@login_required
 def home_page(request):
     user = request.user  
     is_authenticated = user.is_authenticated
@@ -39,10 +40,12 @@ def home_page(request):
             try:
                 professional_profile = ProfessionalProfile.objects.get(user=user)
                 is_professional = professional_profile.is_professional
+                is_paid = user.is_paid
+
             except ProfessionalProfile.DoesNotExist:
                 is_professional = False
                 
-        show_button = is_superuser or is_professional
+        show_button = is_superuser or is_professional or is_paid
     else:
         show_button = False
     
@@ -145,7 +148,7 @@ def timeline_portfolio(request):
         project.images = list(project.imageportfolio_set.all().order_by('?'))  
     return render(request, 'timeline_portfolio.html', {'projects': projects})
 
-
+@login_required
 def project_page(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
@@ -184,6 +187,46 @@ def project_page(request, project_id):
         'name': name
     }
     return render(request,'project-page.html', context)
+
+
+def project_page_pub(request, project_id):
+    project = get_object_or_404(NewProject, pk=project_id)
+    
+    area = project.area
+    data_final_ano = project.data_final.year
+    username = project.user.full_name
+    name = project.name
+    summary = project.summary
+    style = project.style
+    partner = project.partner
+    images = project.imageportfolio_set.all()
+    
+    user = project.user
+    name = user.full_name
+    
+    user = project.user
+    profession = ""
+    if user.is_authenticated and user.is_professional:
+        try:
+            professional_profile = ProfessionalProfile.objects.get(user=user)
+            profession = professional_profile.profession
+        except ProfessionalProfile.DoesNotExist:
+            pass
+    
+    context = {
+        'project': project,
+        'images': images,
+        'area': area,
+        'profession': profession,
+        'summary': summary,
+        'data_final_ano': data_final_ano,
+        'partner':partner,
+        'name': name,
+        'username': username,
+        'style': style,
+        'name': name
+    }
+    return render(request,'project-page-pub.html', context)
 
 
 def lobby_payment(request):

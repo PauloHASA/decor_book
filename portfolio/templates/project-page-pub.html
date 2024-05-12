@@ -1,0 +1,174 @@
+{% load static %}
+
+<html lang="pt-BR">
+    <head>
+        {% include 'global/partials/head.html' %}
+    
+        <title>
+            DecorBook
+        </title>
+    </head>
+
+    <body class="body-landing_page  body-project-PubPage">
+        <div class="row justify-content-between">
+            <div class="col-1">
+                <div class="img-logo-LadingPage">
+                    <a href="">
+                        <img src="{% static "global/media/img/decor-logo.svg" %}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="buttons-login-register-LandingPage">
+                    <a href="{% url "user:login" %}" class="buttons-login-LadingPage">
+                        <button>
+                            Login
+                        </button>
+                    </a>
+
+                    <a href="{% url "user:register-page" %}" class="buttons-register-LadingPage">
+                        <button>
+                            Register
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        
+        <main class="row project_page">
+
+            <div class="col-2 user-project-data">
+
+                <div class="back-page">
+                    <a href="{{request.META.HTTP_REFERER}}">
+                        <i class="bi bi-arrow-left"></i>
+
+                    </a>
+                </div>
+
+                <section >
+                    <div class="user-photo">
+                        {% if project.user.professional_profile.profile_picture %}
+                            <img src="{{ project.user.professional_profile.profile_picture.url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'global/media/img/default.jpg' %}" alt="">
+                        {% endif %}
+                    </div>
+
+                    <div class="user-info">
+                        <a id="pub-ProjectPage-link">
+                            <h1>{{ project.user.full_name }}</h1>
+                            <h2>{{profession|capfirst}}</h2>
+                        </a>
+
+                        <div class="social-accounts">
+                            <a href="#">
+                                <button>
+                                    <i class="bi bi-instagram"></i>
+                                </button>
+                            </a>
+                            <a href="#">
+                                <button>
+                                    <i class="bi bi-linkedin"></i>
+                                </button>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="data-project">
+                        <section>
+                            <h2>Área:</h2> <span>{{area}}</span>
+                        </section>
+
+                        <section>
+                            <h2>Ano:</h2> <span>{{data_final_ano}}</span>
+                        </section>
+
+                        <section>
+                            <h2>Parceiros:</h2> <span> {{partner}} </span>
+                        </section>
+
+                    </div>
+
+                    <div class="about-project">
+                        <h1>Sobre o projeto</h1>
+                        <h2>{{summary}}.</h2>
+                    </div>
+        
+                </section>
+
+                <div class="spacer"></div>
+
+                <a href="#" class="button-contact" id="pub-ProjectPage-btn">
+                    <button>
+                        Contrate {{ project.user.full_name }}
+                    </button>
+                </a>
+
+            </div>
+
+            <div class="col product-photos">
+
+                <header class="row justify-content-between">
+                    <div class="col">
+                        <h1>{{name}} - {{style}}</h1>
+                    </div>
+                    
+                    <div class="col-2">
+                        <div class="like-comment">
+                            <div class="like">
+                                <i class="bi bi-heart"></i>
+                                <span>5.1k</span>
+                            </div>
+                            <div class="comment">
+                                <i class="bi bi-send"></i>
+                                <span>2.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="image-section-ProjectPage">
+                    <div class="project-photo">
+                        {% for image in images  %}
+                            <a href="#">
+                                <img src="{{image.img_upload.url }}" alt="Project Image">
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </main>
+            </div>
+
+        </main>
+
+        <div class="modal-PubPage" id="modal-PubPage">
+            <div class="center-container-PubPage">
+                <header>
+                    <a href="{{request.META.HTTP_REFERER}}">
+                        <i class="bi bi-arrow-left"></i>
+                        <h1>Voltar pra página anterior</h1>
+                    </a>
+                </header>
+                <section>
+                    <h1>ASSINE UM PLANO PARA COMEÇAR A USAR ESSA FUNÇÃO!</h1>
+                    <h2>Conecte-se com milhares de arquitetos, designers de 
+                        interiores, designers, paisagistas, construtoras, 
+                        serviços, lojas, artistas, milhares de empresas do 
+                        seguimento através de seus portfolios.</h2>
+                    <a href="{% url "portfolio:lobby_payment" %}">
+                        <button>
+                            Planos de assinatura
+                        </button>
+                    </a>
+                </section>
+            </div>
+        </div>
+
+        
+
+    </body>
+</html>

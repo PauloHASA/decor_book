@@ -125,7 +125,7 @@ def landing_page(request):
     return render(request, "landing_page.html", context)
 
 
-
+@login_required
 def professional_profile(request, profile_id):
     profile_user = get_object_or_404(CustomUserModel, pk=profile_id)
     profile = get_object_or_404(ProfessionalProfile, user=profile_user)
@@ -148,7 +148,7 @@ def professional_profile(request, profile_id):
     return render(request, "professional_profile.html", context)
 
 
-
+@login_required
 def profile_client(request):
     user = request.user
     
@@ -174,7 +174,7 @@ def profile_client(request):
 
 
 
-
+@login_required
 def profile_professional(request):
     user = request.user
     profile = get_object_or_404(ProfessionalProfile, user=user)

@@ -89,7 +89,7 @@
                 <a href="">
                     <button id="see-more">
                         <i class="bi bi-arrow-down"></i>
-                         Veja mais
+                         Veja mais projetos
                     </button>
                 </a>
              </footer>
@@ -100,7 +100,7 @@
                 {% for project in projects %}
                     {% for image in project.images %}
                         <div class="img-timeline" id="timeline-posts">
-                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                            <a href="{% url 'portfolio:project_page_pub' project_id=project.id %}">
                                 <div class="img-container">
                                     <img src="{{ image.img_upload.url }}" alt="Project Image">
                                 </div>
@@ -118,7 +118,7 @@
                 {% endfor %}
             </main>
             
-            <footer>
+            {% comment %} <footer>
                 <a href="">
 
                     <button id="back-to-up">
@@ -127,7 +127,7 @@
                     </button>
                 </a>
                 
-             </footer>
+             </footer> {% endcomment %}
         </div>
         
 
