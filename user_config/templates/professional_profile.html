@@ -16,7 +16,7 @@
 
             <div class="profile-info">
                 <div class="img-user">
-                    <img src="{{ profile.user.professional_profile.profile_picture.url}}" alt="">
+                    <img src="{{user.avatar}}" alt="">
                 </div>
                 <div class="data-and-socialaccount">
                     <h1>{{ profile.user.full_name }}</h1>
@@ -37,11 +37,13 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content content-ContractProfessional">
                         <form action="" method="post">
+
                             <div class="modal-header header-ContractProfessional">
                                 <h1 class="modal-title" id="staticBackdropLabel">Contrate um profissional</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
+
                             <div class="modal-body body-ContractProfessional">
                                 <h1>Mandar para <span>Martin Joseph</span></h1>
                                 <h2>Tipo de projeto</h2>
@@ -90,12 +92,14 @@
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="modal-footer footer-ContractProfessional">
                                 <button type="button" class="btn btn-primary">Enviar para orçamento</button>
                             </div>
+                            
+                        </form>
                     </div>
-                    </form>
-                </div>
+            </div>
         </section>
     </header>
 

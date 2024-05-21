@@ -33,10 +33,10 @@ SECRET_KEY = 'django-insecure-d1@i0iv_9m*!5qds=%hai5(flp%em_xbwo3ltz@aoeowx#p0e6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-# ALLOWED_HOSTS = ['https://www.decorbook.com.br',
-#                  'https://www.decorbook.com.br:8000',
-#                  'https://decorbook.com.br:8000',
-#                  'https://decorbook.com.br'
+# ALLOWED_HOSTS = ['www.decorbook.com.br',
+#                  'www.decorbook.com.br:8000',
+#                  'decorbook.com.br:8000',
+#                  'decorbook.com.br'
 #                  ]
 
 ALLOWED_HOSTS = []
@@ -116,6 +116,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'decor_project.wsgi.application'
 
 _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+
+# Setting email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

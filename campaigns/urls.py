@@ -8,4 +8,3 @@ urlpatterns = [
     
 ]
 
-# 5432
