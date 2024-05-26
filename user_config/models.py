@@ -27,9 +27,9 @@ class CustomAccountManager(BaseUserManager):
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
         other_fields.setdefault('is_client', True)
-        other_fields.setdefault('is_professional', True)
-        other_fields.setdefault('is_company', True)
-        other_fields.setdefault('is_construction', True)
+        other_fields.setdefault('is_professional', False)
+        other_fields.setdefault('is_company', False)
+        other_fields.setdefault('is_construction', False)
         
         if other_fields.get('is_superuser') is not True:
             raise ValueError(

@@ -2,7 +2,8 @@
 
 .home-page{
     overflow: auto;
-    padding: 24px;
+    padding: 6px 24px 24px 24px;
+    margin-bottom: 16px;
 }
 
 .home-page .header-newproject{
