@@ -36,7 +36,12 @@ def register_professional(request):
                                                     password=password1)
             user.is_professional = True
             user.save()
-            professional_profile = ProfessionalProfile.objects.create(user=user, profession=profession, site=site)
+            
+            professional_profile = ProfessionalProfile.objects.create(user=user, 
+                                                                      profession=profession, 
+                                                                      site=site
+                                                                      )
+            
             createfolder = FolderUserPost.create_user_folder(user.id)
             return redirect('user:login')
         else:

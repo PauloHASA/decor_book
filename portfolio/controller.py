@@ -5,19 +5,16 @@ from django.utils.translation import gettext_lazy as _
 
 
 def create_save_session(request, step_one_data, step_two_data):
-    new_project = NewProject(
-        name=step_one_data['name'],
-        partner=step_one_data['partner'],
-        summary=step_one_data['summary'],
-        data_initial=step_one_data['data_initial'],
-        data_final=step_one_data['data_final'],
-        area=step_two_data['area'],
-        rooms=step_two_data['rooms'],
-        style=step_two_data['style'],
-        categories=step_two_data['categories'],
-        add_stores=step_two_data['add_stores'],
-        user=request.user  # Se o usuário estiver disponível na sessão
-    )
-    new_project.save()
+    step_one_cleaned = {key: value for key, value in step_one_data.items() if value is not None and value != ''}
+    step_two_cleaned = {key: value for key, value in step_two_data.items() if value is not None and value != ''}
+    
+    project_data = {**step_one_cleaned, **step_two_cleaned}
+    
+    if 'partner' not in project_data:
+        project_data['partner'] = ''
+        
+    project_data['user'] = request.user
+    
+    new_project = NewProject.objects.create(**project_data)
+    
     return new_project
-

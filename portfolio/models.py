@@ -8,10 +8,10 @@ from user_config.controllers import FolderUserPost
 class NewProject(models.Model):
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
-    partner = models.CharField(max_length=150)
+    partner = models.CharField(max_length=150, blank=True, null=True)
     summary = models.TextField()
-    data_initial = models.DateField(null=True)
-    data_final= models.DateField(null=True)
+    data_initial = models.DateField(blank=True, null=True)
+    data_final= models.DateField(blank=True, null=True)
     area = models.CharField(max_length=150)
     rooms = models.CharField(max_length=150)
     style = models.CharField(max_length=150)

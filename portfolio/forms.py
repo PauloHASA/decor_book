@@ -9,10 +9,10 @@ class FormStepOne(forms.ModelForm):
         fields = ['name', 'partner', 'summary','data_initial', 'data_final']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Um nome para o seu projeto'}),
-            'partner': forms.TextInput(attrs={'placeholder': 'Adicione um parceiro ao projeto'}),
+            'partner': forms.TextInput(attrs={'placeholder': 'Adicione um parceiro ao projeto', 'required': False}),
             'summary': forms.Textarea(attrs={'placeholder': 'Escreva um breve resumo do seu projeto.'}),
-            'data_initial': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data inicial'}),
-            'data_final': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data final'}),
+            'data_initial': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data inicial', 'required': False }),
+            'data_final': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data final', 'required': False}),
             }
 
     def clear(self):

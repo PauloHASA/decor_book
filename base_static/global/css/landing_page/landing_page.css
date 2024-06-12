@@ -132,7 +132,10 @@
 .body-LandingPage footer{
     position: absolute;
     bottom: 32px;
-    left: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .body-LandingPage footer button{

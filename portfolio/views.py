@@ -61,8 +61,10 @@ def new_project_step1(request):
         
         if form.is_valid():
             step_one_data = form.save(commit=False)
-            step_one_data.data_initial = step_one_data.data_initial.strftime('%Y-%m-%d')
-            step_one_data.data_final = step_one_data.data_final.strftime('%Y-%m-%d')
+            if step_one_data.data_initial:
+                step_one_data.data_initial = step_one_data.data_initial.strftime('%Y-%m-%d')
+            elif step_one_data.data_final:
+                step_one_data.data_final = step_one_data.data_final.strftime('%Y-%m-%d')
             
             cleaned_data_dic = model_to_dict(step_one_data)
             request.session['step_one_data']= cleaned_data_dic
@@ -153,7 +155,12 @@ def project_page(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
     area = project.area
-    data_final_ano = project.data_final.year
+    
+    if project.data_final is not None:        
+        data_final_ano = project.data_final.year
+    else:
+        data_final_ano = ''
+        
     username = project.user.full_name
     name = project.name
     summary = project.summary

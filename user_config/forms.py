@@ -146,6 +146,25 @@ class ProfessionalForm(forms.ModelForm):
         model = ProfessionalProfile
         fields = ['email', 'full_name','site', 'profession', 'password1', 'password2']
         
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if CustomUserModel.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este email ja esta em uso.")
+        return email
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+        
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("As senhas nao conrrespondem.")
+            
+        return cleaned_data
+        
+        
+
+        
 
 class CompanyForm(forms.ModelForm):
     email = forms.EmailField(
@@ -206,6 +225,8 @@ class ProfessionalProfileForm(forms.ModelForm):
                     professional_profile.save()
         
         return professional_profile
+    
+    
 class ProfileEditForm(forms.ModelForm):
     email = forms.EmailField(disabled=True)
     old_password = forms.CharField(label='Senha Antiga', widget=forms.PasswordInput, required=False)
