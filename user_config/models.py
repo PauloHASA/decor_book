@@ -57,7 +57,7 @@ class CustomAccountManager(BaseUserManager):
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
     is_staff = models.BooleanField(default=False)
-    is_paid = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=True, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     
     is_client = models.BooleanField(default=False)
@@ -80,6 +80,8 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
                 avatar = self.client_profile.profile_picture.url
             elif self.is_professional:
                 avatar = self.professional_profile.profile_picture.url
+            elif self.is_company:
+                avatar = self.company_profile.company_profile_pics.url
         except:
             avatar = static('global/media/img/default.jpg')
         return avatar
@@ -107,6 +109,10 @@ class CompanyProfile(models.Model):
     is_company = models.BooleanField(default=True)
     product = models.CharField(max_length=100)
     site = models.CharField(max_length=100)
+    profile_picture = models.ImageField(upload_to='users_folders/company_profile_pics/', blank=True, null=True)
+    
+    def __str__(self):
+        return self.fantasy_name
 
     
 

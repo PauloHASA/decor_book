@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUserModel, ClientProfile, ProfessionalProfile, ConstructionProfile
+from .models import CustomUserModel, ClientProfile, ProfessionalProfile, CompanyProfile
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.utils.html import format_html
@@ -55,3 +55,18 @@ class ProfessionalProfileAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(CompanyProfile)
+class CompanyProfileAdmin(admin.ModelAdmin):
+    list_display = ['id','fantasy_name', 'get_full_name', 'get_email', 'get_is_paid']
+    list_display_links = ['id','fantasy_name', 'get_full_name', 'get_email',]
+
+    def get_full_name(self, obj):
+        return obj.user.full_name
+    
+    def get_email(self, obj):
+        return obj.user.email
+    
+    def get_is_paid(self, obj):
+        return obj.user.is_paid
+
+    get_full_name.short_description = 'Nome Social'

@@ -3,19 +3,34 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django_require_login.decorators import public
 
-from .models import CustomUserModel, ClientProfile, ProfessionalProfile
-from .controllers import FolderUserPost, CustomFormErrors
-from .forms import UserRegistrationForm, LoginUserForm, ClientForm, ProfessionalForm, ProfileEditForm, ProfessionalProfileForm
+from .models import (CustomUserModel, 
+                     ClientProfile, 
+                     ProfessionalProfile,
+                     CompanyProfile,
+                     )
+from .controllers import (FolderUserPost, 
+                          CustomFormErrors,
+                          )
+from .forms import (UserRegistrationForm, 
+                    LoginUserForm, 
+                    ClientForm, 
+                    ProfessionalForm, 
+                    ProfileEditForm, 
+                    ProfessionalProfileForm, 
+                    CompanyForm,
+                    )
+from portfolio.models import (NewProject, 
+                              ImagePortfolio,
+                              )
 
-from portfolio.models import NewProject, ImagePortfolio
 
-
-
+@public
 def register_page(request):
     return render(request, "register-page.html")
 
-
+@public
 def register_professional(request):
     if request.method == 'POST':
         form = ProfessionalForm(request.POST)
@@ -31,9 +46,9 @@ def register_professional(request):
                 return render(request, 'register-professional.html', {'form': form, 'error': 'As senhas não coincidem' })
 
             user = CustomUserModel.objects.create_user(email=email,
-                                                    user_name=email,
-                                                    full_name=full_name,
-                                                    password=password1)
+                                                       user_name=email,
+                                                       full_name=full_name,
+                                                       password=password1)
             user.is_professional = True
             user.save()
             
@@ -52,10 +67,25 @@ def register_professional(request):
     return render( request, 'register-professional.html',{'form':form})
 
 
+@public
 def register_company(request):
-    return render(request, "register-company.html")
+    if request.method == 'POST':
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            try:
+                form.is_active = True
+                form.is_paid = False
+                form.is_company = True
+                form.save()
+                
+                return redirect('user:login')
+            except Exception as e:
+                form.add_error(None, str(e))
+    else:
+        form = CompanyForm()
+    return render(request, "register-company.html", {'form':form})
  
- 
+@public
 def register_client(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -85,7 +115,7 @@ def register_client(request):
         form = ClientForm()
     return render( request, 'register-client.html',{'form':form})
    
-            
+@public
 def login_page(request):
     form = LoginUserForm()
 
@@ -117,7 +147,7 @@ def logout_view(request):
     logout(request)
     return redirect('user:landing_page')
 
-
+@public
 def landing_page(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
     for project in projects:
@@ -130,7 +160,6 @@ def landing_page(request):
     return render(request, "landing_page.html", context)
 
 
-@login_required
 def professional_profile(request, profile_id):
     profile_user = get_object_or_404(CustomUserModel, pk=profile_id)
     profile = get_object_or_404(ProfessionalProfile, user=profile_user)
@@ -153,7 +182,6 @@ def professional_profile(request, profile_id):
     return render(request, "professional_profile.html", context)
 
 
-@login_required
 def profile_client(request):
     user = request.user
     
@@ -178,8 +206,6 @@ def profile_client(request):
     return render(request, "profile_client.html", context)
 
 
-
-@login_required
 def profile_professional(request):
     user = request.user
     profile = get_object_or_404(ProfessionalProfile, user=user)
@@ -206,7 +232,6 @@ def profile_professional(request):
     return render(request, "profile_professional.html", context)
 
 
-@login_required
 def save_profile(request):
     if request.method == 'POST':
         form = ProfileEditForm(request.POST, instance=request.user)
@@ -222,3 +247,22 @@ def save_profile(request):
     else:
         pass
 
+
+
+def load_header(request):
+    try:
+        user = request.user
+        if user.is_authenticated and user.is_company:
+            company_profile = CompanyProfile.objects.get(user=user)
+            fantasy_name = company_profile.fantasy_name
+        else:
+            fantasy_name = None
+    except CompanyProfile.DoesNotExist:
+        fantasy_name = None
+    
+    context = {
+        'fantasy_name':fantasy_name,
+    }
+    
+    return render(request, 'header.html', context )
+        

@@ -51,6 +51,8 @@
                         <h2>{{ request.user.professional_profile.profession|capfirst }}</h2>
                     {% elif request.user.is_client %}
                         <h2>{{ request.user.client_profile.profession|capfirst }}</h2>
+                    {% elif request.user.is_company %}
+                        <h2>{{ request.user.company_profile.fantasy_name|capfirst }}</h2>
                     {% elif request.user.is_staff %}
                         <h2>Super usuário</h2>
                     {% else %}

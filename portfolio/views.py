@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django_require_login.decorators import public
+
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
@@ -17,19 +19,15 @@ from user_config.controllers import FolderUserPost
 import random
 
 # Create your views here.
-@login_required
 def my_projects(request):
     return render(request,'my-projects.html')
 
-@login_required
 def portfolio(request):
     return render(request,'portfolio.html')
 
-@login_required
 def store_portfolio(request):
     return render(request,'store_portfolio.html')
 
-@login_required
 def home_page(request):
     user = request.user  
     is_authenticated = user.is_authenticated
@@ -44,6 +42,7 @@ def home_page(request):
 
             except ProfessionalProfile.DoesNotExist:
                 is_professional = False
+                is_paid = False
                 
         show_button = is_superuser or is_professional or is_paid
     else:
@@ -52,7 +51,6 @@ def home_page(request):
     return render(request, 'home-page.html', {'user': user,
                                               'show_button': show_button,
                                               })
-
 
 def new_project_step1(request): 
     form = FormStepOne()
@@ -77,7 +75,6 @@ def new_project_step1(request):
             
     return render(request,'new-project-step1.html', {'form_stepone':form})
 
-
 def new_project_step2(request):
     if 'step_one_data' not in request.session:
         return redirect('portfolio:new_project_step1')
@@ -97,7 +94,6 @@ def new_project_step2(request):
             form = FormStepTwo()
             
     return render(request,'new-project-step2.html', {'form_steptwo':form})
-
 
 @transaction.atomic
 def new_project_step3(request):
@@ -150,7 +146,7 @@ def timeline_portfolio(request):
         project.images = list(project.imageportfolio_set.all().order_by('?'))  
     return render(request, 'timeline_portfolio.html', {'projects': projects})
 
-@login_required
+
 def project_page(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
@@ -195,7 +191,7 @@ def project_page(request, project_id):
     }
     return render(request,'project-page.html', context)
 
-
+@public
 def project_page_pub(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
@@ -235,10 +231,9 @@ def project_page_pub(request, project_id):
     }
     return render(request,'project-page-pub.html', context)
 
-
+@public
 def lobby_payment(request):
     return render(request, "lobby-payment.html")
-
 
 def payment_page(request):
     return render(request, "payment-page.html")

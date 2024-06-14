@@ -158,33 +158,33 @@ class ProfessionalForm(forms.ModelForm):
         password2 = cleaned_data.get('password2')
         
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("As senhas nao conrrespondem.")
+            raise forms.ValidationError("As senhas nao correspondem.")
             
         return cleaned_data
         
-        
 
-        
 
 class CompanyForm(forms.ModelForm):
-    email = forms.EmailField(
-        required=True,
-        widget=forms.TextInput(attrs={"placeholder": "janedoe@email.com"})
-    )
     
     full_name = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome completo"})
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome social"})
     )
     
     fantasy_name = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": "Nome completo"})
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Que aparecerá no perfil"})
+    )
+    
+    email = forms.EmailField(
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "empresa@email.com"})
+    )
+    
+    product = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={"placeholder": "Especifique o produto vendido"})
     )
     
     site = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": "www.professional.com"})
-    )
-    produto = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={"placeholder": "www.professional.com"})
+        required=True, widget=forms.TextInput(attrs={"placeholder": "www.company.com"})
     )
     
     password1 = forms.CharField(
@@ -197,9 +197,44 @@ class CompanyForm(forms.ModelForm):
 
     class Meta:
         model = CompanyProfile
-        fields = ['email', 'full_name', 'fantasy_name', 'site', 'produto', 'password1', 'password2']
-
-
+        fields = ['fantasy_name', 'product', 'site']
+        
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if CustomUserModel.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este email ja esta em uso.")
+        return email
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+        
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("As senhas nao correspondem.")
+            
+        return cleaned_data
+    
+    def save(self, commit=True):
+        user = CustomUserModel(
+            email=self.cleaned_data['email'],
+            user_name=self.cleaned_data['email'],
+            full_name=self.cleaned_data['full_name'],
+            is_company=True,
+        )
+        user.set_password(self.cleaned_data['password1'])
+        
+        if commit:
+            user.save()
+            company_profile = CompanyProfile(
+                user=user,
+                fantasy_name = self.cleaned_data['fantasy_name'],
+                product = self.cleaned_data['product'],
+                site = self.cleaned_data['site'],
+            )
+            company_profile.save()
+            
+        return user 
 
 
 class ProfessionalProfileForm(forms.ModelForm):
