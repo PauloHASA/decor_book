@@ -103,8 +103,9 @@ class ProfessionalProfile(models.Model):
     site = models.CharField(max_length=100)
     profile_picture = models.ImageField(upload_to="users_folder/profile_picture/", blank=True, null=True)
 
+
 class CompanyProfile(models.Model):
-    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUserModel, on_delete=models.CASCADE, related_name="company_profile")
     fantasy_name = models.CharField(max_length=100)
     is_company = models.BooleanField(default=True)
     product = models.CharField(max_length=100)
