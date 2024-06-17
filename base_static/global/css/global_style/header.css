@@ -113,3 +113,11 @@
     color: #A80000;
 
 }
+
+
+.img-logo-LadingPage,
+.img-logo-LadingPage a{
+    width: 201px;
+    height: 48px;
+    display: flex;
+}
