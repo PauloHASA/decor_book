@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from user_config.models import CustomUserModel
 from user_config.controllers import FolderUserPost
+from user_config.storages import UserImageStorage
 # Create your models here.
 
 
@@ -25,5 +26,5 @@ class NewProject(models.Model):
 
 class ImagePortfolio(models.Model):
     new_project = models.ForeignKey(NewProject, on_delete=models.CASCADE)
-    img_upload = models.ImageField(upload_to=FolderUserPost.image_filename)
+    img_upload = models.ImageField(upload_to=FolderUserPost.image_filename, storage=UserImageStorage())
  

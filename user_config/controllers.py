@@ -1,12 +1,17 @@
 import os 
 from django.conf import settings
 from datetime import datetime
+from pathlib import Path
+from .storages import UserImageStorage
 
 
 class FolderUserPost:
     @staticmethod
     def create_user_folder(user_id):
-        users_folder_path = os.path.join(settings.MEDIA_ROOT, "users_folder")
+        BASE_DIR = Path(__file__).resolve().parent.parent.parent
+        MEDIA_ROOT = BASE_DIR / 'projects_images' / 'upload_files'
+        
+        users_folder_path = os.path.join(MEDIA_ROOT, "users_folder")
         if not os.path.exists(users_folder_path):
             os.makedirs(users_folder_path)
             
@@ -37,14 +42,17 @@ class FolderUserPost:
         post_folder = FolderUserPost.create_post_folder(user_id, post_id)
         
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
-        filepath = f"users_folder/{user_id}/{post_id}//img_{timestamp}_{filename}"
-        
+        filepath = os.path.join(post_folder, f"img_{timestamp}_{filename}")    
+            
         print("Caminho da imagem:", filepath) 
         return filepath
 
 
     def user_folder_path(user_id):
-        users_folder_path = os.path.join(settings.MEDIA_ROOT, "users_folder")
+        BASE_DIR = Path(__file__).resolve().parent.parent.parent
+        MEDIA_ROOT = BASE_DIR / 'projects_images' / 'upload_files'
+        
+        users_folder_path = os.path.join(MEDIA_ROOT, "users_folder")
         user_folder = os.path.join(users_folder_path, str(user_id))
         return user_folder
 
