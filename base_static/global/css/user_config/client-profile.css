@@ -1,0 +1,113 @@
+.main-ProfileClient{
+    height: 95vh;
+}
+
+
+.main-ProfileClient header{
+    margin: 0;
+    padding: 0;
+}
+
+
+.body-ProfileClient{
+    height: 100%;
+    margin: 0;
+}
+
+
+.body-ProfileClient header{
+    width: 100%;
+    margin: 24px 0 54px 0;
+}
+
+
+.body-ProfileClient header h1{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 700;
+    
+}
+
+
+.body-ProfileClient .no-project{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+
+.body-ProfileClient .no-project h1,
+.body-ProfileClient .no-project h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+
+.body-ProfileClient .no-project h1{
+    color: #353535;
+}
+
+
+.body-ProfileClient .no-project h2{
+    color: #6E6E6E;
+}
+
+
+.body-ProfileClient section header{
+    margin-bottom:32px ;
+}
+
+
+.body-ProfileClient section header h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    
+    color: #000000;
+    margin-bottom: 24px;
+}
+
+
+.body-ProfileClient section .row,
+.body-ProfileClient section .row .col-2,
+.body-ProfileClient section .row .col,
+.main-ProfileClient .row,
+.main-ProfileClient .row .col-2{
+    margin: 0;
+    padding: 0;
+}
+
+
+.main-ProfileClient header section .back-to-timeline{
+    padding-left: 12px;
+}
+
+
+.myHouse-data{
+    
+}
+
+
+.myHouse-data h4{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+
+    margin-bottom: 16px;
+    color: #242424;
+}
+
+
+.myHouse-data p{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+
+    color: #A4A4A4;
+}

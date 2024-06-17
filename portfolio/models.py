@@ -14,9 +14,9 @@ class NewProject(models.Model):
     data_final= models.DateField(blank=True, null=True)
     area = models.CharField(max_length=150)
     rooms = models.CharField(max_length=150)
-    style = models.CharField(max_length=150)
-    categories = models.CharField(max_length=150)
-    add_stores = models.CharField(max_length=150)
+    style = models.CharField(max_length=150, blank=True, null=True)
+    categories = models.CharField(max_length=150, blank=True, null=True)
+    add_stores = models.CharField(max_length=150, blank=True, null=True)
     
     def clean(self):
         if self.data_final is not None and self.data_initial is not None:

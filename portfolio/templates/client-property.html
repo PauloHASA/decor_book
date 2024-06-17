@@ -1,0 +1,62 @@
+{% extends "global/base.html" %} 
+{% load static %} 
+{% block title %} Cadastro Imovel {%endblock title %} 
+
+{% block main %}
+
+<main class="main-ClientProperty">
+    <header>
+        <div class="back-to-timeline">
+            <a href="{{request.META.HTTP_REFERER}}">
+              <i class="bi bi-arrow-left"></i>
+            </a>
+        </div>
+    </header>
+
+    <section>
+        <form action="#" method="post" class="form-ClientProperty">
+            <header>
+                <h2>Meu imóvel</h2>
+                <h3>Confirme e adicione as informações de acordo com os detalhes do seu imóvel.</h3>
+            </header>
+
+            <div class="row">
+                <div class="col input-field-ClientProperty">
+                    <h2>Endereço</h2>
+                    <input type="text">
+                </div>
+                <div class="col input-field-ClientProperty">
+                    <h2>Área (m²)</h2>
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col input-field-ClientProperty">
+                    <h2>Cômodos</h2>
+                    <input type="text">
+                </div>
+                <div class="col input-field-ClientProperty">
+                    <h2>Término de obra</h2>
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col input-field-ClientProperty select-field-ClientProperty">
+                    <h2>Término de obra</h2>
+                    <input type="date" class="date" name="" id="">
+                </div>
+
+            </div>
+
+            <div class="btn-section">
+                <button type="submit">Próximo</button>
+            </div>
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock main %}

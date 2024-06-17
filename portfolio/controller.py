@@ -1,4 +1,4 @@
-from .models import NewProject
+from .models import NewProject, ImagePortfolio
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
@@ -13,8 +13,23 @@ def create_save_session(request, step_one_data, step_two_data):
     if 'partner' not in project_data:
         project_data['partner'] = ''
         
+    if 'style' not in project_data:
+        project_data['style'] = ''
+        
+    if 'add_stores' not in project_data:
+        project_data['add_stores'] = ''
+        
     project_data['user'] = request.user
     
-    new_project = NewProject.objects.create(**project_data)
+    new_project = NewProject(**project_data)
+    
+    images = request.FILES.getlist('img_upload')
+    if not images:
+        return None
+    
+    new_project.save()
+    
+    for image in images:
+        ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
     
     return new_project

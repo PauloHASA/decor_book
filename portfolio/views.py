@@ -22,11 +22,14 @@ import random
 def my_projects(request):
     return render(request,'my-projects.html')
 
+
 def portfolio(request):
     return render(request,'portfolio.html')
 
+
 def store_portfolio(request):
     return render(request,'store_portfolio.html')
+
 
 def home_page(request):
     user = request.user  
@@ -52,90 +55,65 @@ def home_page(request):
                                               'show_button': show_button,
                                               })
 
+
 def new_project_step1(request): 
-    form = FormStepOne()
-    if request.method == 'POST':
-        form = FormStepOne(request.POST)
+    form = FormStepOne(request.POST or None)
+    if form.is_valid():
+        step_one_data = form.save(commit=False)
+        if step_one_data.data_initial:
+            step_one_data.data_initial = step_one_data.data_initial.strftime('%Y-%m-%d')
+        if step_one_data.data_final:
+            step_one_data.data_final = step_one_data.data_final.strftime('%Y-%m-%d')
         
-        if form.is_valid():
-            step_one_data = form.save(commit=False)
-            if step_one_data.data_initial:
-                step_one_data.data_initial = step_one_data.data_initial.strftime('%Y-%m-%d')
-            elif step_one_data.data_final:
-                step_one_data.data_final = step_one_data.data_final.strftime('%Y-%m-%d')
-            
-            cleaned_data_dic = model_to_dict(step_one_data)
-            request.session['step_one_data']= cleaned_data_dic
+        cleaned_data_dic = model_to_dict(step_one_data)
+        request.session['step_one_data'] = cleaned_data_dic
 
-            return redirect('portfolio:new_project_step2')
-        else:
-            form = FormStepOne()
-            print('Formulario não é valido')
-
+        return redirect('portfolio:new_project_step2')
             
-    return render(request,'new-project-step1.html', {'form_stepone':form})
+    return render(request, 'new-project-step1.html', {'form_stepone': form})
+
 
 def new_project_step2(request):
     if 'step_one_data' not in request.session:
         return redirect('portfolio:new_project_step1')
     
-    form = FormStepTwo()
+    form = FormStepTwo(request.POST or None)
+    if form.is_valid():
+        step_two_data = form.save(commit=False)
+        cleaned_data_dic = model_to_dict(step_two_data)
 
-    if request.method == 'POST':
-        form = FormStepTwoOverwrite(request.POST)
-        if form.is_valid():
-            step_two_data = form.save(commit=False)
-            cleaned_data_dic = model_to_dict(step_two_data)
+        request.session['step_two_data'] = cleaned_data_dic
+        return redirect('portfolio:new_project_step3')
+           
+    return render(request, 'new-project-step2.html', {'form_steptwo': form})
 
-
-            request.session['step_two_data']= form.cleaned_data
-            return redirect('portfolio:new_project_step3')
-        else:
-            form = FormStepTwo()
-            
-    return render(request,'new-project-step2.html', {'form_steptwo':form})
 
 @transaction.atomic
 def new_project_step3(request):
-    if 'step_two_data' not in request.session or 'step_one_data' not in request.session:
+    if not request.session.get('step_one_data') or not request.session.get('step_two_data'):
         return redirect('portfolio:new_project_step2')
     
-    form_step_one = FormStepOne(request.session['step_one_data'])
-    form_step_two = FormStepTwo(request.session['step_two_data'])
-    form_step_three = FormStepThree()
+    form_step_three = FormStepThree(request.POST, request.FILES or None)
 
-    if request.method == 'POST':
-        form_step_three = FormStepThree(request.POST, request.FILES)
-        if form_step_one.is_valid() and form_step_two.is_valid() and form_step_three.is_valid():
-            new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
-            new_project.user = request.user
-            new_project.data_initial = form_step_one.cleaned_data['data_initial']
-            new_project.data_final = form_step_one.cleaned_data['data_final']
-            new_project.area = form_step_two.cleaned_data['area']
-            new_project.rooms = form_step_two.cleaned_data['rooms']
-            new_project.style = form_step_two.cleaned_data['style']
-            new_project.categories = form_step_two.cleaned_data['categories']
-            new_project.add_stores = form_step_two.cleaned_data['add_stores']
-            new_project.save()
-                        
-            # Processar imagens
-            images = request.FILES.getlist('img_upload')
-            for image in images:
-                ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+    if request.method == 'POST' and form_step_three.is_valid():
+        new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
+        
+        if new_project is None:
+            return HttpResponse("Erro: É necessário associar imagens ao projeto.")
+        
+        new_project.user = request.user
+        new_project.save()
+                    
+        images = request.FILES.getlist('img_upload')
+        for image in images:
+            ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
 
-                
-            # Criar pasta para o post
-            FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
-            
-            # Limpar dados da sessão
-            del request.session['step_one_data']
-            del request.session['step_two_data']
-            
-            return JsonResponse({'status': 'success'})
-        else:
-            print("Erros em form_step_three:", form_step_three.errors)
-    else:
-        form_step_three = FormStepThree()
+        FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
+        
+        del request.session['step_one_data']
+        del request.session['step_two_data']
+        
+        return redirect('portfolio:project_page', project_id=new_project.id)
     
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
 
@@ -191,6 +169,7 @@ def project_page(request, project_id):
     }
     return render(request,'project-page.html', context)
 
+
 @public
 def project_page_pub(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
@@ -231,9 +210,15 @@ def project_page_pub(request, project_id):
     }
     return render(request,'project-page-pub.html', context)
 
+
 @public
 def lobby_payment(request):
     return render(request, "lobby-payment.html")
 
+
 def payment_page(request):
     return render(request, "payment-page.html")
+
+
+def client_property(request):
+    return render(request, "client-property.html")

@@ -15,14 +15,15 @@ class FormStepOne(forms.ModelForm):
             'data_final': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Data final', 'required': False}),
             }
 
-    def clear(self):
+    def clean(self):
         cleaned_data = super().clean()
         data_initial = cleaned_data.get('data_initial')
-        data_final = cleaned_data.get('data_initial')
+        data_final = cleaned_data.get('data_final')
         
         if data_final and data_initial:
             if data_final < data_initial:
                 raise forms.ValidationError("A  data final não pode ser maior do que a data inicial.")
+        return cleaned_data
 
 class FormStepTwo(forms.ModelForm):
     class Meta:
@@ -31,9 +32,9 @@ class FormStepTwo(forms.ModelForm):
         widgets = {
             'area': forms.TextInput(attrs={'placeholder': '100m²'}),
             'rooms': forms.TextInput(attrs={'placeholder': '01'}),
-            'style': forms.TextInput(attrs={'placeholder': 'Estabeleça até 3 estilos principais'}),
-            'categories': forms.TextInput(attrs={'placeholder': 'Estabeleça até 3 estilos principais'}),
-            'add_stores': forms.TextInput(attrs={'placeholder': 'Adicione lojas usadas no projeto'}),
+            'style': forms.TextInput(attrs={'placeholder': 'Estabeleça até 3 estilos principais','required': False}),
+            'categories': forms.TextInput(attrs={'placeholder': 'Estabeleça até 3 estilos principais', 'required': False}),
+            'add_stores': forms.TextInput(attrs={'placeholder': 'Adicione lojas usadas no projeto', 'required': False}),
         }
 
 

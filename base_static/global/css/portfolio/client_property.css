@@ -1,0 +1,113 @@
+.main-ClientProperty{
+    padding: 22px 16px 16px 16px;
+    height: 94vh;
+}
+
+
+.main-ClientProperty header{
+
+}
+
+
+.main-ClientProperty section{
+    height: 80%;
+}
+
+
+.form-ClientProperty{
+
+}
+
+.main-ClientProperty section,
+.form-ClientProperty header,
+.form-ClientProperty .btn-section button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.form-ClientProperty header h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    
+}
+.form-ClientProperty header h3{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    
+    color: #626262;
+    margin-bottom: 32px;
+}
+
+
+.form-ClientProperty .row,
+.form-ClientProperty .row .col{
+    margin: 0;
+    padding: 0;
+}
+
+
+.form-ClientProperty .row{
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+
+.input-field-ClientProperty{
+
+}
+
+
+.input-field-ClientProperty h2,
+.form-ClientProperty .btn-section button{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    
+    color: #242424;
+    margin-bottom: 16px;
+}
+
+
+.input-field-ClientProperty input,
+.select-field-ClientProperty select{
+    width: 340px;
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid #EEEEEE;
+    background-color: #F8F8F8;
+    padding: 12px;
+}
+
+
+.select-field-ClientProperty .date{
+    width: 164px;
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid #EEEEEE;    
+}
+
+
+.form-ClientProperty .btn-section{
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.form-ClientProperty .btn-section button{
+    width: 226px;
+    height: 48px;
+    border-radius: 4px;
+    background-color: #242424;
+
+    color: #FAFAFA;
+    margin: 0;
+
+}

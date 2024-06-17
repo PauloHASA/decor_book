@@ -1,46 +1,84 @@
-{% extends "global/base.html" %} {% load static %} {% block title %} Timeline
-{%endblock title %} {% block main %}
+{% extends "global/base.html" %} 
+{% load static %} 
+{% block title %} Perfil {%endblock title %} 
 
-<main class="row ProfilePro">
-  <header class="row">
-    <section class="col-2 profile-info-ProfilePro">
-      <div class="back-to-timeline">
-        <a href="{{request.META.HTTP_REFERER}}">
-          <i class="bi bi-arrow-left"></i>
+{% block main %}
+  <main class="row ProfilePro main-ProfileClient">
+    <header class="row">
+      <section class="col-2 profile-info-ProfilePro">
+        <div class="back-to-timeline">
+          <a href="{{request.META.HTTP_REFERER}}">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+        </div>
+
+        <div class="profile-info">
+          <div class="img-user">
+            <img src="{% static 'global/media/img/default.jpg' %}" alt="" />
+          </div>
+          <div class="data-and-socialaccount">
+            <h1>{{ profile.user.full_name }}</h1>
+            <h2>{{ profile.get_profession_display }}</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="col-2 button-ProfilePro">
+        {% comment %} <button class="edit">Editar Imovel</button> {% endcomment %}
+        <a href="{% url 'portfolio:client-property' %}">
+          <button class="register">Cadastrar imovel</button>
         </a>
-      </div>
-
-      <div class="profile-info">
-        <div class="img-user">
-          <img src="{% static 'global/media/img/default.jpg' %}" alt="" />
-        </div>
-        <div class="data-and-socialaccount">
-          <h1>{{ profile.user.full_name }}</h1>
-          <h2>{{ profile.get_profession_display }}</h2>
-        </div>
-      </div>
-    </section>
-
-    <section class="col-2 button-ProfilePro">
-      <button>Editar portfolio</button>
-    </section>
-  </header>
-
-  <main class="row body-ProfilePro">
-    <header class="header-ProfilePro">
-      <h1>Projetos</h1>
+      </section>
     </header>
-    <section class="works-ProfilePro">
-      {% if projects %} {% for project in projects %} {% if
-      project.imageportfolio_set.exists %}
-      <div class="projects-ProfilePro">
-        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-          <img src="{{ first_project_image }}" alt="" />
-        </a>
-      </div>
-      {% endfor %} {% else %} No images found {% endif %}
-    </section>
+
+    <div class="body-ProfilePro body-ProfileClient">
+
+      <section>
+        <header>
+          <h2>Projetos em andamento </h2>
+          <h1>Detalhes do imóvel </h1>
+        </header>
+
+        <div class="row">
+          <div class="col-2 myHouse-data">
+            <h4>Área (m²)</h4>
+            <p>1000m²</p>
+          </div>
+          <div class="col-2 myHouse-data">
+            <h4>Cômodos</h4>
+            <p>Quantidade de cômodos</p>
+          </div>
+          <div class="col-2 myHouse-data">
+            <h4>Início do projeto</h4>
+            <p>01/2020</p>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col myHouse-data">
+              <h4>Time contratado</h4>
+              <p>Jennifer André, Loren Yamagushi, Antonio Cabral</p>
+            </div>
+          </div>
+      </section>
+
+
+      <section>
+        <header>
+          <h1>Favorite projects </h1>
+        </header>
+      </section>
+
+
+
+
+      <div class="no-project">
+        <h1>Nenhum projeto favoritado</h1>
+        <h2>Navegue nos portfólios e salve projetos.</h2>
+      </div> 
+
+
+
+    </div>
   </main>
-</main>
 
 {% endblock main %}
