@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django_require_login.decorators import public
 from django.utils.text import get_valid_filename
+from django.core.exceptions import SuspiciousFileOperation
+from django.conf import settings
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
@@ -15,9 +17,9 @@ from .controller import create_save_session
 from user_config.models import ProfessionalProfile, CustomUserModel
 from user_config.controllers import FolderUserPost
 
-
 import random
 import logging
+import os
 
 logger = logging.getLogger('myapp')
 
@@ -93,7 +95,7 @@ def new_project_step2(request):
 
 @transaction.atomic
 def new_project_step3(request):
-    logger.info("Starting new_project_step3 view")
+    logger.info("Starting new_project_step3 view with method: %s", request.method)
     
     if not request.session.get('step_one_data') or not request.session.get('step_two_data'):
         logger.warning("Session data missing for step one or step two")
@@ -118,10 +120,20 @@ def new_project_step3(request):
             logger.info(f"New project saved with id {new_project.id}")
                         
             images = request.FILES.getlist('img_upload')
+            upload_folder = settings.CUSTOM_MEDIA_ROOT
+            
             for image in images:
                 file_name = image.name
                 valid_filename = get_valid_filename(file_name)
                 image.name = valid_filename
+                
+                try:
+                    full_path = os.path.join(upload_folder, valid_filename)
+                    if not full_path.startswith(upload_folder):
+                        raise SuspiciousFileOperation(f"Detected path traversal attempt: {full_path}")
+                except SuspiciousFileOperation as e:
+                    logger.error(f"Invalid file path: {full_path}")
+                
                 ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
                 logger.info(f"Image {image.name} saved for project {new_project.id}")
 
@@ -137,6 +149,7 @@ def new_project_step3(request):
             logger.warning("Form is not valid")
     
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
+
 
 def timeline_portfolio(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
