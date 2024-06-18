@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django_require_login.decorators import public
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
@@ -106,8 +107,9 @@ def new_project_step3(request):
                     
         images = request.FILES.getlist('img_upload')
         for image in images:
-            ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
-
+            if not ImagePortfolio.objects.filter(img_upload=image.name, new_project=new_project).exists():
+                ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+                            
         FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
         
         del request.session['step_one_data']
@@ -119,9 +121,10 @@ def new_project_step3(request):
 
 
 def timeline_portfolio(request):
-    projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
+    projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()
     for project in projects:
-        project.images = list(project.imageportfolio_set.all().order_by('?'))  
+        project_images = project.imageportfolio_set.all().distinct()
+        project.images = list(project_images)  
     return render(request, 'timeline_portfolio.html', {'projects': projects})
 
 

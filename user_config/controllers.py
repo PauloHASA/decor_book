@@ -36,16 +36,9 @@ class FolderUserPost:
 
     @staticmethod
     def image_filename(instance, filename):
-        user_id = instance.new_project.user.id
-        post_id = instance.new_project.id
-        user_folder = FolderUserPost.create_user_folder(user_id)
-        post_folder = FolderUserPost.create_post_folder(user_id, post_id)
-        
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
-        filepath = os.path.join(post_folder, f"img_{timestamp}_{filename}")    
             
-        print("Caminho da imagem:", filepath) 
-        return filepath
+        print("Caminho da imagem:", filename) 
+        return filename
 
 
     def user_folder_path(user_id):
