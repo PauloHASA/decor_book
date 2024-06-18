@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django_require_login.decorators import public
-
+from django.utils.text import get_valid_filename
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
@@ -119,6 +119,9 @@ def new_project_step3(request):
                         
             images = request.FILES.getlist('img_upload')
             for image in images:
+                file_name = image.name
+                valid_filename = get_valid_filename(file_name)
+                image.name = valid_filename
                 ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
                 logger.info(f"Image {image.name} saved for project {new_project.id}")
 
