@@ -27,18 +27,19 @@ class FolderUserPost:
         if not os.path.exists(post_folder):
             os.makedirs(post_folder)
             
-        print('-'*100)
-        print('Folder path: ',post_folder)
-        print('-'*100)
-
         return post_folder
 
 
     @staticmethod
     def image_filename(instance, filename):
-            
-        print("Caminho da imagem:", filename) 
-        return filename
+        user_id = instance.new_project.user.id
+        post_id = instance.new_project.id
+        user_folder = FolderUserPost.create_user_folder(user_id)
+        post_folder = FolderUserPost.create_post_folder(user_id, post_id)
+        
+        filepath = os.path.join(post_folder, filename)
+
+        return filepath
 
 
     def user_folder_path(user_id):

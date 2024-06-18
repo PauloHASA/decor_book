@@ -38,7 +38,7 @@ def create_save_session(request, step_one_data, step_two_data):
     
     new_project.save()
     
-    for image in images:
-        ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+    # for image in images:
+    #     ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
     
     return new_project
