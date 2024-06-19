@@ -9,6 +9,9 @@ from django_require_login.decorators import public
 from django.utils.text import get_valid_filename
 from django.core.exceptions import SuspiciousFileOperation
 from django.conf import settings
+from django.utils.text import get_valid_filename
+from django.core.exceptions import SuspiciousFileOperation
+from django.conf import settings
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
@@ -18,6 +21,10 @@ from user_config.models import ProfessionalProfile, CustomUserModel
 from user_config.controllers import FolderUserPost
 
 import random
+import logging
+import os
+
+logger = logging.getLogger('myapp')
 import logging
 import os
 
@@ -97,7 +104,10 @@ def new_project_step2(request):
 def new_project_step3(request):
     logger.info("Starting new_project_step3 view with method: %s", request.method)
     
+    logger.info("Starting new_project_step3 view with method: %s", request.method)
+    
     if not request.session.get('step_one_data') or not request.session.get('step_two_data'):
+        logger.warning("Session data missing for step one or step two")
         logger.warning("Session data missing for step one or step two")
         return redirect('portfolio:new_project_step2')
     
@@ -139,7 +149,15 @@ def new_project_step3(request):
             return redirect('portfolio:project_page', project_id=new_project.id)
         else:
             logger.warning("Form is not valid")
-    
+            FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
+            logger.info(f"Post folder created for user {new_project.user.id} and project {new_project.id}")
+            
+            del request.session['step_one_data']
+            del request.session['step_two_data']
+            logger.debug("Session data deleted")
+            
+            return redirect('portfolio:project_page', project_id=new_project.id)
+   
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
 
 
