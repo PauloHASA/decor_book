@@ -30,8 +30,4 @@ urlpatterns = [
     
     path('accounts/', include('allauth.urls')),
     
-]
-
-urlpatterns += [
-    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': os.environ.get('CUSTOM_MEDIA_ROOT') ,}),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
