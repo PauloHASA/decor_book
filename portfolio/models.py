@@ -28,4 +28,10 @@ class NewProject(models.Model):
 class ImagePortfolio(models.Model):
     new_project = models.ForeignKey(NewProject, on_delete=models.CASCADE)
     img_upload = models.ImageField(upload_to=FolderUserPost.image_filename)
+    
+    def save(self, *args, **kwargs):
+        file_name = self.img_upload.name
+        valid_filename = get_valid_filename(file_name)
+        self.img_upload.name = valid_filename
+        super(ImagePortfolio, self).save(*args, **kwargs)
  
