@@ -6,7 +6,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django_require_login.decorators import public
-
+from django.utils.text import get_valid_filename
+from django.core.exceptions import SuspiciousFileOperation
+from django.conf import settings
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
@@ -15,8 +17,11 @@ from .controller import create_save_session
 from user_config.models import ProfessionalProfile, CustomUserModel
 from user_config.controllers import FolderUserPost
 
-
 import random
+import logging
+import os
+
+logger = logging.getLogger('myapp')
 
 # Create your views here.
 def my_projects(request):
@@ -90,30 +95,50 @@ def new_project_step2(request):
 
 @transaction.atomic
 def new_project_step3(request):
+    logger.info("Starting new_project_step3 view with method: %s", request.method)
+    
     if not request.session.get('step_one_data') or not request.session.get('step_two_data'):
+        logger.warning("Session data missing for step one or step two")
         return redirect('portfolio:new_project_step2')
     
     form_step_three = FormStepThree(request.POST, request.FILES or None)
+    logger.info("FormStepThree initialized")
 
-    if request.method == 'POST' and form_step_three.is_valid():
-        new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
+    if request.method == 'POST':
+        logger.info("POST method detected")
         
-        if new_project is None:
-            return HttpResponse("Erro: É necessário associar imagens ao projeto.")
-        
-        new_project.user = request.user
-        new_project.save()
-                    
-        images = request.FILES.getlist('img_upload')
-        for image in images:
-            ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+        if form_step_three.is_valid():
+            logger.info("Form is valid")
+            new_project = create_save_session(request, request.session['step_one_data'], request.session['step_two_data'])
+            
+            if new_project is None:
+                logger.error("Failed to create new project - No associated images")
+                return HttpResponse("Erro: É necessário associar imagens ao projeto.")
+            
+            new_project.user = request.user
+            new_project.save()
+            logger.info(f"New project saved with id {new_project.id}")
+                        
+            images = request.FILES.getlist('img_upload')
+            
+            for image in images:
+                file_name = image.name
+                valid_filename = get_valid_filename(file_name)
+                image.name = valid_filename
+                                
+                ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+                logger.info(f"Image {image.name} saved for project {new_project.id}")
 
-        FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
-        
-        del request.session['step_one_data']
-        del request.session['step_two_data']
-        
-        return redirect('portfolio:project_page', project_id=new_project.id)
+            FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
+            logger.info(f"Post folder created for user {new_project.user.id} and project {new_project.id}")
+            
+            del request.session['step_one_data']
+            del request.session['step_two_data']
+            logger.debug("Session data deleted")
+            
+            return redirect('portfolio:project_page', project_id=new_project.id)
+        else:
+            logger.warning("Form is not valid")
     
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
 

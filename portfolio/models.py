@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils.text import get_valid_filename
 from user_config.models import CustomUserModel
 from user_config.controllers import FolderUserPost
 # Create your models here.
@@ -26,4 +27,10 @@ class NewProject(models.Model):
 class ImagePortfolio(models.Model):
     new_project = models.ForeignKey(NewProject, on_delete=models.CASCADE)
     img_upload = models.ImageField(upload_to=FolderUserPost.image_filename)
+    
+    def save(self, *args, **kwargs):
+        file_name = self.img_upload.name
+        valid_filename = get_valid_filename(file_name)
+        self.img_upload.name = valid_filename
+        super(ImagePortfolio, self).save(*args, **kwargs)
  

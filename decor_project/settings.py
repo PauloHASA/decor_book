@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 
 import os
 import _locale
+import logging
+import logging.config
 
 
 load_dotenv()
@@ -73,7 +75,9 @@ INSTALLED_APPS = [
     'multiupload',
 ]
 
+
 SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,13 +92,14 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
+
 CSRF_TRUSTED_ORIGINS = ['https://www.decorbook.com.br',
                         'https://decorbook.com.br'
                         ]
 
 
-
 ROOT_URLCONF = 'decor_project.urls'
+
 
 TEMPLATES = [
     {
@@ -113,11 +118,15 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'decor_project.wsgi.application'
+
 
 _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 
+
 # Setting email
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -130,6 +139,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
@@ -145,6 +155,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -197,3 +208,50 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = "timeline_portfolio/"
 LOGOUT_REDIRECT_URL = "/"
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500 MB (em bytes)
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500 MB (em bytes)
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+            'when': 'midnight', 
+            'interval': 1,  
+            'backupCount': 1,  
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'myapp': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

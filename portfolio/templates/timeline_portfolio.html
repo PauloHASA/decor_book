@@ -21,26 +21,25 @@
 
         </section>
 
-
         <main class="grid-wrapper">
             {% for project in projects %}
-                    {% for image in project.images %}
-                        <div class="img-timeline" id="timeline-posts">
-                            <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-                                <div class="img-container">
-                                    <img src="{{ image.img_upload.url }}" alt="Project Image">
-                                </div>
-                                <div class="user-info-TimeLine">
-                                    <h1>{{ project.user.full_name }}</h1>
-                                    {% if user.is_staff %} 
-                                        <h1>Super usuário</h1>
-                                    {% else %}
-                                        <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
-                                    {% endif %}
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
+                {% for image in project.images %}
+                    <div class="img-timeline" id="timeline-posts">
+                        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                            <div class="img-container">
+                                <img src="{{ image.img_upload.url }}" alt="Project Image">
+                            </div>
+                            <div class="user-info-TimeLine">
+                                <h1>{{ project.user.full_name }}</h1>
+                                {% if user.is_staff %} 
+                                    <h1>Super usuário</h1>
+                                {% else %}
+                                    <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
             {% endfor %}
         </main>
 

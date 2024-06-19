@@ -13,12 +13,21 @@ def create_save_session(request, step_one_data, step_two_data):
     if 'partner' not in project_data:
         project_data['partner'] = ''
         
+    if 'area' not in project_data:
+        project_data['area'] = ''
+        
+    if 'rooms' not in project_data:
+        project_data['rooms'] = ''
+        
     if 'style' not in project_data:
         project_data['style'] = ''
         
+    if 'categories' not in project_data:
+        project_data['categories'] = ''
+        
     if 'add_stores' not in project_data:
         project_data['add_stores'] = ''
-        
+            
     project_data['user'] = request.user
     
     new_project = NewProject(**project_data)
@@ -29,7 +38,7 @@ def create_save_session(request, step_one_data, step_two_data):
     
     new_project.save()
     
-    for image in images:
-        ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+    # for image in images:
+    #     ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
     
     return new_project

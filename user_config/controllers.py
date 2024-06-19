@@ -22,10 +22,6 @@ class FolderUserPost:
         if not os.path.exists(post_folder):
             os.makedirs(post_folder)
             
-        print('-'*100)
-        print('Folder path: ',post_folder)
-        print('-'*100)
-
         return post_folder
 
 
@@ -39,7 +35,6 @@ class FolderUserPost:
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
         filepath = f"users_folder/{user_id}/{post_id}//img_{timestamp}_{filename}"
         
-        print("Caminho da imagem:", filepath) 
         return filepath
 
 
