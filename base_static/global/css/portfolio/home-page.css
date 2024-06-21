@@ -95,16 +95,17 @@
 .link-clubfolio{
     position: absolute;
     top: 18px;
+    right: 0px;
 
     width: 342px;
     height: 72px;
-    border-radius: 0px 4px 4px 0px;
 
     background-color: #FAFAFA;
     box-shadow: 0px 4px 4px 0px #0000001F;
 
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 
@@ -116,6 +117,7 @@
     color: #1E1D1D;
 
     padding-left: 16px;
+    margin: 0;
 }
 
 
@@ -183,3 +185,68 @@
 .section-projects .second-col{
     height: 368px;
 }     
+
+
+.section-projects .second-col{
+    overflow: hidden;
+}
+
+.second-col .row{
+    gap: 12px;
+}
+
+.second-col .row,
+.second-col .row .col{
+    margin: 0;
+    padding: 0;
+}
+
+
+.hunter-logo{
+    position: absolute;
+    bottom: 21px;
+    right: 24px;
+}
+
+
+.hunter-logo img{
+    width: 224px;
+    height: 32px;    
+}
+
+
+.clubfolio-box,
+.trends-box{
+    position: absolute;
+
+    width: 342px;
+    height: 72px;
+
+    background-color: #FAFAFA;
+    box-shadow: 0px 4px 4px 0px #0000001F;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+
+    color: #1E1D1D;
+}
+
+
+.clubfolio-box{
+    top: 17px;
+    padding: 6px 16px;
+}
+
+
+.trends-box{
+    bottom: 20px;
+    right: 0px;
+    padding: 6px 16px;
+
+}
+
+
+.padding-off .col{
+    padding: 0;
+}

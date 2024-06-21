@@ -18,7 +18,7 @@
         </header>
 
         <div class="section-projects">
-            <div class="row">
+            <div class="row padding-off">
                 <div class="col-2 first-col">
                     <a href="{% url "portfolio:payment-page" %}">
                         <img src="{% static "global/media/timeline/first-col.svg" %}" alt="">
@@ -34,7 +34,11 @@
                     <a href="#">
                         <img src="{% static "global/media/timeline/second-col.svg" %}" alt="">
                         <div class="link-clubfolio">
-                            <h1>Veja o que esta bombando no Clubfolio agora!</h1>
+                            <h1>Nova parceria!</h1>
+                            <h1>Decoração de janelas</h1>
+                        </div>
+                        <div class="hunter-logo">
+                            <img src="{% static "global/media/timeline/HunterDouglas.svg" %}" alt="">
                         </div>
                     </a>
                 </div>
@@ -43,7 +47,7 @@
         </div>
 
         <div class="section-projects">
-            <div class="row">
+            <div class="row padding-off">
                 <div class="col-2 first-col">
                     <a href="#">
                         <img src="{% static "global/media/timeline/first-col2.svg" %}" alt="">
@@ -55,14 +59,21 @@
                 </div>
     
                 <div class="col second-col">
-                    <a href="#">
-                        <img src="{% static "global/media/timeline/second-col2.svg" %}" alt="">
-                        <div class="decorations-trends">
-                            <h1>
-                                Acompanhe as principais trends de decoração
-                            </h1>
+                    <div class="row padding-off">
+                        <div class="col clubfolio-HomePage">
+                            <img src="{% static "global/media/timeline/clubfolio-homepage.svg" %}" alt="">
+                            <div class="clubfolio-box">
+                                Veja o que esta bombando no Clubfolio agora!
+                            </div>
                         </div>
-                    </a>
+                        <div class="col trends-HomePage">
+                            <img src="{% static "global/media/timeline/trends-Homepage.svg" %}" alt="">
+                            <div class="trends-box">
+                                Acompanhe as principais trends de decoração
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

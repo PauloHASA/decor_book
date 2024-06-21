@@ -7,8 +7,14 @@
 }
 
 .header-timeline .header-logo{
-    width: 111px;
     height: 48px;
+}
+
+
+.header-timeline .header-logo,
+.header-timeline .header-logo a,
+.header-timeline .header-logo a img{
+    width: 172px;
 }
 
 .header-timeline nav{
