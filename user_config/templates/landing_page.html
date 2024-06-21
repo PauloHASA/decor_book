@@ -102,7 +102,7 @@
                         <div class="img-timeline" id="timeline-posts">
                             <a href="{% url 'portfolio:project_page_pub' project_id=project.id %}">
                                 <div class="img-container">
-                                    <img src="{{ image.img_upload.url }}" alt="Project Image">
+                                    <img src="{{ image.img_upload.url }}" alt="Project Image" loading="lazy">
                                 </div>
                                 <div class="user-info-TimeLine">
                                     <h1>{{ project.user.full_name }}</h1>

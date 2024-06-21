@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django_require_login.decorators import public
+from django.utils.cache import patch_cache_control
+from django.views.decorators.cache import cache_control
 
 from .models import (CustomUserModel, 
                      ClientProfile, 
@@ -148,10 +150,14 @@ def logout_view(request):
     return redirect('user:landing_page')
 
 @public
+@cache_control(max_age=3600)
 def landing_page(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
     for project in projects:
-        project.images = list(project.imageportfolio_set.all().order_by('?'))  
+        project.images = list(project.imageportfolio_set.all().order_by('?'))
+        
+    response = render(request, 'timeline_portfolio.html', {'projects': projects})
+    patch_cache_control(response, max_age=3600)
     
     context = {
                 'projects': projects,

@@ -89,7 +89,12 @@ section .user-info .social-accounts{
 }
 section .data-project{
     margin-top: 24px ;
-    width: 218px;
+}
+
+section .about-project,
+section .data-project{
+    width: 100%;
+    overflow: auto;
 }
 
 section .data-project section{
@@ -122,9 +127,7 @@ section .data-project span{
     color: #2A2A2A;
 }
 
-section .about-project{
-    width: 218px;
-}   
+
 
 section .about-project h1{
     font-family: var(--font-principal);
@@ -145,7 +148,17 @@ section .about-project h2{
     letter-spacing: 0.04em;
     
     color: #626262;
-}   
+
+    }   
+    
+
+section .about-project h2{
+    height: 260px;
+    width: 280px;
+    min-width: 200px;
+    overflow: auto;
+}
+
 
 .spacer{
     flex-grow: 1;

@@ -1,21 +1,21 @@
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from django.forms.models import model_to_dict
-from django.db import transaction
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.conf import settings
+from django.core.exceptions import SuspiciousFileOperation
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
+from django.utils.text import get_valid_filename
+from django.utils.cache import patch_cache_control
+from django.views.decorators.cache import cache_control
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+
 from datetime import datetime
 from django_require_login.decorators import public
-from django.utils.text import get_valid_filename
-from django.core.exceptions import SuspiciousFileOperation
-from django.conf import settings
-from django.utils.text import get_valid_filename
-from django.core.exceptions import SuspiciousFileOperation
-from django.conf import settings
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
 from .controller import create_save_session
+from .tasks import process_image_upload
 
 from user_config.models import ProfessionalProfile, CustomUserModel
 from user_config.controllers import FolderUserPost
@@ -135,8 +135,11 @@ def new_project_step3(request):
                 file_name = image.name
                 valid_filename = get_valid_filename(file_name)
                 image.name = valid_filename
+                
+                image_instance = ImagePortfolio(img_upload=image, new_project=new_project)
+                image_instance.save()
                                 
-                ImagePortfolio.objects.create(img_upload=image, new_project=new_project)
+                process_image_upload.delay(image_instance.id)
                 logger.info(f"Image {image.name} saved for project {new_project.id}")
 
             FolderUserPost.create_post_folder(new_project.user.id, new_project.id)
@@ -160,12 +163,15 @@ def new_project_step3(request):
    
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
 
-
+@cache_control(max_age=3600)
 def timeline_portfolio(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
     for project in projects:
-        project.images = list(project.imageportfolio_set.all().order_by('?'))  
-    return render(request, 'timeline_portfolio.html', {'projects': projects})
+        project.images = list(project.imageportfolio_set.all().order_by('?'))
+        
+    response = render(request, 'timeline_portfolio.html', {'projects': projects})
+    patch_cache_control(response, max_age=3600)
+    return response
 
 
 def project_page(request, project_id):
@@ -218,7 +224,12 @@ def project_page_pub(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
     area = project.area
-    data_final_ano = project.data_final.year
+    
+    if project.data_final is not None:        
+        data_final_ano = project.data_final.year
+    else:
+        data_final_ano = ''
+    
     username = project.user.full_name
     name = project.name
     summary = project.summary
