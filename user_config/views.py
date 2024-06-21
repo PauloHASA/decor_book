@@ -28,11 +28,9 @@ from portfolio.models import (NewProject,
                               )
 
 
-@public
 def register_page(request):
     return render(request, "register-page.html")
 
-@public
 def register_professional(request):
     if request.method == 'POST':
         form = ProfessionalForm(request.POST)
@@ -69,7 +67,6 @@ def register_professional(request):
     return render( request, 'register-professional.html',{'form':form})
 
 
-@public
 def register_company(request):
     if request.method == 'POST':
         form = CompanyForm(request.POST)
@@ -87,7 +84,7 @@ def register_company(request):
         form = CompanyForm()
     return render(request, "register-company.html", {'form':form})
  
-@public
+
 def register_client(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -117,7 +114,7 @@ def register_client(request):
         form = ClientForm()
     return render( request, 'register-client.html',{'form':form})
    
-@public
+
 def login_page(request):
     form = LoginUserForm()
 
@@ -149,7 +146,7 @@ def logout_view(request):
     logout(request)
     return redirect('user:landing_page')
 
-@public
+
 @cache_control(max_age=3600)
 def landing_page(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
@@ -165,7 +162,7 @@ def landing_page(request):
 
     return render(request, "landing_page.html", context)
 
-
+@login_required
 def professional_profile(request, profile_id):
     profile_user = get_object_or_404(CustomUserModel, pk=profile_id)
     profile = get_object_or_404(ProfessionalProfile, user=profile_user)
@@ -187,7 +184,7 @@ def professional_profile(request, profile_id):
         
     return render(request, "professional_profile.html", context)
 
-
+@login_required
 def profile_client(request):
     user = request.user
     
@@ -211,7 +208,7 @@ def profile_client(request):
         
     return render(request, "profile_client.html", context)
 
-
+@login_required
 def profile_professional(request):
     user = request.user
     profile = get_object_or_404(ProfessionalProfile, user=user)
@@ -237,7 +234,7 @@ def profile_professional(request):
     
     return render(request, "profile_professional.html", context)
 
-
+@login_required
 def save_profile(request):
     if request.method == 'POST':
         form = ProfileEditForm(request.POST, instance=request.user)
@@ -254,7 +251,7 @@ def save_profile(request):
         pass
 
 
-
+@login_required
 def load_header(request):
     try:
         user = request.user

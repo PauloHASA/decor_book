@@ -10,7 +10,6 @@ from django.views.decorators.cache import cache_control
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
 from datetime import datetime
-from django_require_login.decorators import public
 
 from .forms import FormStepOne, FormStepTwo, FormStepThree, FormStepTwoOverwrite
 from .models import NewProject, ImagePortfolio
@@ -30,19 +29,23 @@ import os
 
 logger = logging.getLogger('myapp')
 
-# Create your views here.
+
+@login_required
 def my_projects(request):
     return render(request,'my-projects.html')
 
 
+@login_required
 def portfolio(request):
     return render(request,'portfolio.html')
 
 
+@login_required
 def store_portfolio(request):
     return render(request,'store_portfolio.html')
 
 
+@login_required
 def home_page(request):
     user = request.user  
     is_authenticated = user.is_authenticated
@@ -68,6 +71,7 @@ def home_page(request):
                                               })
 
 
+@login_required
 def new_project_step1(request): 
     form = FormStepOne(request.POST or None)
     if form.is_valid():
@@ -85,6 +89,7 @@ def new_project_step1(request):
     return render(request, 'new-project-step1.html', {'form_stepone': form})
 
 
+@login_required
 def new_project_step2(request):
     if 'step_one_data' not in request.session:
         return redirect('portfolio:new_project_step1')
@@ -100,6 +105,7 @@ def new_project_step2(request):
     return render(request, 'new-project-step2.html', {'form_steptwo': form})
 
 
+@login_required
 @transaction.atomic
 def new_project_step3(request):
     logger.info("Starting new_project_step3 view with method: %s", request.method)
@@ -163,6 +169,7 @@ def new_project_step3(request):
    
     return render(request, 'new-project-step3.html', {'form_stepthree': form_step_three})
 
+@login_required
 @cache_control(max_age=3600)
 def timeline_portfolio(request):
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
@@ -173,6 +180,7 @@ def timeline_portfolio(request):
     patch_cache_control(response, max_age=3600)
     return response
 
+@login_required
 
 def project_page(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
@@ -219,7 +227,6 @@ def project_page(request, project_id):
     return render(request,'project-page.html', context)
 
 
-@public
 def project_page_pub(request, project_id):
     project = get_object_or_404(NewProject, pk=project_id)
     
@@ -265,7 +272,6 @@ def project_page_pub(request, project_id):
     return render(request,'project-page-pub.html', context)
 
 
-@public
 def lobby_payment(request):
     return render(request, "lobby-payment.html")
 
@@ -273,6 +279,6 @@ def lobby_payment(request):
 def payment_page(request):
     return render(request, "payment-page.html")
 
-
+@login_required
 def client_property(request):
     return render(request, "client-property.html")
