@@ -1,0 +1,194 @@
+.main-HunterDouglas{
+    padding: 12px 24px 12px 24px;
+    height: 92vh;
+
+}
+
+
+.main-HunterDouglas header{
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.main-HunterDouglas header img{
+
+}
+
+
+.header-HunterDouglas{
+    margin-bottom: 32px;
+}
+
+
+.header-HunterDouglas .logo-icon{
+    position: absolute;
+
+}
+
+
+.header-HunterDouglas .logo-icon img{
+    max-width: 383px;
+    height: 55px;
+
+}
+
+.main-HunterDouglas .info-HunterDouglas{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+}
+
+
+
+.main-HunterDouglas .info-HunterDouglas h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.36px;
+    text-align: center;
+    
+    color: #000000;
+
+    max-width: 1029px;
+
+    margin: 0px;
+
+}
+
+
+.section-HunterDouglas{
+
+}
+
+
+.section-HunterDouglas header{
+    display: flex;
+    justify-content: flex-start;
+
+    margin-bottom: 16px;
+}
+
+
+.section-HunterDouglas header h3{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    
+    color: #000;
+    margin: 0;
+}
+
+
+.projects-HunterDouglas{
+    column-count: 2;
+    column-gap: 12px;
+    row-gap: 12px;
+}
+
+
+.img-HunterDouglas{
+    position: relative;
+    margin-bottom: 12px;
+}
+
+
+.img-HunterDouglas img{
+
+}
+
+
+.img-HunterDouglas .legends-HunterDouglas{
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 24px;
+
+    background-color: #242424bf;
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+}
+
+
+.img-HunterDouglas:hover .legends-HunterDouglas{
+    opacity: 1; 
+}
+
+
+
+
+
+.img-HunterDouglas .legends-HunterDouglas h1,
+.img-HunterDouglas .legends-HunterDouglas p,
+.img-HunterDouglas .legends-HunterDouglas h2,
+.img-HunterDouglas .legends-HunterDouglas h2 span,
+.img-HunterDouglas .legends-HunterDouglas a p{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #FFFFFF;
+
+    margin-bottom: 24px;
+}
+
+
+
+.img-HunterDouglas .legends-HunterDouglas p,
+.img-HunterDouglas .legends-HunterDouglas h2 span{
+    font-size: 16px;
+    font-weight: 400;
+
+    margin-bottom: 12px;
+}
+
+
+.img-HunterDouglas .legends-HunterDouglas h2,
+.img-HunterDouglas .legends-HunterDouglas a p{
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+
+.img-HunterDouglas .legends-HunterDouglas a{
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+}
+
+
+.img-HunterDouglas .legends-HunterDouglas a p{
+
+    margin: 0;
+}
+
+
+.img-HunterDouglas .legends-HunterDouglas a img{
+    width: 24px;
+    height: 24px;
+}
+
+
+
+.main-HunterDouglas header img,
+.section-HunterDouglas header,
+.img-HunterDouglas img,
+.img-HunterDouglas .legends-HunterDouglas a{
+    width: 100%;
+
+}

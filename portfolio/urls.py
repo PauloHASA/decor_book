@@ -24,4 +24,6 @@ urlpatterns = [
     
     path("client-property/", views.client_property, name="client-property"),
     
+    path("hunter_douglas/", views.hunter_douglas, name="hunter_douglas"),
+    
 ]

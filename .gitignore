@@ -135,3 +135,4 @@ migrations
 .vscode/launch.json
 
 media/users_folder/
+debug.log

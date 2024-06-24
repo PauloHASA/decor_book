@@ -66,7 +66,7 @@ class UserRegistrationForm(UserCreationForm):
         return cleaned_data
         
         
-class LoginUserForm(forms.ModelForm):
+class LoginUserForm(forms.Form):
     password = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(attrs={"autocomplete":"new-password"}),
@@ -84,12 +84,17 @@ class LoginUserForm(forms.ModelForm):
         fields = ("email", "password")
         
     def clean(self):
-        if self.is_valid():
-            email =  self.cleaned_data["email"]
-            password = self.cleaned_data["password"]
-            
-            if not authenticate(email=email, password=password):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        password = cleaned_data.get("password")
+
+        if email and password:
+            user = authenticate(email=email, password=password)
+            if user is None:
                 raise forms.ValidationError("Invalid credentials")
+            elif not user.is_active:
+                raise forms.ValidationError("This account is inactive.")
+        return cleaned_data
             
 
 class ClientForm(forms.ModelForm):    

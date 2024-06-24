@@ -45,7 +45,6 @@ ALLOWED_HOSTS = ['www.decorbook.com.br',
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 AUTH_USER_MODEL = 'user_config.CustomUserModel'
@@ -67,9 +66,6 @@ INSTALLED_APPS = [
     'campaigns',
 
     #All Auth Library
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     
     #Library App
     'multiupload',
@@ -89,7 +85,6 @@ MIDDLEWARE = [
     'user_config.middleware.UserContextMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 
@@ -205,8 +200,9 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = "timeline_portfolio/"
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "user:landing_page"
+LOGIN_URL = "/"
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500 MB (em bytes)
 
@@ -233,7 +229,8 @@ LOGGING = {
             'filename': os.path.join(BASE_DIR, 'debug.log'),
             'when': 'midnight', 
             'interval': 1,  
-            'backupCount': 1,  
+            'backupCount': 1,
+            'encoding': 'utf-8',  
             'formatter': 'verbose',
         },
         'console': {
@@ -257,10 +254,16 @@ LOGGING = {
 }
 
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'user_name'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'

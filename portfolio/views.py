@@ -282,3 +282,7 @@ def payment_page(request):
 @login_required
 def client_property(request):
     return render(request, "client-property.html")
+
+@login_required
+def hunter_douglas(request):
+    return render(request, "hunter_douglas.html")

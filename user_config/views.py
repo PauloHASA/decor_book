@@ -134,7 +134,9 @@ def login_page(request):
                 error_message =  " Invalid credentials. Please, try again."
                 return render(request,
                               "login.html",
-                              {"error_message":error_message, "login_form":form},
+                              {"error_message":error_message,
+                               "login_form":form,
+                               },
                               )
         else:
             print(form.errors)

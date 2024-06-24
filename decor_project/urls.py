@@ -27,7 +27,5 @@ urlpatterns = [
     path('', include('user_config.urls'), name='user_config'),
     path('portfolio/', include('portfolio.urls'), name='portfolio'),
     path('campaigns/', include('campaigns.urls'), name='campaigns'),
-    
-    path('accounts/', include('allauth.urls')),
-    
+        
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
