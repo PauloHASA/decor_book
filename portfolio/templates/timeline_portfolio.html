@@ -8,7 +8,7 @@
     <main class="portifolio_timeline">
         <section class="">
                 <h1>
-                    Clubfolio
+                    Projetos
                 </h1>
 
                 <div class="search-input">
@@ -30,12 +30,21 @@
                                 <img src="{{ image.img_upload.url }}" alt="Project Image" loading="lazy">
                             </div>
                             <div class="user-info-TimeLine">
-                                <h1>{{ project.user.full_name }}</h1>
-                                {% if user.is_staff %} 
-                                    <h1>Super usuário</h1>
-                                {% else %}
-                                    <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
-                                {% endif %}
+                                <div class="userPhoto-TimeLine">
+                                    {% if project.user.professional_profile.profile_picture %}
+                                        <img src="{{ project.user.professional_profile.profile_picture.url }}" alt="">
+                                    {% else %}
+                                        <img src="{% static 'global/media/img/default.jpg' %}" alt="">
+                                    {% endif %}
+                                </div>
+                                <section>
+                                    <h1>{{ project.user.full_name }}</h1>
+                                    {% if user.is_staff %} 
+                                        <h1>Super usuário</h1>
+                                    {% else %}
+                                        <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
+                                    {% endif %}
+                                </section>
                             </div>
                         </a>
                     </div>

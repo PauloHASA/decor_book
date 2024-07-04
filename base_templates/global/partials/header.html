@@ -17,7 +17,7 @@
 
         <a class="" href="{% url "portfolio:timeline_portfolio" %}">
             <button >
-                Clubfolio
+                Timeline
             </button>
         </a>
 
@@ -25,12 +25,6 @@
         <a class="" href="">
             <button>
                 Campanhas
-            </button>
-        </a>
-
-        <a class="" href="#">
-            <button>
-                Club rewards
             </button>
         </a>
 
@@ -69,8 +63,8 @@
                                 <h4>Ir para meu perfil</h4>
                             </a>
                         {% elif request.user.is_staff %}
-                            <a href="{% url 'user:profile_professional' %}">
-                                <h4>Ir para meu perfil</h4>
+                            <a href="#">
+                                <h4>Perfil em construcao</h4>
                             </a>
                         {% endif %}
                             <a href="{% url 'user:logout' %}" class="logout-class">

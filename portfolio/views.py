@@ -172,11 +172,16 @@ def new_project_step3(request):
 @login_required
 @cache_control(max_age=3600)
 def timeline_portfolio(request):
+
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
     for project in projects:
         project.images = list(project.imageportfolio_set.all().order_by('?'))
-        
-    response = render(request, 'timeline_portfolio.html', {'projects': projects})
+    
+    context = {
+        'projects': projects,
+        }
+    
+    response = render(request, 'timeline_portfolio.html', context)
     patch_cache_control(response, max_age=3600)
     return response
 
@@ -211,6 +216,8 @@ def project_page(request, project_id):
         except ProfessionalProfile.DoesNotExist:
             pass
     
+    is_owner = request.user == project.user
+    
     context = {
         'project': project,
         'images': images,
@@ -222,7 +229,8 @@ def project_page(request, project_id):
         'name': name,
         'username': username,
         'style': style,
-        'name': name
+        'name': name,
+        'is_owner': is_owner,
     }
     return render(request,'project-page.html', context)
 
@@ -279,10 +287,14 @@ def lobby_payment(request):
 def payment_page(request):
     return render(request, "payment-page.html")
 
+
 @login_required
 def client_property(request):
     return render(request, "client-property.html")
 
+
 @login_required
 def hunter_douglas(request):
     return render(request, "hunter_douglas.html")
+
+

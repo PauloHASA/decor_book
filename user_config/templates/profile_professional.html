@@ -28,7 +28,7 @@
         </button>
         
         <!-- Modal -->
-        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal fade {% if modal_open %} show {% endif %}" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-ProfilePro">
 
             <div class="modal-content modal-content-ProfilePro">
@@ -129,6 +129,18 @@
       {% endif %}
     </section>
   </main>
+
+{% if modal_open %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+      editProfileModal.show();
+  });
+
+</script>
+{% endif %}
+
+
 </main>
 
 {% endblock main %}

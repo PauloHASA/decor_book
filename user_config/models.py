@@ -59,6 +59,8 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=True, blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    is_organic = models.BooleanField(default=False)
+    is_marketing = models.BooleanField(default=False)
     
     is_client = models.BooleanField(default=False)
     is_professional = models.BooleanField(default=False)

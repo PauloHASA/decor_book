@@ -42,9 +42,5 @@ def send_test_email(request):
     return HttpResponse("E-mail enviado com sucesso!")
 
         
-def email_build(request):
-    
-    return render (request, "email_build.html")
-
-def email_test(request):
-    return render( request, 'test.html')
+def email_welcome(request):
+    return render (request, "email_welcome.html")

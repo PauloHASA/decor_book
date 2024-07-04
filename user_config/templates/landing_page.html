@@ -98,24 +98,33 @@
         <div class="row body-LandingPage contents-LandingPage" id="section-2">
             <main class="grid-wrapper">
                 {% for project in projects %}
-                    {% for image in project.images %}
-                        <div class="img-timeline" id="timeline-posts">
-                            <a href="{% url 'portfolio:project_page_pub' project_id=project.id %}">
-                                <div class="img-container">
-                                    <img src="{{ image.img_upload.url }}" alt="Project Image" loading="lazy">
+                {% for image in project.images %}
+                    <div class="img-timeline" id="timeline-posts">
+                        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                            <div class="img-container">
+                                <img src="{{ image.img_upload.url }}" alt="Project Image" loading="lazy">
+                            </div>
+                            <div class="user-info-TimeLine" style="opacity: 1;">
+                                <div class="userPhoto-TimeLine">
+                                    {% if project.user.professional_profile.profile_picture %}
+                                        <img src="{{ project.user.professional_profile.profile_picture.url }}" alt="">
+                                    {% else %}
+                                        <img src="{% static 'global/media/img/default.jpg' %}" alt="">
+                                    {% endif %}
                                 </div>
-                                <div class="user-info-TimeLine">
+                                <section>
                                     <h1>{{ project.user.full_name }}</h1>
                                     {% if user.is_staff %} 
-                                        <h1>Super usuario</h1>
+                                        <h1>Super usuário</h1>
                                     {% else %}
                                         <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
                                     {% endif %}
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
+                                </section>
+                            </div>
+                        </a>
+                    </div>
                 {% endfor %}
+            {% endfor %}
             </main>
             
             {% comment %} <footer>

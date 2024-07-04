@@ -82,15 +82,35 @@
     background: linear-gradient(360deg, #242424 0%, rgba(36, 36, 36, 0) 100%);
     opacity: 0; /* Inicialmente invisível */
     transition: opacity 0.3s ease; /* Transição suave de opacidade */
+
+    display: flex;
+    gap: 12px;
     
 }
+
+
+.user-info-TimeLine .userPhoto-TimeLine,
+.user-info-TimeLine .userPhoto-TimeLine img{
+    width: 48px;
+    height: 48px;
+    
+    border-radius: 50%;
+}
+
+
+.user-info-TimeLine section{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
 
 .grid-wrapper .img-timeline a:hover .user-info-TimeLine{
     opacity: 1; 
 
 }
 
-.user-info-TimeLine h1{
+.user-info-TimeLine section h1{
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 600;

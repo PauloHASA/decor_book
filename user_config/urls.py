@@ -21,3 +21,6 @@ urlpatterns = [
     path('save-profile/', views.save_profile, name='save_profile'),
 ]
 
+
+# Link personalizado de registro do profissional 
+# <a href="{% url 'user:register_professional' %}?source=marketing">Register as Professional from Marketing</a>

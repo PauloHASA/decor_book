@@ -50,6 +50,13 @@ def register_professional(request):
                                                        full_name=full_name,
                                                        password=password1)
             user.is_professional = True
+            
+            source = request.GET.get('source')
+            if source == 'marketing':
+                user.is_marketing = True
+            else:
+                user.is_organic = True
+            
             user.save()
             
             professional_profile = ProfessionalProfile.objects.create(user=user, 
@@ -226,12 +233,15 @@ def profile_professional(request):
     edit_profile_form = ProfileEditForm(instance=user)  
     edit_profile_picture = ProfessionalProfileForm()  
     
+    modal_open = request.GET.get('modal_open', 'false') == 'true'
+    
     context = {
         'profile': profile,
         'first_project_image': first_project_image,
         'projects': projects,
         'edit_profile_form': edit_profile_form, 
-        'edit_profile_picture': edit_profile_picture, 
+        'edit_profile_picture': edit_profile_picture,
+        'modal_open':modal_open,
     }
     
     return render(request, "profile_professional.html", context)
@@ -241,17 +251,37 @@ def save_profile(request):
     if request.method == 'POST':
         form = ProfileEditForm(request.POST, instance=request.user)
         profile_form = ProfessionalProfileForm(request.POST, request.FILES, instance=request.user.professional_profile)
-        
+
         if form.is_valid() and profile_form.is_valid():
+            print('Formulario valido')
             user_form = form.save(commit=False)
             profile_form_instance = profile_form.save(commit=False)
             user_form.save()
             profile_form_instance.user = request.user
             profile_form_instance.save()
             return redirect('user:profile_professional')  
-    else:
-        pass
-
+        else:
+            user = request.user
+            profile = get_object_or_404(ProfessionalProfile, user=user)
+            projects = NewProject.objects.filter(user=user)
+            first_project_image = None
+            
+            if projects.exists():
+                first_project = projects.first()
+                first_project_image = ImagePortfolio.objects.filter(new_project=first_project)
+                if first_project_image.exists():
+                    first_project_image = first_project_image.first()
+            
+            context = {
+                'profile': profile,
+                'first_project_image':first_project_image,
+                'projects':projects,
+                'edit_profile_form': form,  
+                'edit_profile_picture': profile_form,  
+                'modal_open': True 
+            }
+            
+            return render(request, "profile_professional.html", context)
 
 @login_required
 def load_header(request):

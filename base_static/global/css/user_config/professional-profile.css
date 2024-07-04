@@ -316,3 +316,8 @@
 background-color: #242424;
 color: #FAFAFA;
 }
+
+
+.hiddened {
+    display: none;
+}
