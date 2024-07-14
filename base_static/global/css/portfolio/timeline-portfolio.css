@@ -1,7 +1,7 @@
 
 .portifolio_timeline{
     padding: 0px 24px 0px 24px;
-    height: 95vh;
+    height: 93vh;
 }
 
 .portifolio_timeline section{
@@ -49,7 +49,7 @@
 }
 
 .grid-wrapper{
-    column-count: 4;
+    column-count: 6;
     column-gap: 6px;
     row-gap: 6px;
     
@@ -80,8 +80,8 @@
 
     width: 100%;
     background: linear-gradient(360deg, #242424 0%, rgba(36, 36, 36, 0) 100%);
-    opacity: 0; /* Inicialmente invisível */
-    transition: opacity 0.3s ease; /* Transição suave de opacidade */
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
 
     display: flex;
     gap: 12px;
@@ -91,8 +91,8 @@
 
 .user-info-TimeLine .userPhoto-TimeLine,
 .user-info-TimeLine .userPhoto-TimeLine img{
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     
     border-radius: 50%;
 }
@@ -112,11 +112,13 @@
 
 .user-info-TimeLine section h1{
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 19px;
     letter-spacing: 0em;
     color: #FAFAFA;
+
+    margin: 1px;
 }
 
 .search-input span input:focus{
@@ -133,25 +135,50 @@
 }
 
 
+
 /* Responsive section */
 
 @media screen and (max-width:1440px) {
     .grid-wrapper{
-        column-count: 3;
+        column-count: 5;
         
     }
 }
 
 @media screen and (max-width:1024px) {
     .grid-wrapper{
-        column-count: 2;
+        column-count: 4;
         
     }
 }
 
 @media screen and (max-width:768px) {
     .grid-wrapper{
-        column-count: 1;
+        column-count: 3;
         
     }
+} 
+
+
+
+/* 
+.user-info-TimeLine .userPhoto-TimeLine,
+.user-info-TimeLine .userPhoto-TimeLine img{
+    width: 36px;
+    height: 36px;
+    
+    border-radius: 50%;
 }
+
+
+.user-info-TimeLine section h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+    color: #FAFAFA;
+
+    margin: 1px;
+}
+ */

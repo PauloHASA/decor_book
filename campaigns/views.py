@@ -44,3 +44,7 @@ def send_test_email(request):
         
 def email_welcome(request):
     return render (request, "email_welcome.html")
+
+        
+def email_marketing(request):
+    return render (request, "email_marketing.html")
