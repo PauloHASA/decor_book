@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"></script>
+</head>
+<body>
+    <h1>Formulário de Pagamento</h1>
+    <form id="payment-form" method="post" action="{% url 'payment' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    
+        <!-- Campos específicos do cartão -->
+        <label for="card_holder">Nome no Cartão:</label>
+        <input type="text" id="card_holder" name="card_holder" required><br>
+    
+        <label for="card_number">Número do Cartão:</label>
+        <input type="text" id="card_number" name="card_number" required><br>
+    
+        <label for="card_exp_month">Mês de Expiração:</label>
+        <input type="text" id="card_exp_month" name="card_exp_month" required><br>
+    
+        <label for="card_exp_year">Ano de Expiração:</label>
+        <input type="text" id="card_exp_year" name="card_exp_year" required><br>
+    
+        <label for="card_security_code">Código de Segurança:</label>
+        <input type="text" id="card_security_code" name="card_security_code" required><br>
+    
+        <!-- Campo oculto para o cartão criptografado -->
+        <input type="hidden" id="encrypted_card" name="encrypted_card">
+    
+        <button type="submit">Pagar</button>
+    </form>
+    
+    <script>
+        const publicKey = "MINHA_CHAVE_PUBLICA";  // Substitua pela sua chave pública do PagSeguro
+    
+        document.getElementById('payment-form').addEventListener('submit', async function(event) {
+            event.preventDefault();  // Previne o envio padrão do formulário
+    
+            // Coleta os dados do cartão
+            const cardHolder = document.getElementById('card_holder').value;
+            const cardNumber = document.getElementById('card_number').value;
+            const cardExpMonth = document.getElementById('card_exp_month').value;
+            const cardExpYear = document.getElementById('card_exp_year').value;
+            const cardSecurityCode = document.getElementById('card_security_code').value;
+    
+            // Criptografa os dados do cartão
+            const card = PagSeguro.encryptCard({
+                publicKey: publicKey,
+                holder: cardHolder,
+                number: cardNumber,
+                expMonth: cardExpMonth,
+                expYear: cardExpYear,
+                securityCode: cardSecurityCode
+            });
+    
+            const encrypted = card.encryptedCard;
+            const hasErrors = card.hasErrors;
+            const errors = card.errors;
+    
+            if (hasErrors) {
+                alert('Erro ao criptografar o cartão: ' + errors.join(', '));
+                return;
+            }
+    
+            // Define o valor criptografado no campo oculto
+            document.getElementById('encrypted_card').value = encrypted;
+    
+            // Envia o formulário após a criptografia
+            document.getElementById('payment-form').submit();
+        });
+    </script>
+    </body>
+</html>

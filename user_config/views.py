@@ -27,6 +27,10 @@ from portfolio.models import (NewProject,
                               ImagePortfolio,
                               )
 
+from .forms import PaymentForm
+from api_pagbank.api_pagbank import payment_card
+from django.http import JsonResponse
+
 
 def register_page(request):
     return render(request, "register-page.html")
@@ -171,6 +175,7 @@ def landing_page(request):
 
     return render(request, "landing_page.html", context)
 
+
 @login_required
 def professional_profile(request, profile_id):
     profile_user = get_object_or_404(CustomUserModel, pk=profile_id)
@@ -184,8 +189,10 @@ def professional_profile(request, profile_id):
         if first_project_image.exists():
             first_project_image = first_project_image.first().img_upload.url
             
+    print(profile.profile_picture.url)
     
     context = {'profile': profile,
+               'profile_picture_url': profile.profile_picture.url if profile.profile_picture else None,
                'first_project_image': first_project_image,
                'projects': projects
                }
@@ -217,6 +224,7 @@ def profile_client(request):
         
     return render(request, "profile_client.html", context)
 
+
 @login_required
 def profile_professional(request):
     user = request.user
@@ -235,8 +243,12 @@ def profile_professional(request):
     
     modal_open = request.GET.get('modal_open', 'false') == 'true'
     
+    print(profile.profile_picture.url)
+
+    
     context = {
         'profile': profile,
+        'profile_picture_url': profile.profile_picture.url if profile.profile_picture else None,
         'first_project_image': first_project_image,
         'projects': projects,
         'edit_profile_form': edit_profile_form, 
@@ -244,7 +256,9 @@ def profile_professional(request):
         'modal_open':modal_open,
     }
     
+    
     return render(request, "profile_professional.html", context)
+
 
 @login_required
 def save_profile(request):
@@ -283,6 +297,7 @@ def save_profile(request):
             
             return render(request, "profile_professional.html", context)
 
+
 @login_required
 def load_header(request):
     try:
@@ -300,4 +315,33 @@ def load_header(request):
     }
     
     return render(request, 'header.html', context )
-        
+
+
+
+def payment_view(request):
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            # Coleta os dados do formulário
+            data = form.cleaned_data
+            encrypted_card = request.POST.get('encrypted_card')
+
+            # Chama a função para criar o pagamento
+            response = payment_card(
+                encrypted_card=encrypted_card,
+                name=data['name'],
+                email=data['email'],
+                tax_id=data['tax_id'],
+                phone=data['phone'],
+                item_name=data['item_name'],
+                amount=data['amount']
+            )
+            
+            # Trata a resposta da API do PagBank
+            if 'error' in response:
+                return JsonResponse({'error': response['error']}, status=500)
+            return JsonResponse(response)
+    else:
+        form = PaymentForm()
+
+    return render(request, 'payment_test.html', {'form': form})

@@ -1,0 +1,79 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block title %} Timeline {% endblock title %}  
+
+{% block main %}
+
+    <main class="main-projectPageNew">
+        <header class="header-projectPageNew">
+            <a href="{{request.META.HTTP_REFERER}}">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <div class="header-project-projectPageNew">
+                <h1>{{name}} - {{style}}</h1>
+            </div>
+        </header>
+
+        <div class="row" style="height: 88%;">
+            <div class="col">
+                <div class="focus-img-projectPageNew">
+                    <img id="main-image" src="{% if images %}{{ images.0.img_upload.url }} {% endif %}" alt="Imagem Principal">
+                </div>
+                <div class="next-imgs-projectPageNew">
+                    {% for image in images %}
+                            <a  class="thumbnail" data-image="{{ image.img_upload.url }}">
+                                <img src="{{ image.img_upload.url }}" alt="">
+                            </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-3">
+                <a href="{% url "user:professional_profile" profile_id=project.user.id %}">
+                    <div class="user-data-projectPageNew">
+                        {% if project.user.professional_profile.profile_picture %}
+                            <img src="{{ project.user.professional_profile.profile_picture.url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'global/media/img/default.jpg' %}" alt="">
+                        {% endif %}
+
+                        <h1>{{ project.user.full_name }}</h1>
+                        <h2>{{profession|capfirst}}</h2>
+                    </div>
+                </a>
+                <div class="body-data-projectPageNew">
+                    <section>
+                        <p>Área: <span>{{area}}</span></p> 
+                    </section>
+
+                    <section>
+                        <p>Fabricantes: <span>{{partner}}</span></p> 
+                    </section>
+
+                    <section>
+                        <p>Sobre o projeto: <span>{{summary}}</span>
+                        </p>
+                    </section>
+                </div>
+
+                <div class="space-projectPageNew"></div>
+
+                <div class="btn-contact-projectPageNew">
+                    {% if is_owner %}
+                        <button>
+                            <img src="{% static 'global\media\icons\ThinPencil.svg' %}" alt="">
+                            Editar projeto
+                        </button>
+                    {% else %}
+                            <button>
+                                Contrate {{ project.user.full_name }}
+                            </button>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+{% endblock main %}

@@ -1,0 +1,192 @@
+.main-projectPageNew{
+    height: 93%;
+}
+
+
+.main-projectPageNew .row,
+.main-projectPageNew .row :where(.col, .col-5,.col-3 ){
+    margin: 0;
+    padding: 0;
+}
+
+
+.header-projectPageNew{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+
+.header-projectPageNew a{
+    width: 18px;
+    height: 14px;
+    margin-bottom: 24px;
+
+}
+
+
+.header-projectPageNew a i{
+    color: #09090B;
+}
+
+
+.header-project-projectPageNew{
+    
+}
+
+
+.header-project-projectPageNew h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    
+}
+
+
+.user-data-projectPageNew{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.user-data-projectPageNew img{
+    width: 78px;
+    height: 78px;
+    margin-bottom: 12px;
+    border-radius: 55px;
+}
+
+
+.user-data-projectPageNew h1,
+.user-data-projectPageNew h2,
+.body-data-projectPageNew section p,
+.body-data-projectPageNew section p span{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+.user-data-projectPageNew h2,
+.body-data-projectPageNew section p,
+.body-data-projectPageNew section p span{
+    font-weight: 600;
+    color: #626262;
+}
+
+
+.main-projectPageNew .row .col,
+.main-projectPageNew .row .col-3{
+    display: flex;
+    flex-direction: column;   
+}
+
+
+.space-projectPageNew{
+    flex-grow: 1;
+}
+
+
+.body-data-projectPageNew{
+    
+}
+
+
+.body-data-projectPageNew section{
+
+}
+
+
+.body-data-projectPageNew section p,
+.body-data-projectPageNew section p span{
+   color: #2A2A2A;
+    
+}
+
+
+.body-data-projectPageNew section p span{
+    font-weight: 400;
+}
+
+
+.btn-contact-projectPageNew{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.btn-contact-projectPageNew button{
+    width: 70%;
+    height: 48px;
+
+    border-radius: 4px;
+    
+    background-color: #242424;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #FAFAFA;
+
+}
+
+
+
+.main-projectPageNew .row .col{
+    align-items: center;
+    gap: 12px;
+}
+
+
+.focus-img-projectPageNew{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.focus-img-projectPageNew,
+.next-imgs-projectPageNew{
+    width: 80%;
+
+}
+
+
+.focus-img-projectPageNew img{
+    height: 517px;
+}
+
+
+.next-imgs-projectPageNew{
+    display: flex;
+    justify-content: center;
+    
+    gap: 12px;
+    overflow: auto;
+    height: 232px;
+}
+
+
+.next-imgs-projectPageNew a{
+    height: 176px;
+
+    display: flex;
+}
+
+
+.next-imgs-projectPageNew a img{
+
+}

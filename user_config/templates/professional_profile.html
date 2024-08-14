@@ -16,8 +16,11 @@
 
             <div class="profile-info">
                 <div class="img-user">
-                    <img src="{{user.avatar}}" alt="">
-                </div>
+                    {% if profile_picture_url %}
+                        <img src="{{ profile_picture_url }}" alt="">
+                    {% else %}
+                        <img src="{% static 'global/media/img/default.jpg' %}" alt="">
+                    {% endif %}                </div>
                 <div class="data-and-socialaccount">
                     <h1>{{ profile.user.full_name }}</h1>
                     <h2>{{ profile.get_profession_display }}</h2>

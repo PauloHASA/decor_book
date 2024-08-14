@@ -37,7 +37,7 @@
         </div>
 
         <div class="row body-LandingPage" id="section-1">
-            <div class="col text-LandingPage">
+            <div class="col-5 text-LandingPage">
                 <h1>
                     A primeira e maior plataforma Portifolio do mundo
                 </h1>
@@ -58,87 +58,68 @@
 
              <div class="col grid-LandingPage">
                 <div class="img-LandingPage ">
-                    <a href="#">
-                        <img src="{% static "global/media/landing_page/Img-1.svg" %}" alt="">
-                    </a>
-                </div>
-                <div class="img-LandingPage ">
-                    <a href="#">
-                        <img src="{% static "global/media/landing_page/Img-2.svg" %}" alt="" style="height: 58%;">
-                    </a>
+                    <img src="{% static "global/media/landing_page/Img-1.svg" %}" alt="">
                 </div>
 
-                <div class="img-LandingPage ">
-                    <a href="#">
-                        <img src="{% static "global/media/landing_page/Img-4.svg" %}" alt="">
-                    </a>
+                <div class="img-LandingPage item-two">
+                    <img src="{% static "global/media/landing_page/Img-3.svg" %}" alt="">
                 </div>
-                <div class="img-LandingPage ">
-                    <a href="#">
-                        <img src="{% static "global/media/landing_page/Img-5.svg" %}" alt="">
-                    </a>
+
+                <div class="img-LandingPage item-tree">
+                    <img src="{% static "global/media/landing_page/Img-2.svg" %}" alt="">
                 </div>
-                <div class="img-LandingPage ">
-                    <a href="#">
-                        <img src="{% static "global/media/landing_page/Img-3.svg" %}" alt="">
-                    </a>
-                </div> 
+                 <div class="img-LandingPage item-four">
+                    <img src="{% static "global/media/landing_page/Img-4.svg" %}" alt="">
+                </div>
+                <div class="img-LandingPage item-five">
+                    <img src="{% static "global/media/landing_page/Img-5.svg" %}" alt="">
+                </div>
              </div>
-
-             <footer>
-                <a href="">
-                    <button id="see-more">
-                        <i class="bi bi-arrow-down"></i>
-                         Veja mais projetos
-                    </button>
-                </a>
-             </footer>
         </div>
 
-        <div class="row body-LandingPage contents-LandingPage" id="section-2">
-            <main class="grid-wrapper">
-                {% for project in projects %}
-                {% for image in project.images %}
-                    <div class="img-timeline" id="timeline-posts">
-                        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
-                            <div class="img-container">
-                                <img src="{{ image.img_upload.url }}" alt="Project Image" loading="lazy">
-                            </div>
-                            <div class="user-info-TimeLine" style="opacity: 1;">
-                                <div class="userPhoto-TimeLine">
-                                    {% if project.user.professional_profile.profile_picture %}
-                                        <img src="{{ project.user.professional_profile.profile_picture.url }}" alt="">
-                                    {% else %}
-                                        <img src="{% static 'global/media/img/default.jpg' %}" alt="">
-                                    {% endif %}
-                                </div>
-                                <section>
-                                    <h1>{{ project.user.full_name }}</h1>
-                                    {% if user.is_staff %} 
-                                        <h1>Super usuário</h1>
-                                    {% else %}
-                                        <h1>{{ project.user.professional_profile.profession|capfirst }}</h1>
-                                    {% endif %}
-                                </section>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            </main>
-            
-            {% comment %} <footer>
-                <a href="">
+        <div class="project-section-LandingPage grid-projectSection-LandingPage">
+            <a href="http://" class="projectSection-one">
+                <header>
+                    <h1>Empreendimentos</h1>
+                    <h2>Confira os melhores empreendimentos do momento.</h2>
+                </header>
+                <div class="gray-section">
 
-                    <button id="back-to-up">
-                        <i class="bi bi-arrow-up"></i>
-                        Voltar para o topo
-                    </button>
-                </a>
-                
-             </footer> {% endcomment %}
+                </div>
+                <img src="{% static 'global\media\landing_page\project-img-1.svg' %}" alt="">
+            </a>
+
+            <a href="http://" class="projectSection-two">
+                <header>
+                    <h1>Arquitetos</h1>
+                    <h2>Conheça e contate os melhores arquitetos para o seu projeto.</h2>
+                </header>
+                <div class="gray-section">
+
+                </div>
+                <img src="{% static 'global\media\landing_page\project-img-2.svg' %}" alt="">
+            </a>
+
+            <a href="http://" class="projectSection-tree">
+                <header>
+                    <h1>Hunter Douglas</h1>
+                    <h2>Acesse os produtos mais exclusivos HunterDouglas.</h2>
+                </header>
+                <div class="gray-section">
+
+                </div>
+                <img src="{% static 'global\media\landing_page\project-img-3.svg' %}" alt="">
+            </a>
         </div>
-        
 
+        <!-- <footer>
+            <a href="">
+                <button id="">
+                    <i class="bi bi-arrow-down animation-arrow"></i>
+                     Veja mais projetos
+                </button>
+            </a>
+         </footer>
+ -->
     </body>
 </html>

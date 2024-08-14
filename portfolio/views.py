@@ -298,3 +298,50 @@ def hunter_douglas(request):
     return render(request, "hunter_douglas.html")
 
 
+def new_project_page(request, project_id):
+    project = get_object_or_404(NewProject, pk=project_id)
+    
+    area = project.area
+    
+    if project.data_final is not None:        
+        data_final_ano = project.data_final.year
+    else:
+        data_final_ano = ''
+        
+    username = project.user.full_name
+    name = project.name
+    summary = project.summary
+    style = project.style
+    partner = project.partner
+    images = project.imageportfolio_set.all()
+    
+    user = project.user
+    name = user.full_name
+    
+    user = project.user
+    profession = ""
+    if user.is_authenticated and user.is_professional:
+        try:
+            professional_profile = ProfessionalProfile.objects.get(user=user)
+            profession = professional_profile.profession
+        except ProfessionalProfile.DoesNotExist:
+            pass
+    
+    is_owner = request.user == project.user
+    
+    context = {
+        'project': project,
+        'images': images,
+        'area': area,
+        'profession': profession,
+        'summary': summary,
+        'data_final_ano': data_final_ano,
+        'partner':partner,
+        'name': name,
+        'username': username,
+        'style': style,
+        'name': name,
+        'is_owner': is_owner,
+    }
+
+    return render(request, "new-project-page.html", context)

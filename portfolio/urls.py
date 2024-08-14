@@ -26,4 +26,6 @@ urlpatterns = [
     
     path("hunter_douglas/", views.hunter_douglas, name="hunter_douglas"),
     
+    path("new_project_page/<int:project_id>", views.new_project_page, name="new_project_page"),
+    
 ]

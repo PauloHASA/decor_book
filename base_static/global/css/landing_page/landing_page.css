@@ -6,17 +6,33 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%; 
+    margin: 0; 
+    overflow: auto; 
+  }
 
-.body-landing_page{
-    overflow: hidden;
-    height: 100vh;
+
+body {
+
     padding: 12px;
+
 }
 
-.body-LandingPage{
+
+body .row,
+body .row :where(.col, .col-5){
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body .body-LandingPage{
     height: 95%;
-    margin-top: 12px;
+    margin: 12px 0;
     position: relative;
+    overflow: hidden;
 }
 
 .buttons-login-register-LandingPage{
@@ -51,7 +67,7 @@
     color: #FAFAFA;
 }
 
-.text-LandingPage{
+.body-LandingPage .text-LandingPage{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,27 +127,57 @@
 }
 
 .grid-LandingPage{
-    column-count: 2;
-    column-gap: 6px;
-    row-gap: 6px;
-    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(6, 200px);
+    gap: 12px;
+
 }
 
-.grid-LandingPage .img-LandingPage{
-    margin-bottom: 6px;
+
+.grid-LandingPage > div{
+    display: flex;
+    align-items: center;
 }
 
-.grid-LandingPage .img-LandingPage img{
+
+.grid-LandingPage > div > img{
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
-    border-radius: 5px;
+}
+
+
+.grid-LandingPage .item-two{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+
+
+
+.grid-LandingPage .item-tree{
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+
+.grid-LandingPage .item-four{
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+.grid-LandingPage .item-five{
+    grid-column-start: 1;
+    grid-column-end: 4;
 
 }
 
 .body-LandingPage footer{
-    position: absolute;
-    bottom: 32px;
+    position: fixed;
+    bottom: 16px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -295,4 +341,186 @@
 
 .overflow-y{
     overflow-y: auto;
+}
+
+
+.text-LandingPage,
+.grid-LandingPage{
+height: 100%;
+}
+
+
+.grid-projectSection-LandingPage{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, minmax(370px, 1fr));
+    gap: 12px;
+
+    margin-bottom: 16px;
+}
+
+.grid-projectSection-LandingPage > a{
+    display: flex;
+    }
+
+.gray-section::before{
+    background-color: #161616c5; /* Cor de sobreposição com transparência */
+    }
+
+
+.grid-projectSection-LandingPage > a > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.project-section-LandingPage{
+    
+}
+
+
+.project-section-LandingPage a{
+    position: relative;
+}
+
+
+.project-section-LandingPage a header{
+    position: absolute;
+    background-color: #1616169e;
+
+    height: 100%;
+    width: 100%;
+
+    padding: 48px;
+}
+
+
+.project-section-LandingPage a header h1,
+.project-section-LandingPage a header h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 39px;
+    font-weight: 700;
+
+    color: #FFFFFF;
+    
+    margin-bottom: 16px;
+}
+
+
+
+.project-section-LandingPage a header h2{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+
+.grid-projectSection-LandingPage .projectSection-two{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+
+}
+
+
+
+@media screen and (max-width:1440px) {
+
+}
+
+@media screen and (max-width:1024px) {
+    .text-LandingPage h1,
+    .text-LandingPage h2{
+        width: 372px;
+    }
+
+    .text-LandingPage h2{
+        font-size: 16px;
+
+    }
+    .text-LandingPage h3{
+        font-size: 16px;
+
+    }
+
+    .project-section-LandingPage a header h1{
+        font-size: 28px;
+    }
+
+    .project-section-LandingPage a header h2 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    body .body-LandingPage{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        height: auto;
+    }
+
+    body{
+        overflow: auto;
+    }
+
+    .body-LandingPage .text-LandingPage{
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        margin: 68px 0;
+    }
+
+    .grid-LandingPage {
+        grid-template-rows: repeat(4, 200px);
+    }
+}
+
+
+@media screen and (max-width:425px){
+    .img-logo-LadingPage,
+    .img-logo-LadingPage a {
+        width: 110px;
+    }
+
+    .buttons-login-register-LandingPage {
+        margin-top: 8px;
+    }
+
+    .buttons-login-LadingPage button, .buttons-register-LadingPage button {
+        width: 88px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .body-LandingPage .text-LandingPage{
+        padding: 0;
+    }
+
+    .grid-LandingPage {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(1, 200px);
+    }
+
+    .project-section-LandingPage a header {
+        padding: 12px;
+    }
+
+    .grid-projectSection-LandingPage {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, minmax(370px, 1fr));
+    }
+    
+    .grid-projectSection-LandingPage .projectSection-two {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
 }

@@ -322,3 +322,48 @@ class ProfileEditForm(forms.ModelForm):
                     professional_profile.profile_picture = self.cleaned_data['profile_picture']
                 professional_profile.save()
         return user
+
+    
+    
+class PaymentForm(forms.Form):
+    name = forms.CharField(label='Nome', max_length=100)
+    email = forms.EmailField(label='Email')
+    tax_id = forms.CharField(label='CPF', max_length=14)  # Ajuste o tamanho conforme o formato do CPF
+    phone = forms.CharField(label='Telefone', max_length=15)
+    item_name = forms.CharField(label='Nome do Item', max_length=100)
+    amount = forms.IntegerField(label='Valor (em centavos)')
+    card_holder = forms.CharField(label='Nome no Cartão', max_length=100)
+    card_number = forms.CharField(label='Número do Cartão', max_length=19)  # Ajuste conforme necessário
+    card_exp_month = forms.CharField(label='Mês de Expiração', max_length=2)
+    card_exp_year = forms.CharField(label='Ano de Expiração', max_length=4)
+    card_security_code = forms.CharField(label='Código de Segurança', max_length=4)
+
+
+class CheckoutForm(forms.Form):
+    name = forms.CharField(label='Nome', max_length=100)
+    email = forms.EmailField(label='Email')
+    tax_id = forms.CharField(label='CPF/CNPJ', max_length=14)
+    phone_country = forms.CharField(label='Código do País', max_length=3, initial='+55')
+    phone_area = forms.CharField(label='DDD', max_length=2)
+    phone_number = forms.CharField(label='Número de Telefone', max_length=9)
+    
+    reference_id = forms.CharField(label='Referência do Produto', max_length=50)
+    item_name = forms.CharField(label='Nome do Produto', max_length=100)
+    quantity = forms.IntegerField(label='Quantidade', min_value=1)
+    unit_amount = forms.IntegerField(label='Valor Unitário (em centavos)')
+    
+    payment_methods = forms.MultipleChoiceField(
+        label='Métodos de Pagamento',
+        choices=[('DEBIT_CARD', 'Débito'), ('CREDIT_CARD', 'Crédito')],
+        widget=forms.CheckboxSelectMultiple
+    )
+    payment_brands = forms.MultipleChoiceField(
+        label='Marcas de Cartão',
+        choices=[('visa', 'Visa'), ('mastercard', 'MasterCard')],
+        widget=forms.CheckboxSelectMultiple
+    )
+    
+    soft_descriptor = forms.CharField(label='Descrição', max_length=100)
+    redirect_url = forms.URLField(label='URL de Redirecionamento')
+    return_url = forms.URLField(label='URL de Retorno')
+    notification_urls = forms.CharField(label='URLs de Notificação', widget=forms.Textarea)

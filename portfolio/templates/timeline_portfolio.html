@@ -25,7 +25,7 @@
             {% for project in projects %}
                 {% for image in project.images %}
                     <div class="img-timeline" id="timeline-posts">
-                        <a href="{% url 'portfolio:project_page' project_id=project.id %}">
+                        <a href="{% url 'portfolio:new_project_page' project_id=project.id %}">
                             <div class="img-container">
                                 <img src="{{ image.img_upload.url }}" alt="Project Image" loading="lazy">
                             </div>
