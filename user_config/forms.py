@@ -328,12 +328,12 @@ class ProfileEditForm(forms.ModelForm):
 class PaymentForm(forms.Form):
     name = forms.CharField(label='Nome', max_length=100)
     email = forms.EmailField(label='Email')
-    tax_id = forms.CharField(label='CPF', max_length=14)  # Ajuste o tamanho conforme o formato do CPF
+    tax_id = forms.CharField(label='CPF', max_length=14)  
     phone = forms.CharField(label='Telefone', max_length=15)
     item_name = forms.CharField(label='Nome do Item', max_length=100)
     amount = forms.IntegerField(label='Valor (em centavos)')
     card_holder = forms.CharField(label='Nome no Cartão', max_length=100)
-    card_number = forms.CharField(label='Número do Cartão', max_length=19)  # Ajuste conforme necessário
+    card_number = forms.CharField(label='Número do Cartão', max_length=19)  
     card_exp_month = forms.CharField(label='Mês de Expiração', max_length=2)
     card_exp_year = forms.CharField(label='Ano de Expiração', max_length=4)
     card_security_code = forms.CharField(label='Código de Segurança', max_length=4)
