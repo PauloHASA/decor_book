@@ -28,7 +28,6 @@ from portfolio.models import (NewProject,
                               )
 
 from .forms import PaymentForm
-from api_pagbank.api_pagbank import payment_card
 from django.http import JsonResponse
 
 
