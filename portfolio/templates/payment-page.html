@@ -1,131 +1,72 @@
 {% load static %}
 
 <html lang="pt-BR">
-    <head>
-        {% include 'global/partials/head.html' %}
-    
-        <title>
-            DecorBook
-        </title>
-    </head>
+<head>
+    {% include 'global/partials/head.html' %}
+    <title>DecorBook - Checkout</title>
+</head>
+<body class="body-landing_page">
+    <div class="row justify-content-between">
+        <div class="col-1">
+            <div class="img-logo-LadingPage">
+                <a href="{{request.META.HTTP_REFERER}}">
+                    <img src="{% static "global/media/img/decor-logo.svg" %}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <body class="body-landing_page">
-        <div class="row justify-content-between">
-            <div class="col-1">
-                <div class="img-logo-LadingPage">
-                    <a href="{{request.META.HTTP_REFERER}}">
-                        <img src="{% static "global/media/img/decor-logo.svg" %}" alt="">
-                    </a>
+    <main class="body-LobbyPayment">
+        <header class="header-LobbyPayment">
+            <h1>Escolha o melhor plano para você!</h1>
+        </header>
+
+        <div class="containers-LobbyPayment">
+            <div class="payment-containers">
+                <div class="container-payment-LobbyPayment" id="annual-plan" onclick="selectPlan('annual')">
+                    <h1>Plano Anual</h1>
+                    <section class="value-payment">
+                        <h1>R$</h1>
+                        <h2>1.299,00</h2>
+                    </section>
+                    <h3>Em 12x de R$ 108,25 você garante seu plano e os melhores benefícios.</h3>
+                    <div class="select-payment">
+                        Quero esse!
+                    </div>
+                </div>
+
+                <div class="container-payment-LobbyPayment" id="semester-plan" onclick="selectPlan('semester')">
+                    <h1>Plano Semestral</h1>
+                    <section class="value-payment">
+                        <h1>R$</h1>
+                        <h2>899,00</h2>
+                    </section>
+                    <h3>Em 6x de R$ 149,85 você garante seu plano e os melhores benefícios.</h3>
+                    <div class="select-payment">
+                        Quero esse!
+                    </div>
                 </div>
             </div>
-
-            <!-- 
-            <div class="col-3">
-                <div class="buttons-login-register-LandingPage">
-                    <a href="{% url "user:login" %}" class="buttons-login-LadingPage">
-                        <button>
-                            Login
-                        </button>
-                    </a>
-
-                    <a href="{% url "user:register-page" %}" class="buttons-register-LadingPage">
-                        <button>
-                            Register
-                        </button>
-                    </a>
-                </div>
-            </div> 
-            -->
         </div>
 
-        <main class="body-LobbyPayment">
-            <header class="header-LobbyPayment">
-                <h1>
-                    Escolha o melhor plano para você!
-                </h1>
-                <h2>
-                    Acesse as melhores estratégias, acesse os clientes de forma mais assertiva e personalizade para o seu negócio
-                </h2>
-            </header>
+        <footer class="footer-LobbyPayment">
+            <form id="checkout-form" action="{% url 'portfolio:create_checkout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="plan_id" name="plan_id" value="">
+                <button id="sign-plan" type="submit">
+                    Assinar plano
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </form>
+        </footer>
+    </main>
 
-            <div class="containers-LobbyPayment">
-                <div class="payment-containers">
-
-                    <div class="container-payment-LobbyPayment" id="annual-plan">
-                        <h1>
-                            Plano Anual
-                        </h1>
-                        <section class="value-payment">
-                            <h1>
-                                R$
-                            </h1>
-                            <h2>
-                                1.299,00
-                            </h2>
-                        </section>
-                        <h3>Em 12x de R$ 108,25 você garante seu plano e os melhores benefícios.</h3>
-    
-                        <div class="select-payment">
-                            Quero esse!
-                        </div>
-                    </div>
-    
-                    <div class="container-payment-LobbyPayment" id="semester-plan">
-                        <h1>
-                            Plano Semestral 
-                        </h1>
-                        <section class="value-payment">
-                            <h1>
-                                R$
-                            </h1>
-                            <h2>
-                                899,00
-                            </h2>
-                        </section>
-                        <h3>Em 6x de R$ 149,85 você garante seu plano e os melhores benefícios.</h3>
-    
-                        <div class="select-payment">
-                            Quero esse!
-                        </div>
-    
-                    </div>
-                    
-                    {% comment %}                     
-                    <div class="container-payment-LobbyPayment" id="monthly-plan">
-                        <h1>
-                            Plano Mensal
-                        </h1>
-                        <section class="value-payment">
-                            <h1>
-                                R$
-                            </h1>
-                            <h2>
-                                240
-                            </h2>
-                        </section>
-                        <h3>Esse valor será creditado todo mês.</h3>
-    
-                        <div class="select-payment">
-                            Quero esse!
-                        </div>
-    
-                    </div> 
-                    {% endcomment %}
-
-                </div>
-
-                <div class="spacer"></div>
-
-                <footer class="footer-LobbyPayment">
-                    <button id='sign-plan'>
-                        Assinar plano
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-                </footer>
-            </div>
-
-
-
-        </main>
-    </body>
+    <script>
+        function selectPlan(planId) {
+            console.log(planId);
+            document.getElementById('plan_id').value = planId;
+            document.getElementById('checkout-form').submit();
+        }
+    </script>
+</body>
 </html>
