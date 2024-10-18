@@ -47,26 +47,21 @@
                     </div>
                 </div>
             </div>
+            <footer class="footer-LobbyPayment">
+                <form id="checkout-form" action="{% url 'portfolio:create_checkout' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="plan_id" name="plan_id" value="">
+                    <button id="sign-plan" type="submit">
+                        Assinar plano
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+            </footer>
         </div>
 
-        <footer class="footer-LobbyPayment">
-            <form id="checkout-form" action="{% url 'portfolio:create_checkout' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" id="plan_id" name="plan_id" value="">
-                <button id="sign-plan" type="submit">
-                    Assinar plano
-                    <i class="bi bi-arrow-right"></i>
-                </button>
-            </form>
-        </footer>
     </main>
 
-    <script>
-        function selectPlan(planId) {
-            console.log(planId);
-            document.getElementById('plan_id').value = planId;
-            document.getElementById('checkout-form').submit();
-        }
-    </script>
+    <script src="{% static 'global/js/lobby-payment.js' %}"></script>
+
 </body>
 </html>

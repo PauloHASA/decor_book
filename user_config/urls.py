@@ -1,6 +1,7 @@
 
 from django.urls import path, include
 from . import views
+from portfolio.views import payment_success
 
 app_name = 'user'
 
@@ -19,6 +20,9 @@ urlpatterns = [
     path('profile_client/', views.profile_client, name='profile_client'),
     path('profile_professional/', views.profile_professional, name='profile_professional'),
     path('save-profile/', views.save_profile, name='save_profile'),
+    
+    
+
 ]
 
 

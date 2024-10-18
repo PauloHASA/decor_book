@@ -35,6 +35,7 @@ urlpatterns = [
 
 new_urlpatterns = [
     path("checkout/", views.create_checkout, name="create_checkout"),
+    path('payment_success/', views.payment_success, name='payment_success'),
 ]
 
 urlpatterns = urlpatterns + new_urlpatterns

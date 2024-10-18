@@ -2,6 +2,8 @@ import requests
 import os
 import json
 
+from datetime import datetime, timedelta
+
 def public_key():
     """
     Obtém a chave pública para pagamentos com cartão.
@@ -96,80 +98,84 @@ def payment_pix(name, email, tax_id, phone, item_name, amount):
     return response.json()
 
 
-def checkouts_method(name, email, tax_id, phone_country, phone_area, phone_number, reference_id, item_name, quantity, unit_amount):
+def checkouts_method(request, plan_id):
     """
     Cria um checkout utilizando o PagSeguro.
 
     Parameters:
-        name (str): Nome do cliente.
-        email (str): Email do cliente.
-        tax_id (str): CPF ou CNPJ do cliente.
-        phone_country (str): Código do país do telefone.
-        phone_area (str): DDD do telefone.
-        phone_number (str): Número do telefone.
-        reference_id (str): Referência do produto.
-        item_name (str): Nome do produto.
-        quantity (int): Quantidade do produto.
-        unit_amount (int): Valor unitário do produto em centavos.
+        plan_id: Tipo do plano.
 
     Returns:
         dict: Resposta da API com os detalhes do checkout.
         
     """
+    expiration_date = (datetime.now() + timedelta(minutes=30)).strftime(
+            "%Y-%m-%dT%H:%M:%S-03:00"
+    )  # Coloquei aqui um tempo de expiração de 30 minutos
+
+    if plan_id == "annual":
+        reference_id = "Plano Anual"
+        unit_amount = 129900
+        max_installments = 12
+    elif plan_id == "semester":
+        reference_id = "Plano Semestral"
+        unit_amount = 89900
+        max_installments = 6
+    else:
+        return None
+
     url = "https://sandbox.api.pagseguro.com/checkouts"
-    
-    
     payload = {
-        "customer": {
-            "phone": {
-                "country": phone_country,
-                "area": phone_area,
-                "number": phone_number
-            },
-            "name": name,
-            "email": email,
-            "tax_id": tax_id
-        },
-           "shipping": {
-            "type": "FREE",
-            "amount": 0,
-            "service_type": "PAC",
-            "address_modifiable": True
-        },
         "reference_id": reference_id,
-        "customer_modifiable": True,
+        "expiration_date": expiration_date,
+        "customer": {
+            "name": request.user.full_name,
+            "email": request.user.email,
+        },
         "items": [
             {
                 "reference_id": reference_id,
-                "name": item_name,
-                "quantity": quantity,
+                "name": f"{reference_id}",
+                "quantity": 1,
                 "unit_amount": unit_amount,
+                "image_url": "https://www.example.com/product-image.jpg",
             }
         ],
-        "additional_amount": 0,
-        "discount_amount": 0,
-        "payment_methods": [{
+        "payment_methods": [
+            {
                 "type": "credit_card",
-                "brands": ["mastercard"]
-            }, {
+                "brands": ["mastercard", "visa", "amex", "elo"],
+            },
+            {"type": "debit_card", "brands": ["mastercard", "visa", "amex", "elo"]},
+            {"type": "BOLETO"},
+            {"type": "PIX"},
+        ],
+        "payment_methods_configs": [
+            {
                 "type": "credit_card",
-                "brands": ["visa"]
-            }, {
-                "type": "debit_card",
-                "brands": ["visa"]
-            }, { "type": "PIX" }, { "type": "BOLETO" }],
-            "soft_descriptor": "xxxx",
-            "redirect_url": "https://decorbook.com.br/paid",
-            "return_url": "https://decorbook.com.br/paid"
+                "config_options": [
+                    {
+                        "option": "INSTALLMENTS_LIMIT",
+                        "value": max_installments,
+                    },
+                    {
+                        "option": "INTEREST_FREE_INSTALLMENTS",
+                        "value": max_installments,
+                    },
+                ],
+            }
+        ],
+        "soft_descriptor": "DECORBOOK",
+            "redirect_url": "https://decorbook.com.br/portfolio/payment_success/",
+            "return_url": "https://decorbook.com.br/portfolio/payment_success/",   
         }
-    
+
     headers = {
         "accept": "*/*",
         "Authorization": f"Bearer {os.environ.get('TOKEN_PAGBANK')}",
-        "Content-type": "application/json"
+        "Content-type": "application/json",
     }
 
     response = requests.post(url, json=payload, headers=headers)
-    return response.json()
 
-
+    return response

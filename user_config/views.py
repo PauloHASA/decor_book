@@ -126,6 +126,9 @@ def register_client(request):
    
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('portfolio:home_page')
+
     form = LoginUserForm()
 
     if request.method == "POST":
@@ -161,6 +164,9 @@ def logout_view(request):
 
 @cache_control(max_age=3600)
 def landing_page(request):
+    if request.user.is_authenticated:
+        return redirect('portfolio:home_page')
+    
     projects = NewProject.objects.select_related('user').prefetch_related('imageportfolio_set').all()    
     for project in projects:
         project.images = list(project.imageportfolio_set.all().order_by('?'))

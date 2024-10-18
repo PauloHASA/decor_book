@@ -7,6 +7,7 @@ from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.utils.text import get_valid_filename
 from django.utils.cache import patch_cache_control
+from django.urls import reverse
 from django.views.decorators.cache import cache_control
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
@@ -21,6 +22,8 @@ from .tasks import process_image_upload
 
 from user_config.models import ProfessionalProfile, CustomUserModel
 from user_config.controllers import FolderUserPost
+
+from api_pagbank.api_pagbank import checkouts_method
 
 import random
 import logging
@@ -52,6 +55,9 @@ def store_portfolio(request):
 def home_page(request):
     user = request.user
     is_authenticated = user.is_authenticated
+    payment_success = request.GET.get('payment_success') == 'true'
+    show_popup = False
+    
     if is_authenticated:
         is_superuser = user.is_superuser
 
@@ -68,6 +74,9 @@ def home_page(request):
         show_button = is_superuser or is_professional or is_paid
     else:
         show_button = False
+        
+    if payment_success:
+        show_popup = True
 
     return render(
         request,
@@ -75,6 +84,7 @@ def home_page(request):
         {
             "user": user,
             "show_button": show_button,
+            'show_popup':show_popup,
         },
     )
 
@@ -374,80 +384,96 @@ def new_project_page(request, project_id):
     return render(request, "new-project-page.html", context)
 
 
-# ------------------- HEITOR ------------------
+# def create_checkout(request):
+#     if request.method == "POST":
+#         plan_id = request.POST.get("plan_id")
+#         expiration_date = (datetime.now() + timedelta(minutes=30)).strftime(
+#             "%Y-%m-%dT%H:%M:%S-03:00"
+#         )  
+
+#         if plan_id == "annual":
+#             reference_id = "ANNUAL_PLAN"
+#             unit_amount = 129900
+#             max_installments = 12
+#         elif plan_id == "semester":
+#             reference_id = "SEMESTER_PLAN"
+#             unit_amount = 89900
+#             max_installments = 6
+#         else:
+#             return JsonResponse({"error": "Invalid plan selected"}, status=400)
+
+#         url = "https://sandbox.api.pagseguro.com/checkouts"
+#         payload = {
+#             "reference_id": reference_id,
+#             "expiration_date": expiration_date,
+#             "customer": {
+#                 "name": request.user.full_name,
+#                 "email": request.user.email,
+#             },
+#             "items": [
+#                 {
+#                     "reference_id": reference_id,
+#                     "name": f"{reference_id} Subscription",
+#                     "quantity": 1,
+#                     "unit_amount": unit_amount,
+#                     "image_url": "https://www.example.com/product-image.jpg",
+#                 }
+#             ],
+#             "payment_methods": [
+#                 {
+#                     "type": "credit_card",
+#                     "brands": ["mastercard", "visa", "amex", "elo"],
+#                 },
+#                 {"type": "debit_card", "brands": ["mastercard", "visa", "amex", "elo"]},
+#                 {"type": "BOLETO"},
+#                 {"type": "PIX"},
+#             ],
+#             "payment_methods_configs": [
+#                 {
+#                     "type": "credit_card",
+#                     "config_options": [
+#                         {
+#                             "option": "INSTALLMENTS_LIMIT",
+#                             "value": max_installments,
+#                         },
+#                         {
+#                             "option": "INTEREST_FREE_INSTALLMENTS",
+#                             "value": max_installments,
+#                         },
+#                     ],
+#                 }
+#             ],
+#             "soft_descriptor": "DECORBOOK",
+#             "redirect_url": "https://decorbook.com.br/portfolio/payment_success/",
+#             "return_url": "https://decorbook.com.br/portfolio/payment_success/",   
+#             }
+
+#         headers = {
+#             "accept": "*/*",
+#             "Authorization": f"Bearer {os.environ.get('TOKEN_PAGBANK')}",
+#             "Content-type": "application/json",
+#         }
+
+#         response = requests.post(url, json=payload, headers=headers)
+
+#         if response.status_code == 201:
+#             payment_url = response.json().get("links")[1]["href"]
+#             return redirect(payment_url)
+#         else:
+#             print(response.json())
+#             return JsonResponse({"error": "Payment could not be created"}, status=500)
+
+#     return render(request, "checkout.html")
 
 
 def create_checkout(request):
     if request.method == "POST":
         plan_id = request.POST.get("plan_id")
-        expiration_date = (datetime.now() + timedelta(minutes=30)).strftime(
-            "%Y-%m-%dT%H:%M:%S-03:00"
-        )  # Coloquei aqui um tempo de expiração de 30 minutos
 
-        if plan_id == "annual":
-            reference_id = "ANNUAL_PLAN"
-            unit_amount = 129900
-            max_installments = 12
-        elif plan_id == "semester":
-            reference_id = "SEMESTER_PLAN"
-            unit_amount = 89900
-            max_installments = 6
-        else:
-            return JsonResponse({"error": "Invalid plan selected"}, status=400)
-
-        url = "https://sandbox.api.pagseguro.com/checkouts"
-        payload = {
-            "reference_id": reference_id,
-            "expiration_date": expiration_date,
-            "customer": {
-                "name": request.user.full_name,
-                "email": request.user.email,
-            },
-            "items": [
-                {
-                    "reference_id": reference_id,
-                    "name": f"{reference_id} Subscription",
-                    "quantity": 1,
-                    "unit_amount": unit_amount,
-                    "image_url": "https://www.example.com/product-image.jpg",
-                }
-            ],
-            "payment_methods": [
-                {
-                    "type": "credit_card",
-                    "brands": ["mastercard", "visa", "amex", "elo"],
-                },
-                {"type": "debit_card", "brands": ["mastercard", "visa", "amex", "elo"]},
-                {"type": "BOLETO"},
-                {"type": "PIX"},
-            ],
-            "payment_methods_configs": [
-                {
-                    "type": "credit_card",
-                    "config_options": [
-                        {
-                            "option": "INSTALLMENTS_LIMIT",
-                            "value": max_installments,
-                        },
-                        {
-                            "option": "INTEREST_FREE_INSTALLMENTS",
-                            "value": max_installments,
-                        },
-                    ],
-                }
-            ],
-            "soft_descriptor": "DECORBOOK",
-            "redirect_url": "https://decorbook.com.br/paid",
-            "return_url": "https://decorbook.com.br/paid",
-        }
-
-        headers = {
-            "accept": "*/*",
-            "Authorization": f"Bearer {os.environ.get('TOKEN_PAGBANK')}",
-            "Content-type": "application/json",
-        }
-
-        response = requests.post(url, json=payload, headers=headers)
+        response = checkouts_method(request, plan_id)
+        
+        if not response:
+            return redirect(payment_page)
 
         if response.status_code == 201:
             payment_url = response.json().get("links")[1]["href"]
@@ -457,3 +483,12 @@ def create_checkout(request):
             return JsonResponse({"error": "Payment could not be created"}, status=500)
 
     return render(request, "checkout.html")
+
+
+
+def payment_success(request):
+    user = request.user
+    user.is_paid = True
+    user.save()
+    
+    return redirect('/?payment_success=true')
