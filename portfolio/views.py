@@ -469,7 +469,16 @@ def new_project_page(request, project_id):
 def create_checkout(request):
     if request.method == "POST":
         plan_id = request.POST.get("plan_id")
-
+        
+        if not request.user.is_authenticated:
+            username = request.POST.get("username")
+            useremail = request.POST.get("email")
+            request.session['username'] = username
+            request.session['useremail'] = useremail
+        else:
+            username = request.user.username
+            useremail = request.user.email
+        
         response = checkouts_method(request, plan_id)
         
         if not response:
@@ -487,6 +496,9 @@ def create_checkout(request):
 
 
 def payment_success(request):
+    if not request.user.is_authenticated:
+        return redirect('/register_page/?payment_success=true')
+    
     user = request.user
     user.is_paid = True
     user.save()

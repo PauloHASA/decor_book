@@ -98,7 +98,7 @@ def payment_pix(name, email, tax_id, phone, item_name, amount):
     return response.json()
 
 
-def checkouts_method(request, plan_id):
+def checkouts_method(request, plan_id, username=None, useremail=None):
     """
     Cria um checkout utilizando o PagSeguro.
 
@@ -125,12 +125,24 @@ def checkouts_method(request, plan_id):
         return None
 
     url = "https://sandbox.api.pagseguro.com/checkouts"
+    
+    if not username or not useremail:
+        username = request.session.get('username')
+        useremail = request.session.get('useremail')
+        
+    if not request.user.is_authenticated:
+        redirect_url = "https://decorbook.com.br/portfolio/register_page/"
+        return_url = "https://decorbook.com.br/portfolio/register_page/"
+    else:
+        redirect_url = "https://decorbook.com.br/portfolio/payment_success/"
+        return_url = "https://decorbook.com.br/portfolio/payment_success/"
+    
     payload = {
         "reference_id": reference_id,
-        "expiration_date": expiration_date,
+        "expiration_date": expiration_date,           
         "customer": {
-            "name": request.user.full_name,
-            "email": request.user.email,
+            "name": username,
+            "email": useremail,
         },
         "items": [
             {
@@ -166,8 +178,8 @@ def checkouts_method(request, plan_id):
             }
         ],
         "soft_descriptor": "DECORBOOK",
-            "redirect_url": "https://decorbook.com.br/portfolio/payment_success/",
-            "return_url": "https://decorbook.com.br/portfolio/payment_success/",   
+            "redirect_url": redirect_url,
+            "return_url": return_url,   
         }
 
     headers = {
